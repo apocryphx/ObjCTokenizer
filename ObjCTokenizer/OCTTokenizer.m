@@ -187,10 +187,10 @@ static NSError *OCTError(OCTTokenizerErrorCode code, NSString *message) {
     // resolution pattern when only tokenizer.json is available — a full
     // PreTrainedTokenizer would consult tokenizer_config.json's
     // pad_token / cls_token / etc. fields instead.
-    _padToken  = vocab[@"[PAD]"]  ? @"[PAD]"  : (vocab[@"<pad>"]  ? @"<pad>"  : nil);
-    _clsToken  = vocab[@"[CLS]"]  ? @"[CLS]"  : (vocab[@"<s>"]    ? @"<s>"    : nil);
-    _sepToken  = vocab[@"[SEP]"]  ? @"[SEP]"  : (vocab[@"</s>"]   ? @"</s>"   : nil);
-    _maskToken = vocab[@"[MASK]"] ? @"[MASK]" : (vocab[@"<mask>"] ? @"<mask>" : nil);
+    _padToken  = (vocab[@"[PAD]"]  != nil) ? @"[PAD]"  : ((vocab[@"<pad>"]  != nil) ? @"<pad>"  : nil);
+    _clsToken  = (vocab[@"[CLS]"]  != nil) ? @"[CLS]"  : ((vocab[@"<s>"]    != nil) ? @"<s>"    : nil);
+    _sepToken  = (vocab[@"[SEP]"]  != nil) ? @"[SEP]"  : ((vocab[@"</s>"]   != nil) ? @"</s>"   : nil);
+    _maskToken = (vocab[@"[MASK]"] != nil) ? @"[MASK]" : ((vocab[@"<mask>"] != nil) ? @"<mask>" : nil);
 
     _unkTokenId  = vocab[unkToken]   ? vocab[unkToken].integerValue   : -1;
     _padTokenId  = _padToken  ? vocab[_padToken].integerValue  : -1;

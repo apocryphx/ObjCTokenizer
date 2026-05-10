@@ -39,7 +39,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// `RobertaProcessing` — RoBERTa / XLM-RoBERTa post-processor. Wraps
 /// `<s> tokens </s>` (or whatever cls/sep the tokenizer.json specifies),
-/// with `</s></s> pair </s>` for sentence-pair inputs (the double `</s>`
+/// with `<s> pair </s>` for sentence-pair inputs (the double ``
 /// matches fairseq's hub_interface.py). When `trimOffset` is enabled,
 /// runs of whitespace inside each token are normalized: collapsed to a
 /// single leading/trailing space if `addPrefixSpace = YES`, or stripped

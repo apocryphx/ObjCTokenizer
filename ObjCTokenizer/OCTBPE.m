@@ -207,7 +207,7 @@ static BOOL OCTHeapPop(OCTBPEHeap *h, OCTBPECand *out) {
         if (_r >= 0 && alive[_l] && alive[_r]) { \
             NSString *_k = OCTBytePairKey(symbols[(NSUInteger)_l], symbols[(NSUInteger)_r]); \
             NSNumber *_rn = ranks[_k]; \
-            if (_rn) { \
+            if (_rn != nil) { \
                 OCTBPECand _c = {.rank = (int)[_rn intValue], .left = _l}; \
                 OCTHeapPush(&heap, _c); \
             } \
@@ -225,7 +225,7 @@ static BOOL OCTHeapPop(OCTBPEHeap *h, OCTBPECand *out) {
         // Validate not stale: pair (i,j) must still match the recorded rank.
         NSString *key = OCTBytePairKey(symbols[(NSUInteger)i], symbols[(NSUInteger)j]);
         NSNumber *actualRank = ranks[key];
-        if (!actualRank || (int)[actualRank intValue] != top.rank) continue;
+        if (actualRank == nil || (int)[actualRank intValue] != top.rank) continue;
 
         // Absorb j into i.
         [symbols[(NSUInteger)i] appendString:symbols[(NSUInteger)j]];

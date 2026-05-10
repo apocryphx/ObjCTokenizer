@@ -264,7 +264,7 @@ static NSData * _Nullable OCTBytesFromByteLevelToken(NSString *token,
             consumed = 1;
         }
         NSNumber *byteN = map[ch];
-        if (!byteN) return nil;
+        if (byteN == nil) return nil;
         uint8_t byte = (uint8_t)[byteN unsignedCharValue];
         [bytes appendBytes:&byte length:1];
         i += consumed;

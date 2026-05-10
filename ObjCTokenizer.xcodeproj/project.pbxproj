@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 77;
+	objectVersion = 100;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -77,18 +77,14 @@
 /* Begin PBXFrameworksBuildPhase section */
 		156BDE872FAEF88B0094C95C /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 		156BDE922FAEF88B0094C95C /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 				156BDE962FAEF88B0094C95C /* ObjCTokenizer.framework in Frameworks */,
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
@@ -116,10 +112,8 @@
 /* Begin PBXHeadersBuildPhase section */
 		156BDE852FAEF88B0094C95C /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
@@ -135,14 +129,10 @@
 			);
 			buildRules = (
 			);
-			dependencies = (
-			);
 			fileSystemSynchronizedGroups = (
 				156BDE8C2FAEF88B0094C95C /* ObjCTokenizer */,
 			);
 			name = ObjCTokenizer;
-			packageProductDependencies = (
-			);
 			productName = ObjCTokenizer;
 			productReference = 156BDE8A2FAEF88B0094C95C /* ObjCTokenizer.framework */;
 			productType = "com.apple.product-type.framework";
@@ -164,8 +154,6 @@
 				156BDE992FAEF88B0094C95C /* ObjCTokenizerTests */,
 			);
 			name = ObjCTokenizerTests;
-			packageProductDependencies = (
-			);
 			productName = ObjCTokenizerTests;
 			productReference = 156BDE952FAEF88B0094C95C /* ObjCTokenizerTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
@@ -196,7 +184,7 @@
 			);
 			mainGroup = 156BDE802FAEF88B0094C95C;
 			minimizedProjectReferenceProxies = 1;
-			preferredProjectObjectVersion = 77;
+			preferredProjectObjectVersion = 100;
 			productRefGroup = 156BDE8B2FAEF88B0094C95C /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -210,34 +198,26 @@
 /* Begin PBXResourcesBuildPhase section */
 		156BDE882FAEF88B0094C95C /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 		156BDE932FAEF88B0094C95C /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		156BDE862FAEF88B0094C95C /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 		156BDE912FAEF88B0094C95C /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
@@ -250,7 +230,7 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		156BDE9E2FAEF88B0094C95C /* Debug */ = {
+		156BDE9E2FAEF88B0094C95C /* Debug configuration for PBXNativeTarget "ObjCTokenizer" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
@@ -272,6 +252,7 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 26.0;
 				MARKETING_VERSION = 1.0;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
@@ -283,7 +264,7 @@
 			};
 			name = Debug;
 		};
-		156BDE9F2FAEF88B0094C95C /* Release */ = {
+		156BDE9F2FAEF88B0094C95C /* Release configuration for PBXNativeTarget "ObjCTokenizer" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
@@ -305,6 +286,7 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 26.0;
 				MARKETING_VERSION = 1.0;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
@@ -316,7 +298,7 @@
 			};
 			name = Release;
 		};
-		156BDEA02FAEF88B0094C95C /* Debug */ = {
+		156BDEA02FAEF88B0094C95C /* Debug configuration for PBXProject "ObjCTokenizer" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -383,7 +365,7 @@
 			};
 			name = Debug;
 		};
-		156BDEA12FAEF88B0094C95C /* Release */ = {
+		156BDEA12FAEF88B0094C95C /* Release configuration for PBXProject "ObjCTokenizer" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -444,7 +426,7 @@
 			};
 			name = Release;
 		};
-		156BDEA32FAEF88B0094C95C /* Debug */ = {
+		156BDEA32FAEF88B0094C95C /* Debug configuration for PBXNativeTarget "ObjCTokenizerTests" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
@@ -461,7 +443,7 @@
 			};
 			name = Debug;
 		};
-		156BDEA42FAEF88B0094C95C /* Release */ = {
+		156BDEA42FAEF88B0094C95C /* Release configuration for PBXNativeTarget "ObjCTokenizerTests" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
@@ -484,28 +466,25 @@
 		156BDE842FAEF88B0094C95C /* Build configuration list for PBXProject "ObjCTokenizer" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				156BDEA02FAEF88B0094C95C /* Debug */,
-				156BDEA12FAEF88B0094C95C /* Release */,
+				156BDEA02FAEF88B0094C95C /* Debug configuration for PBXProject "ObjCTokenizer" */,
+				156BDEA12FAEF88B0094C95C /* Release configuration for PBXProject "ObjCTokenizer" */,
 			);
-			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 		156BDE9D2FAEF88B0094C95C /* Build configuration list for PBXNativeTarget "ObjCTokenizer" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				156BDE9E2FAEF88B0094C95C /* Debug */,
-				156BDE9F2FAEF88B0094C95C /* Release */,
+				156BDE9E2FAEF88B0094C95C /* Debug configuration for PBXNativeTarget "ObjCTokenizer" */,
+				156BDE9F2FAEF88B0094C95C /* Release configuration for PBXNativeTarget "ObjCTokenizer" */,
 			);
-			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 		156BDEA22FAEF88B0094C95C /* Build configuration list for PBXNativeTarget "ObjCTokenizerTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				156BDEA32FAEF88B0094C95C /* Debug */,
-				156BDEA42FAEF88B0094C95C /* Release */,
+				156BDEA32FAEF88B0094C95C /* Debug configuration for PBXNativeTarget "ObjCTokenizerTests" */,
+				156BDEA42FAEF88B0094C95C /* Release configuration for PBXNativeTarget "ObjCTokenizerTests" */,
 			);
-			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
