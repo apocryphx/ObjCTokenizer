@@ -23,6 +23,7 @@
 /* Begin PBXFileReference section */
 		156BDE8A2FAEF88B0094C95C /* ObjCTokenizer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ObjCTokenizer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		156BDE952FAEF88B0094C95C /* ObjCTokenizerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ObjCTokenizerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		156C00010001000100010001 /* libObjCTokenizerStatic.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libObjCTokenizerStatic.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -86,6 +87,11 @@
 				156BDE962FAEF88B0094C95C /* ObjCTokenizer.framework in Frameworks */,
 			);
 		};
+		156C00040004000400040004 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			files = (
+			);
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -103,6 +109,7 @@
 			children = (
 				156BDE8A2FAEF88B0094C95C /* ObjCTokenizer.framework */,
 				156BDE952FAEF88B0094C95C /* ObjCTokenizerTests.xctest */,
+				156C00010001000100010001 /* libObjCTokenizerStatic.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -158,6 +165,23 @@
 			productReference = 156BDE952FAEF88B0094C95C /* ObjCTokenizerTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		156C00020002000200020002 /* ObjCTokenizerStatic */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 156C00050005000500050005 /* Build configuration list for PBXNativeTarget "ObjCTokenizerStatic" */;
+			buildPhases = (
+				156C00030003000300030003 /* Sources */,
+				156C00040004000400040004 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			fileSystemSynchronizedGroups = (
+				156BDE8C2FAEF88B0094C95C /* ObjCTokenizer */,
+			);
+			name = ObjCTokenizerStatic;
+			productName = ObjCTokenizerStatic;
+			productReference = 156C00010001000100010001 /* libObjCTokenizerStatic.a */;
+			productType = "com.apple.product-type.library.static";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -171,6 +195,9 @@
 						CreatedOnToolsVersion = 26.4.1;
 					};
 					156BDE942FAEF88B0094C95C = {
+						CreatedOnToolsVersion = 26.4.1;
+					};
+					156C00020002000200020002 = {
 						CreatedOnToolsVersion = 26.4.1;
 					};
 				};
@@ -191,6 +218,7 @@
 			targets = (
 				156BDE892FAEF88B0094C95C /* ObjCTokenizer */,
 				156BDE942FAEF88B0094C95C /* ObjCTokenizerTests */,
+				156C00020002000200020002 /* ObjCTokenizerStatic */,
 			);
 		};
 /* End PBXProject section */
@@ -215,6 +243,11 @@
 			);
 		};
 		156BDE912FAEF88B0094C95C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			files = (
+			);
+		};
+		156C00030003000300030003 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			files = (
 			);
@@ -460,6 +493,36 @@
 			};
 			name = Release;
 		};
+		156C00060006000600060006 /* Debug configuration for PBXNativeTarget "ObjCTokenizerStatic" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEAD_CODE_STRIPPING = NO;
+				DEVELOPMENT_TEAM = 2PYWYF3C55;
+				EXECUTABLE_PREFIX = lib;
+				MACH_O_TYPE = staticlib;
+				MACOSX_DEPLOYMENT_TARGET = 26.0;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		156C00070007000700070007 /* Release configuration for PBXNativeTarget "ObjCTokenizerStatic" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEAD_CODE_STRIPPING = NO;
+				DEVELOPMENT_TEAM = 2PYWYF3C55;
+				EXECUTABLE_PREFIX = lib;
+				MACH_O_TYPE = staticlib;
+				MACOSX_DEPLOYMENT_TARGET = 26.0;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -484,6 +547,14 @@
 			buildConfigurations = (
 				156BDEA32FAEF88B0094C95C /* Debug configuration for PBXNativeTarget "ObjCTokenizerTests" */,
 				156BDEA42FAEF88B0094C95C /* Release configuration for PBXNativeTarget "ObjCTokenizerTests" */,
+			);
+			defaultConfigurationName = Release;
+		};
+		156C00050005000500050005 /* Build configuration list for PBXNativeTarget "ObjCTokenizerStatic" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				156C00060006000600060006 /* Debug configuration for PBXNativeTarget "ObjCTokenizerStatic" */,
+				156C00070007000700070007 /* Release configuration for PBXNativeTarget "ObjCTokenizerStatic" */,
 			);
 			defaultConfigurationName = Release;
 		};
