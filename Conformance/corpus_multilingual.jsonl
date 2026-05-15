@@ -1,0 +1,83 @@
+{"text": "café résumé naïve façade — crème brûlée was excellent."}
+{"text": "Hügel über Brücke. Mañana voy a la peña con José."}
+{"text": "São Paulo é uma cidade interessante; Köln auch."}
+{"text": "Привет, мир! Это тест токенизатора."}
+{"text": "Москва — столица России. Население более 12 миллионов."}
+{"text": "Καλημέρα κόσμε! Η γλώσσα είναι όμορφη."}
+{"text": "你好,世界!这是分词器测试。"}
+{"text": "中文是世界上使用人口最多的语言之一。"}
+{"text": "繁體中文與簡體中文有所不同。"}
+{"text": "香港的繁體中文有獨特的詞彙。"}
+{"text": "こんにちは、世界。トークナイザーのテストです。"}
+{"text": "東京タワーはとても賑やかな観光地です。"}
+{"text": "안녕하세요, 세계! 토크나이저 테스트입니다."}
+{"text": "한국어는 한글로 표기합니다."}
+{"text": "مرحبا بالعالم! هذا اختبار للمحلل اللغوي."}
+{"text": "اللغة العربية لغة سامية تكتب من اليمين إلى اليسار."}
+{"text": "שלום עולם! זה מבחן של הטוקנייזר."}
+{"text": "नमस्ते दुनिया! यह टोकनाइज़र परीक्षण है।"}
+{"text": "संस्कृत भारत की एक प्राचीन भाषा है।"}
+{"text": "สวัสดีชาวโลก! นี่คือการทดสอบเครื่องตัดคำ"}
+{"text": "ภาษาไทยไม่ใช้ช่องว่างระหว่างคำ"}
+{"text": "The 北京 trip in 2026 — très bien!"}
+{"text": "コードレビュー: bug fixed in commit a3f9c2b."}
+{"text": "Result: Σ x_i = 42 (where x ∈ ℝ)."}
+{"text": "Cost: €12.50 → ¥1,820 ≈ £10.75 (approx, plus ₿0.0004)."}
+{"text": "Theorem: ∀ε>0 ∃δ>0 such that |x-x₀|<δ ⇒ |f(x)-f(x₀)|<ε."}
+{"text": "Box: ┌───────┐ │ Hello │ └───────┘ — done."}
+{"text": "Pieces: ★ ☆ ♠ ♣ ♥ ♦ ♔ ♕ ♖ ♘ ♙ — chess set."}
+{"text": "Math bold: 𝐀𝐁𝐂𝐃 𝟎𝟏𝟐𝟑 — math script: 𝓐𝓑𝓒𝓓."}
+{"text": "Egyptian hieroglyphs: 𓀀 𓂀 𓃀 𓆎𓅓𓏏𓊖."}
+{"text": "Cuneiform: 𒀭 𒈠 𒂗 𒆠 — sign list samples."}
+{"text": "Mahjong tiles: 🀀 🀁 🀂 🀃 🀄 🀅 🀆 🀇."}
+{"text": "Cards: 🃁 🃂 🃃 🂡 🂢 🂣."}
+{"text": "👋 Hello! 🌍 World 🚀 launch 🎉 party 🎂."}
+{"text": "Family: 👨‍👩‍👧‍👦 — Pride flag: 🏳️‍🌈 — Skin-tone: 👍🏽 ✊🏿 👶🏻."}
+{"text": "Keycaps: 1️⃣ 2️⃣ 3️⃣ — flag: 🇯🇵 🇩🇪 🇺🇸."}
+{"text": "url=https://example.com/path/to/resource?q=foo&bar=baz&n=42#section-3"}
+{"text": "hex=0xDEADBEEFCAFEBABE base64=YWJjZGVmZ2hpamtsbW5vcA=="}
+{"text": "sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"}
+{"text": "arr.map(x => x * 2).filter(x => x > 0).reduce((a, b) => a + b);"}
+{"text": "template<T,U> auto f(T&&t, U&&u) -> decltype(t+u) { return t + u; }"}
+{"text": "result = (a >> 2) | (b << 4) & 0xFF;"}
+{"text": "if (x !== null && y >= 0) { return x?.foo ?? defaultValue; }"}
+{"text": "def fibonacci(n):"}
+{"text": "    if n < 2:"}
+{"text": "        return n"}
+{"text": "    return fibonacci(n - 1) + fibonacci(n - 2)"}
+{"text": "func greet(name string) {"}
+{"text": "\tif name != \"\" {"}
+{"text": "\t\tfmt.Printf(\"Hello, %s!\\n\", name)"}
+{"text": "\t}"}
+{"text": "}"}
+{"text": "get_user_id MAX_BUFFER_SIZE T_pad_token_id NSURLSessionConfiguration"}
+{"text": "camelCaseVar PascalCase snake_case_var SCREAMING_SNAKE k8s_pod_count_v2"}
+{"text": "greeting = \"Привет, мир!\" + \" — from \" + \"東京\""}
+{"text": "// résumé — Swift comment with diacritics"}
+{"text": "/* α + β = γ — Greek-letter math comment */"}
+{"text": "let title = \"🚀 Launch — пуск — 起動\""}
+{"text": "The IPA transcription /fɪʃ/ for \"fish\" — with stress: ˈfɪʃ."}
+{"text": "Tones: má mǎ mà mā (Mandarin tones — high, rising, dipping, falling)."}
+{"text": "hello    world         .       end"}
+{"text": "trailing whitespace before newline:\t(tab)   (spaces)"}
+{"text": "."}
+{"text": ","}
+{"text": "!"}
+{"text": "\"What?\" she asked — \"really?!\" — yes..."}
+{"text": "... and ‒ also – and — and ―."}
+{"text": "Hello 你好 안녕 こんにちは नमस्ते مرحبا שלום สวัสดี Привет Καλημέρα."}
+{"text": "α你β안γनδस💫ع👋ש🚀ت∀∃∈⇒"}
+{"text": "中文한글日本語混👋합니다🎉text混合"}
+{"text": "greeting=\"你好\"+🌍+\"안녕\"+नमस्ते+👨‍👩‍👧"}
+{"text": "Σ x_i 🇯🇵 ≠ 北京 → München · Tōkyō · 上海 ✨ end."}
+{"text": "🚀नमस्ते→Привет→你好→안녕→مرحبا→❤️"}
+{"text": "foo(中文,한글,日本語,हिन्दी,русский)→{∀:∃,⊕:⊗}"}
+{"text": "№42 ™️ © ® ¶ § €¥£₿ Σ∀ 你好 안녕 ال"}
+{"text": "🏳️‍🌈Pride+👨‍👩‍👧‍👦Family+🇩🇪🇯🇵🇺🇸flags+test"}
+{"text": "NULL\\0and\\ttab\\nnewline混入‍ZWJ️selectors"}
+{"text": "Natürlich. Deutsch zieht jetzt den Kompositahammer aus der Grammatikwerkzeugschublade. 😄"}
+{"text": "Im Morgennebelgedankenverästelungswald stand ein Kaffeetassenrandphilosophiebeobachter neben einer Regenschirmvergesslichkeitsstation und notierte in sein Sonntagmorgenideenfangnotizbuch die erstaunliche Häufigkeit von Fensterbankstaubsonnenlichtreflexionen."}
+{"text": "Neben ihm summte eine Kühlschrankinnenbeleuchtungserinnerungsmaschine, während ein Marmeladenglasdeckelöffnungsoptimierungsbeauftragter mit einer Treppenhausakustiküberraschungsanalyse beschäftigt war. Aus der Ferne näherte sich ein Wolkenkratzerfahrstuhlmusikkomponist auf einem Einradverkehrsregelmissachtungsgerät und rief: „Achtung, dort vorne liegt eine Gedankenfadenverknotungsgefahrensituation!“"}
+{"text": "Plötzlich öffnete sich ein Zeitungsseitenumblätterwindstoßportal, und heraus purzelten drei Büroklammernsortierweltmeisterschaftsteilnehmerinnen, ein Gartenzwergmützenfarbenberater und ein hochgradig verwirrter Suppenlöffelreflexionsmetaphysiker. Gemeinsam gründeten sie den Bundesverband für Nachmittagslichtschattenkantenbetrachtung und improvisierte Sofakissenburgenverteidigungsstrategien."}
+{"text": "Am Abend versammelten sich alle im Mondscheinfensterrahmenstaubglitzerzimmer, wo der Kaffeetassenrandphilosophiebeobachter eine feierliche Schlussrede über die Wichtigkeit von Unsinnsproduktionsfreude, Sprachmuskeldehnübungen und Donaudampfschifffahrtsgesellschaftskapitänsmützenknopfersatzteilbeschaffungsproblemen hielt."}
+{"text": "Danach herrschte allgemeine Zufriedenheit, außer bei der Kühlschrankinnenbeleuchtungserinnerungsmaschine, die sich über mangelnde Türöffnungsaufmerksamkeitswertschätzung beklagte."}
