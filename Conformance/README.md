@@ -6,67 +6,108 @@ pipeline (Swift, Obj-C, Rust, JS, …) produce byte-identical output to the
 reference Python `AutoTokenizer`.
 
 Originally assembled while filing
-[swift-transformers#352](https://github.com/huggingface/swift-transformers/issues/352).
+[swift-transformers#352](https://github.com/huggingface/swift-transformers/issues/352);
+extended afterwards as the shared conformance bed for both `ObjCTokenizer`
+and the swift-transformers
+[`MultilingualConformanceTests`](https://github.com/huggingface/swift-transformers/pull/360) target.
 
 ## Layout
 
-- `corpus_multilingual.jsonl` — 83 records, one per line, each `{"text": "..."}`.
-  JSONL preserves embedded ZWJ sequences, variation selectors, multi-line
-  code samples, and control characters losslessly.
-- `goldens/<family>_multilingual.json` — array of `{"text": "...", "ids": [int, ...]}`
-  records. The `text` column is identical across families; the `ids` column
-  is the output of `AutoTokenizer.from_pretrained(model_id)(text, add_special_tokens=True)`
-  on `transformers==4.57.1`.
-- `regenerate_goldens.py` — regenerate the goldens from `corpus_multilingual.jsonl`
-  against a pinned `transformers` version. See the docstring for usage.
+- `inputs.json` — 83 records, each `{id, category, text}`. Stable ids keep
+  baselines aligned across regenerations; categories let a divergence message
+  cite the broken axis directly (`japanese-voiced-kana`, `emoji-keycap`,
+  `thai-combining-marks`, `devanagari`, …).
+- `corpus_multilingual.jsonl` — legacy shape, `{"text": ...}` per line, no
+  ids/categories. Kept for the existing
+  [`ObjCTokenizerTests/OCTMultilingualGoldenTests.m`](../ObjCTokenizerTests/OCTMultilingualGoldenTests.m)
+  test target; new work should consume `inputs.json`.
+- `goldens/<family>_multilingual.json` — one per kernel, top-level shape:
+    ```jsonc
+    {
+      "metadata": {
+        "model_id": "BAAI/bge-small-en-v1.5",
+        "transformers_version": "4.57.1",
+        "generated_at": "2026-05-16T00:19:58+00:00",
+        "input_count": 83
+      },
+      "entries": [
+        {
+          "id": "japanese-voiced-kana-greeting",
+          "input_ids": [...],
+          "tokens": ["[CLS]", "こ", "##ん", …],
+          "decoded_with_special": "[CLS] こんにちは ...",
+          "decoded_skip_special": "こんにちは ..."
+        },
+        …
+      ]
+    }
+    ```
+  `tokens` is `convert_ids_to_tokens(input_ids)` for diagnostic windowed
+  diffs. The two decoded fields are forward-compatible material for a
+  decoder-side parity test; current Obj-C tests only consume `input_ids`.
+- `regenerate_goldens.py` — regenerate the per-kernel baselines from
+  `inputs.json` against the pinned `transformers` version. See the
+  docstring for usage.
 
 ## Families covered
 
-| Family       | HuggingFace model           | Tokenizer kernel       |
-|--------------|-----------------------------|------------------------|
-| `bge_small`  | `BAAI/bge-small-en-v1.5`    | WordPiece              |
-| `gpt2`       | `gpt2`                      | BPE byte-level         |
-| `t5_small`   | `google-t5/t5-small`        | Unigram (SentencePiece)|
-| `llama_7b`   | `huggyllama/llama-7b`       | BPE byte-fallback      |
-| `roberta_base`| `FacebookAI/roberta-base`  | BPE byte-level + RobertaProcessing |
+| Family         | HuggingFace model                          | Tokenizer kernel                              |
+|----------------|--------------------------------------------|-----------------------------------------------|
+| `bge_small`    | `BAAI/bge-small-en-v1.5`                   | WordPiece                                     |
+| `t5_small`     | `google-t5/t5-small`                       | Unigram (SentencePiece)                       |
+| `gpt2`         | `openai-community/gpt2`                    | Byte-level BPE                                |
+| `roberta_base` | `FacebookAI/roberta-base`                  | Byte-level BPE + RobertaProcessing            |
+| `llama_7b`     | `huggyllama/llama-7b`                      | SentencePiece BPE + byte-fallback (legacy)    |
+| `qwen2_5`      | `Qwen/Qwen2.5-0.5B`                        | Byte-level BPE (modern vocab/merges)          |
+| `tinyllama`    | `TinyLlama/TinyLlama-1.1B-Chat-v1.0`       | SentencePiece BPE + byte-fallback (no auth)   |
+
+Llama 3 (`meta-llama/Meta-Llama-3-8B`) is auth-gated and not in the default
+matrix; log into the Hub and add a row to regenerate against it.
 
 ## Per-line independence
 
 Each line of the corpus is its own test case — no inter-line state. A
-divergence on a single line tells you exactly which axis broke (CJK,
-combining marks, surrogate pairs, ZWJ sequences, programming code, …).
+divergence on a single line attributes the failure to a specific axis. The
+`category` field on each entry groups inputs by axis so the failure message
+cites the broken axis directly.
 
-## Bug-to-line map
+## Bug-to-input map
 
 For [swift-transformers#352](https://github.com/huggingface/swift-transformers/issues/352)'s four bugs:
 
-| Bug | Description                                            | Corpus case |
-|-----|--------------------------------------------------------|-------------|
-| 1   | BertNormalizer missing Hangul NFD decomposition        | case 12 (`안녕하세요, 세계! 토크나이저 테스트입니다.`) |
-| 2   | BasicTokenizer doesn't strip Japanese voiced-kana marks | case 10 (`こんにちは、世界。トークナイザーのテストです。`) |
-| 3   | Unigram iterates by grapheme cluster, not scalar       | case 35 (`Keycaps: 1️⃣ 2️⃣ 3️⃣ — flag: 🇯🇵 🇩🇪 🇺🇸.`) |
-| 4   | BPE byte-fallback fires on combining-mark contexts     | case 19 (`สวัสดีชาวโลก! นี่คือการทดสอบเครื่องตัดคำ`) |
+| Bug | Description                                            | Stable input id                       |
+|-----|--------------------------------------------------------|---------------------------------------|
+| 1   | BertNormalizer missing Hangul NFD decomposition        | `hangul-syllables-greeting`           |
+| 2   | BasicTokenizer doesn't strip Japanese voiced-kana marks | `japanese-voiced-kana-greeting`       |
+| 3   | Unigram iterates by grapheme cluster, not scalar       | `emoji-keycap-and-flags`              |
+| 4   | BPE byte-fallback fires on combining-mark contexts     | `thai-combining-marks-greeting`       |
 
 ## Reproduction
 
 ```sh
 python -m venv .venv
 source .venv/bin/activate
-pip install 'transformers==4.57.1' 'tokenizers>=0.20'
+pip install -r requirements.txt   # transformers==4.57.1
 python regenerate_goldens.py
 ```
 
-Each golden takes a few seconds. The 5 families together take under a minute
-on a warm HF cache.
+Each baseline takes a few seconds. The 7 families together take under a
+minute on a warm HF cache.
 
 ## Using as a regression bar
 
-The expected use is to load each `tokenizer.json` into your port, encode every
-text in `corpus_multilingual.jsonl`, and diff the resulting IDs against the
-corresponding golden. Any divergence is a port bug.
+The expected use is to load each `tokenizer.json` into your port, encode
+every text in `inputs.json`, and diff the resulting IDs against the
+corresponding baseline's `input_ids`. Any divergence is a port bug.
 
-Reference example in Objective-C: see [`ObjCTokenizerTests/OCTMultilingualGoldenTests.m`](../ObjCTokenizerTests/OCTMultilingualGoldenTests.m)
-in this repo, which does exactly this against five tokenizer families.
+Reference implementations:
+- Obj-C: [`ObjCTokenizerTests/OCTMultilingualConformanceTests.m`](../ObjCTokenizerTests/OCTMultilingualConformanceTests.m).
+  Currently passes byte-identity on all 7 kernels including the 3 new
+  bug clusters that swift-transformers surfaces (Metaspace leading-
+  whitespace runs, T5 TM/VS-16 segmentation, Qwen2.5 BPE merge ordering).
+- Swift: [`Tests/TokenizersTests/MultilingualConformanceTests.swift`](https://github.com/huggingface/swift-transformers/pull/360)
+  (swift-transformers PR #360). Lands with `expectedDivergences` covering
+  the in-flight fixes (#354/#355/#356) and the 3 bug clusters above.
 
 ## License / attribution
 

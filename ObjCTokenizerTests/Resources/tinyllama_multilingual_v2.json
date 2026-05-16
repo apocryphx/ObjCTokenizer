@@ -1,8 +1,8 @@
 {
   "metadata": {
-    "model_id": "huggyllama/llama-7b",
+    "model_id": "TinyLlama/TinyLlama-1.1B-Chat-v1.0",
     "transformers_version": "4.57.1",
-    "generated_at": "2026-05-16T00:19:59+00:00",
+    "generated_at": "2026-05-16T00:20:44+00:00",
     "input_count": 83
   },
   "entries": [
