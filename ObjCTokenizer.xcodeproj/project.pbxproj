@@ -100,6 +100,7 @@
 			children = (
 				156BDE8C2FAEF88B0094C95C /* ObjCTokenizer */,
 				156BDE992FAEF88B0094C95C /* ObjCTokenizerTests */,
+				1571CBED2FBC05C200264F6A /* Frameworks */,
 				156BDE8B2FAEF88B0094C95C /* Products */,
 			);
 			sourceTree = "<group>";
@@ -112,6 +113,13 @@
 				156C00010001000100010001 /* libObjCTokenizerStatic.a */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		1571CBED2FBC05C200264F6A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -189,7 +197,7 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastUpgradeCheck = 2640;
+				LastUpgradeCheck = 2650;
 				TargetAttributes = {
 					156BDE892FAEF88B0094C95C = {
 						CreatedOnToolsVersion = 26.4.1;
@@ -498,7 +506,6 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = 2PYWYF3C55;
 				EXECUTABLE_PREFIX = lib;
 				MACH_O_TYPE = staticlib;
@@ -513,7 +520,6 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = 2PYWYF3C55;
 				EXECUTABLE_PREFIX = lib;
 				MACH_O_TYPE = staticlib;
