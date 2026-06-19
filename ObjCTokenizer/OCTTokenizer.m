@@ -84,7 +84,27 @@ static unichar OCTUnusedPUAScalar(NSString *text) {
     return 0;
 }
 
+// Regex matching a JSON `﻿` escape (case-insensitive) that is a *real*
+// escape — i.e. introduced by an odd number of backslashes. `(?<!\\)((?:\\\\)*)`
+// anchors at a non-escaped position and consumes whole escaped-backslash pairs,
+// so `﻿` matches but `\\uFEFF` (escaped backslash + literal "uFEFF") does
+// not. Group 1 (the pairs) is preserved; the trailing `﻿` is the replaced span.
+static NSRegularExpression *OCTEscapedBOMRegex(void) {
+    static NSRegularExpression *re;
+    static dispatch_once_t once;
+    dispatch_once(&once, ^{
+        re = [NSRegularExpression regularExpressionWithPattern:
+              @"(?<!\\\\)((?:\\\\\\\\)*)\\\\u[Ff][Ee][Ff][Ff]" options:0 error:NULL];
+    });
+    return re;
+}
+
 // Parse `data` as JSON without losing in-string U+FEFF. Returns nil on parse failure.
+//
+// NSJSONSerialization deletes U+FEFF in BOTH the raw-byte form (EF BB BF — how
+// serde_json / HuggingFace emit it) and the `﻿` escape form (how Python's
+// json.dump emits it with the default ensure_ascii=True). We neutralise both by
+// swapping each to a private-use sentinel before the parse, then restoring.
 static id OCTParseJSONPreservingBOM(NSData *data) {
     NSString *text = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     if (!text) return [NSJSONSerialization JSONObjectWithData:data options:0 error:NULL];
@@ -92,7 +112,12 @@ static id OCTParseJSONPreservingBOM(NSData *data) {
     NSString *bom = OCTBOMString();
     if ([text hasPrefix:bom]) text = [text substringFromIndex:1];  // a genuine leading document BOM
 
-    if ([text rangeOfString:bom].location == NSNotFound) {
+    BOOL hasRaw = [text rangeOfString:bom].location != NSNotFound;
+    NSRange full = NSMakeRange(0, text.length);
+    BOOL hasEsc = OCTEscapedBOMRegex() != nil &&
+                  [OCTEscapedBOMRegex() firstMatchInString:text options:0 range:full] != nil;
+
+    if (!hasRaw && !hasEsc) {
         NSData *clean = [text dataUsingEncoding:NSUTF8StringEncoding];
         return [NSJSONSerialization JSONObjectWithData:clean options:0 error:NULL];
     }
@@ -100,8 +125,16 @@ static id OCTParseJSONPreservingBOM(NSData *data) {
     if (s == 0) return [NSJSONSerialization JSONObjectWithData:data options:0 error:NULL];  // give up protecting
 
     NSString *sentinel = [NSString stringWithCharacters:&s length:1];
-    NSString *guarded  = [text stringByReplacingOccurrencesOfString:bom withString:sentinel];
-    NSData   *gdata    = [guarded dataUsingEncoding:NSUTF8StringEncoding];
+    NSString *guarded = text;
+    if (hasRaw) guarded = [guarded stringByReplacingOccurrencesOfString:bom withString:sentinel];
+    if (hasEsc) {
+        // Keep the escaped-backslash pairs ($1); replace the real `﻿` with the sentinel char.
+        guarded = [OCTEscapedBOMRegex()
+                   stringByReplacingMatchesInString:guarded options:0
+                   range:NSMakeRange(0, guarded.length)
+                   withTemplate:[@"$1" stringByAppendingString:sentinel]];
+    }
+    NSData *gdata = [guarded dataUsingEncoding:NSUTF8StringEncoding];
     id parsed = [NSJSONSerialization JSONObjectWithData:gdata options:0 error:NULL];
     return parsed ? OCTRestoreSentinel(parsed, sentinel, bom) : nil;
 }
