@@ -60,9 +60,29 @@ and the swift-transformers
 | `llama_7b`     | `huggyllama/llama-7b`                      | SentencePiece BPE + byte-fallback (legacy)    |
 | `qwen2_5`      | `Qwen/Qwen2.5-0.5B`                        | Byte-level BPE (modern vocab/merges)          |
 | `tinyllama`    | `TinyLlama/TinyLlama-1.1B-Chat-v1.0`       | SentencePiece BPE + byte-fallback (no auth)   |
+| `gemma`        | `google/gemma-4-31b-it`                    | BPE + Replace-normalizer + Metaspace (262k)   |
 
 Llama 3 (`meta-llama/Meta-Llama-3-8B`) is auth-gated and not in the default
 matrix; log into the Hub and add a row to regenerate against it.
+
+### Gemma 4 — raw-load path
+
+`google/gemma-4-31b-it` is the Apertura inference target. Its
+`tokenizer_config.json` is newer than the pinned `transformers==4.57.1`, so
+`GemmaTokenizerFast` mis-parses it (`extra_special_tokens` is a list, not a
+dict). `regenerate_goldens.py` falls back to loading the `tokenizer.json`
+directly with `PreTrainedTokenizerFast` and reconstructs the wrapper's
+post-processor (`add_bos_token=True`, `add_eos_token=False` → prepend `<bos>`,
+id 2). Without that step the golden would omit the leading `<bos>` every real
+Gemma forward pass emits.
+
+Because Gemma's shipped `tokenizer.json` post-processor is a no-op (the wrapper
+adds `<bos>` at load time), the regeneration also writes a **resolved**
+`goldens/gemma.tokenizer.json` with the post-processor baked in — exactly as the
+bundled `llama-7b.tokenizer.json` bakes in `<s>`. That resolved file (not the
+upstream one) is what the Obj-C port bundles as
+`ObjCTokenizerTests/Resources/gemma-4-31b.tokenizer.json`. Regenerating Gemma
+also needs `protobuf` + `sentencepiece` on the path.
 
 ## Per-line independence
 
@@ -91,7 +111,7 @@ pip install -r requirements.txt   # transformers==4.57.1
 python regenerate_goldens.py
 ```
 
-Each baseline takes a few seconds. The 7 families together take under a
+Each baseline takes a few seconds. The 8 families together take under a
 minute on a warm HF cache.
 
 ## Using as a regression bar

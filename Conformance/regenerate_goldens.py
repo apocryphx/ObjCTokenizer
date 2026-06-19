@@ -62,6 +62,7 @@ from pathlib import Path
 #   - llama3        Byte-level BPE + Split + tiktoken-style pre-tokenize regex
 #   - qwen2_5       Byte-level BPE (modern vocab/merges)
 #   - tinyllama     SentencePiece BPE + byte-fallback (Llama family, no auth gate)
+#   - gemma         BPE + Replace-normalizer + Metaspace (Gemma SentencePiece, 262k vocab)
 FAMILIES = [
     ("bge_small",     "BAAI/bge-small-en-v1.5"),
     ("t5_small",      "google-t5/t5-small"),
@@ -70,6 +71,10 @@ FAMILIES = [
     ("llama_7b",      "huggyllama/llama-7b"),
     ("qwen2_5",       "Qwen/Qwen2.5-0.5B"),
     ("tinyllama",     "TinyLlama/TinyLlama-1.1B-Chat-v1.0"),
+    # Gemma 4 31B — the Apertura inference target. Gated repo, but the same
+    # tokenizer ships across every Gemma 4 size; log into the Hub
+    # (`huggingface-cli login`) or have the snapshot cached to regenerate.
+    ("gemma",         "google/gemma-4-31b-it"),
     # Llama 3 (`meta-llama/Meta-Llama-3-8B`) is an auth-gated repo, so it's
     # excluded from the default matrix. To regenerate against it, log into
     # the Hub (`huggingface-cli login`) and re-add the row.
@@ -85,11 +90,85 @@ def load_inputs():
         return json.load(f)
 
 
+# Families that must load via the raw `tokenizer.json` path because their
+# `tokenizer_config.json` is newer than the pinned transformers, AND whose
+# model-specific wrapper injects special tokens the shipped tokenizer.json's
+# post-processor omits. Each spec mirrors the wrapper's documented defaults so
+# the raw fast tokenizer reproduces `AutoTokenizer` exactly.
+#
+#   gemma: `GemmaTokenizerFast` defaults add_bos_token=True / add_eos_token=False.
+#          Gemma 4's shipped tokenizer.json post-processor is a no-op (empty
+#          `special_tokens`) — the wrapper rewrites it at load time to prepend
+#          <bos>. Without this, the golden would omit the leading <bos> that
+#          every real Gemma forward pass sees. (<bos>=2, <eos>=1 in the 262k vocab.)
+RAW_LOAD_WRAPPER = {
+    "gemma": {"add_bos": True, "add_eos": False, "bos": "<bos>", "eos": "<eos>"},
+}
+
+
+def _load_fast_from_tokenizer_json(slug: str, model_id: str):
+    """Load the fast tokenizer straight from `tokenizer.json`, bypassing the
+    model-specific `AutoTokenizer` wrapper.
+
+    Needed when a model ships a `tokenizer_config.json` newer than the pinned
+    `transformers` (e.g. Gemma 4 against 4.57.1: its config carries an
+    `extra_special_tokens` list the older `GemmaTokenizerFast` mis-parses).
+
+    The shipped `tokenizer.json` carries no post-processor that adds special
+    tokens — the wrapper class does that at load time from `add_bos_token` /
+    `add_eos_token`. For families in `RAW_LOAD_WRAPPER` we reconstruct that
+    post-processor here so the reference matches a real forward pass, and we
+    write the *resolved* tokenizer.json (post-processor baked in) beside the
+    golden. That resolved file — not the upstream one — is what the Obj-C port
+    must bundle, exactly as the bundled `llama-7b.tokenizer.json` bakes in <s>.
+    """
+    from transformers import PreTrainedTokenizerFast
+    from tokenizers.processors import TemplateProcessing
+    from huggingface_hub import hf_hub_download
+
+    offline = os.environ.get("HF_HUB_OFFLINE") or os.environ.get("TRANSFORMERS_OFFLINE")
+    tok_json = hf_hub_download(
+        model_id, "tokenizer.json", local_files_only=bool(offline)
+    )
+    print(f"[{slug}] AutoTokenizer unavailable — loading tokenizer.json directly "
+          f"({tok_json})", flush=True)
+    tok = PreTrainedTokenizerFast(tokenizer_file=tok_json)
+
+    spec = RAW_LOAD_WRAPPER.get(slug)
+    if spec:
+        bos, eos = spec["bos"], spec["eos"]
+        add_bos, add_eos = spec["add_bos"], spec["add_eos"]
+        bos_id = tok.convert_tokens_to_ids(bos)
+        eos_id = tok.convert_tokens_to_ids(eos)
+        # Mirror GemmaTokenizerFast.update_post_processor() string templates.
+        single = (f"{bos}:0 " if add_bos else "") + "$A:0" + (f" {eos}:0" if add_eos else "")
+        pair = single + (f" {bos}:0" if add_bos else "") + " $B:0" + (f" {eos}:0" if add_eos else "")
+        special = []
+        if add_bos:
+            special.append((bos, bos_id))
+        if add_eos:
+            special.append((eos, eos_id))
+        tok.backend_tokenizer.post_processor = TemplateProcessing(
+            single=single, pair=pair, special_tokens=special
+        )
+        OUTDIR.mkdir(parents=True, exist_ok=True)
+        resolved = OUTDIR / f"{slug}.tokenizer.json"
+        tok.backend_tokenizer.save(str(resolved))
+        print(f"[{slug}] wrote resolved tokenizer.json (post-processor baked in) "
+              f"-> {resolved}", flush=True)
+
+    return tok
+
+
 def regenerate(slug: str, model_id: str) -> None:
     from transformers import AutoTokenizer, __version__ as transformers_version
 
     print(f"[{slug}] loading {model_id} …", flush=True)
-    tok = AutoTokenizer.from_pretrained(model_id, use_fast=True)
+    try:
+        tok = AutoTokenizer.from_pretrained(model_id, use_fast=True)
+    except Exception as exc:  # model config newer than pinned transformers
+        print(f"[{slug}] AutoTokenizer.from_pretrained failed: {exc}", flush=True)
+        tok = _load_fast_from_tokenizer_json(slug, model_id)
 
     # Parity contract is against the fast (Rust) tokenizer; slow-only models
     # would produce a non-comparable reference.

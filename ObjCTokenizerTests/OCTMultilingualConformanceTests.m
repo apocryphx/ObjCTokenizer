@@ -142,6 +142,7 @@ typedef struct {
         { @"llama_7b",      @"llama-7b.tokenizer",          @"Llama-7B (BPE byte-fallback)" },
         { @"qwen2_5",       @"qwen2.5-0.5b.tokenizer",      @"Qwen2.5-0.5B (modern byte-level BPE)" },
         { @"tinyllama",     @"tinyllama-1.1b.tokenizer",    @"TinyLlama-1.1B-Chat (BPE byte-fallback)" },
+        { @"gemma",         @"gemma-4-31b.tokenizer",       @"Gemma-4-31B (BPE + Replace + Metaspace, 262k vocab)" },
     };
     NSMutableArray<NSValue *> *out = [NSMutableArray array];
     for (NSUInteger i = 0; i < sizeof(kernels)/sizeof(OCTKernel); i++) {
@@ -256,5 +257,6 @@ typedef struct {
 - (void)testLlama7bConformance       { OCTKernel k; [self.kernelMatrix[4] getValue:&k]; [self runConformanceForKernel:k]; }
 - (void)testQwen2_5Conformance       { OCTKernel k; [self.kernelMatrix[5] getValue:&k]; [self runConformanceForKernel:k]; }
 - (void)testTinyLlamaConformance     { OCTKernel k; [self.kernelMatrix[6] getValue:&k]; [self runConformanceForKernel:k]; }
+- (void)testGemma4Conformance        { OCTKernel k; [self.kernelMatrix[7] getValue:&k]; [self runConformanceForKernel:k]; }
 
 @end

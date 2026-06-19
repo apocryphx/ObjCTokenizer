@@ -1,2 +1,5 @@
 transformers==4.57.1
 # `tokenizers` is pulled transitively at the version transformers expects.
+# Gemma's tokenizer loader pulls in the SentencePiece/protobuf path.
+protobuf
+sentencepiece
