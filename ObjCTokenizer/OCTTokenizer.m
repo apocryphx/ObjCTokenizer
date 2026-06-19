@@ -69,7 +69,7 @@ static id OCTRestoreSentinel(id obj, NSString *sentinel, NSString *replacement) 
 
 // First BMP private-use scalar (U+E000..U+F8FF) that does not occur in `text`, or 0 if none free.
 static unichar OCTUnusedPUAScalar(NSString *text) {
-    static const int kBase = 0xE000, kSpan = 0xF900 - 0xE000;  // 0x1900 code points
+    enum { kBase = 0xE000, kSpan = 0xF900 - 0xE000 };  // 0x1900 code points
     BOOL used[kSpan];
     memset(used, 0, sizeof(used));
     NSUInteger n = text.length;
