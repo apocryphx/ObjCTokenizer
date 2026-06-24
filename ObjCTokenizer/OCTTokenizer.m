@@ -8,6 +8,7 @@
 #import "OCTUnigram.h"
 #import "OCTBPE.h"
 #import "OCTStringHelpers.h"
+#include "Vendor/yyjson/yyjson.h"
 
 NSString *const OCTTokenizerErrorDomain = @"OCTTokenizerErrorDomain";
 
@@ -17,126 +18,78 @@ static NSError *OCTError(OCTTokenizerErrorCode code, NSString *message) {
                            userInfo:@{NSLocalizedDescriptionKey: message ?: @""}];
 }
 
-#pragma mark - BOM-preserving JSON parse
+#pragma mark - JSON parse
 
-// NSJSONSerialization silently DELETES U+FEFF (BOM / zero-width no-break space) from anywhere inside
-// a parsed string — not just a leading document BOM, and even when written as the "﻿" escape
-// (other zero-width scalars such as U+200B survive). That is corrupting for tokenizer.json: vocab
-// keys and merges legitimately contain U+FEFF (e.g. the tokens "﻿#", "﻿//", "▁﻿").
-// Stripping collapses each onto its BOM-less twin ("#", "//", "▁"), and the survivor overwrites the
-// real token's id — so e.g. "#" would resolve to the id that belongs to "﻿#".
-//
-// To parse losslessly we swap every in-string U+FEFF for a private-use sentinel scalar (one proven
-// absent from the source text), let NSJSONSerialization run, then restore U+FEFF throughout the
-// parsed tree. Subtrees that contain no sentinel are returned untouched, so the cost is one shallow
-// rebuild of just the containers that actually held a BOM.
-
-static NSString *OCTBOMString(void) { unichar c = 0xFEFF; return [NSString stringWithCharacters:&c length:1]; }
-
-// Recursively replace `sentinel` with `replacement` in every string. Returns the SAME object when a
-// node (and its whole subtree) is unchanged, so only BOM-bearing branches are reallocated.
-static id OCTRestoreSentinel(id obj, NSString *sentinel, NSString *replacement) {
-    if ([obj isKindOfClass:[NSString class]]) {
-        NSString *s = obj;
-        if ([s rangeOfString:sentinel].location == NSNotFound) return s;
-        return [s stringByReplacingOccurrencesOfString:sentinel withString:replacement];
+// NSString initWithBytes:length:encoding:NSUTF8StringEncoding strips a leading U+FEFF (EF BB BF)
+// from the byte sequence — treating it as a BOM even when it is part of a JSON string value.
+// Count and strip leading BOMs before calling -initWithBytes, then prepend them after.
+static NSString *OCTStringFromUTF8Bytes(const char *bytes, size_t length) {
+    int bomCount = 0;
+    while (length >= 3 &&
+           (unsigned char)bytes[0] == 0xEF &&
+           (unsigned char)bytes[1] == 0xBB &&
+           (unsigned char)bytes[2] == 0xBF) {
+        bytes += 3; length -= 3; bomCount++;
     }
-    if ([obj isKindOfClass:[NSArray class]]) {
-        NSArray *a = obj;
-        NSMutableArray *out = nil;
-        for (NSUInteger i = 0; i < a.count; i++) {
-            id e = a[i], ne = OCTRestoreSentinel(e, sentinel, replacement);
-            if (ne != e) { if (!out) out = [a mutableCopy]; out[i] = ne; }
+    NSString *s = [[NSString alloc] initWithBytes:bytes length:length encoding:NSUTF8StringEncoding];
+    if (!s) return nil;
+    if (!bomCount) return s;
+    unichar bom = 0xFEFF;
+    NSString *prefix = [NSString stringWithCharacters:&bom length:1];
+    while (--bomCount > 0) prefix = [prefix stringByAppendingString:[NSString stringWithCharacters:&bom length:1]];
+    return [prefix stringByAppendingString:s];
+}
+
+static id OCTFoundationFromYYJSON(yyjson_val *val) {
+    if (!val) return nil;
+    switch (yyjson_get_type(val)) {
+        case YYJSON_TYPE_STR:
+            return OCTStringFromUTF8Bytes(yyjson_get_str(val), yyjson_get_len(val));
+        case YYJSON_TYPE_NUM:
+            if (yyjson_is_uint(val)) return @(yyjson_get_uint(val));
+            if (yyjson_is_sint(val)) return @(yyjson_get_sint(val));
+            return @(yyjson_get_real(val));
+        case YYJSON_TYPE_BOOL:
+            return yyjson_get_bool(val) ? @YES : @NO;
+        case YYJSON_TYPE_NULL:
+            return [NSNull null];
+        case YYJSON_TYPE_ARR: {
+            NSMutableArray *arr = [NSMutableArray arrayWithCapacity:yyjson_arr_size(val)];
+            yyjson_val *item;
+            yyjson_arr_iter iter = yyjson_arr_iter_with(val);
+            while ((item = yyjson_arr_iter_next(&iter)))
+                [arr addObject:OCTFoundationFromYYJSON(item) ?: [NSNull null]];
+            return arr;
         }
-        return out ?: a;
-    }
-    if ([obj isKindOfClass:[NSDictionary class]]) {
-        NSDictionary *d = obj;
-        NSMutableDictionary *out = nil;
-        for (id k in d) {
-            id v = d[k], nk = OCTRestoreSentinel(k, sentinel, replacement),
-               nv = OCTRestoreSentinel(v, sentinel, replacement);
-            if (nk != k || nv != v) {
-                if (!out) out = [d mutableCopy];
-                if (nk != k) [out removeObjectForKey:k];
-                out[nk] = nv;
+        case YYJSON_TYPE_OBJ: {
+            NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithCapacity:yyjson_obj_size(val)];
+            yyjson_val *key, *value;
+            yyjson_obj_iter iter = yyjson_obj_iter_with(val);
+            while ((key = yyjson_obj_iter_next(&iter))) {
+                value = yyjson_obj_iter_get_val(key);
+                NSString *nskey = OCTStringFromUTF8Bytes(yyjson_get_str(key), yyjson_get_len(key));
+                id nsval = OCTFoundationFromYYJSON(value);
+                if (nskey && nsval) dict[nskey] = nsval;
             }
+            return dict;
         }
-        return out ?: d;
+        default: return nil;
     }
-    return obj;
 }
 
-// First BMP private-use scalar (U+E000..U+F8FF) that does not occur in `text`, or 0 if none free.
-static unichar OCTUnusedPUAScalar(NSString *text) {
-    enum { kBase = 0xE000, kSpan = 0xF900 - 0xE000 };  // 0x1900 code points
-    BOOL used[kSpan];
-    memset(used, 0, sizeof(used));
-    NSUInteger n = text.length;
-    unichar *buf = (unichar *)malloc(sizeof(unichar) * n);
-    [text getCharacters:buf range:NSMakeRange(0, n)];
-    for (NSUInteger i = 0; i < n; i++) {
-        unichar c = buf[i];
-        if (c >= kBase && c < kBase + kSpan) used[c - kBase] = YES;
+static id OCTParseJSON(NSData *data, NSError **outError) {
+    yyjson_read_err err;
+    yyjson_doc *doc = yyjson_read_opts((char *)data.bytes, data.length, YYJSON_READ_ALLOW_BOM, NULL, &err);
+    if (!doc) {
+        if (outError)
+            *outError = [NSError errorWithDomain:OCTTokenizerErrorDomain
+                                            code:OCTTokenizerErrorInvalidJSON
+                                        userInfo:@{NSLocalizedDescriptionKey: @(err.msg ?: "JSON parse error")}];
+        return nil;
     }
-    free(buf);
-    for (int k = 0; k < kSpan; k++) if (!used[k]) return (unichar)(kBase + k);
-    return 0;
-}
-
-// Regex matching a JSON `﻿` escape (case-insensitive) that is a *real*
-// escape — i.e. introduced by an odd number of backslashes. `(?<!\\)((?:\\\\)*)`
-// anchors at a non-escaped position and consumes whole escaped-backslash pairs,
-// so `﻿` matches but `\\uFEFF` (escaped backslash + literal "uFEFF") does
-// not. Group 1 (the pairs) is preserved; the trailing `﻿` is the replaced span.
-static NSRegularExpression *OCTEscapedBOMRegex(void) {
-    static NSRegularExpression *re;
-    static dispatch_once_t once;
-    dispatch_once(&once, ^{
-        re = [NSRegularExpression regularExpressionWithPattern:
-              @"(?<!\\\\)((?:\\\\\\\\)*)\\\\u[Ff][Ee][Ff][Ff]" options:0 error:NULL];
-    });
-    return re;
-}
-
-// Parse `data` as JSON without losing in-string U+FEFF. Returns nil on parse failure.
-//
-// NSJSONSerialization deletes U+FEFF in BOTH the raw-byte form (EF BB BF — how
-// serde_json / HuggingFace emit it) and the `﻿` escape form (how Python's
-// json.dump emits it with the default ensure_ascii=True). We neutralise both by
-// swapping each to a private-use sentinel before the parse, then restoring.
-static id OCTParseJSONPreservingBOM(NSData *data) {
-    NSString *text = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-    if (!text) return [NSJSONSerialization JSONObjectWithData:data options:0 error:NULL];
-
-    NSString *bom = OCTBOMString();
-    if ([text hasPrefix:bom]) text = [text substringFromIndex:1];  // a genuine leading document BOM
-
-    BOOL hasRaw = [text rangeOfString:bom].location != NSNotFound;
-    NSRange full = NSMakeRange(0, text.length);
-    BOOL hasEsc = OCTEscapedBOMRegex() != nil &&
-                  [OCTEscapedBOMRegex() firstMatchInString:text options:0 range:full] != nil;
-
-    if (!hasRaw && !hasEsc) {
-        NSData *clean = [text dataUsingEncoding:NSUTF8StringEncoding];
-        return [NSJSONSerialization JSONObjectWithData:clean options:0 error:NULL];
-    }
-    unichar s = OCTUnusedPUAScalar(text);
-    if (s == 0) return [NSJSONSerialization JSONObjectWithData:data options:0 error:NULL];  // give up protecting
-
-    NSString *sentinel = [NSString stringWithCharacters:&s length:1];
-    NSString *guarded = text;
-    if (hasRaw) guarded = [guarded stringByReplacingOccurrencesOfString:bom withString:sentinel];
-    if (hasEsc) {
-        // Keep the escaped-backslash pairs ($1); replace the real `﻿` with the sentinel char.
-        guarded = [OCTEscapedBOMRegex()
-                   stringByReplacingMatchesInString:guarded options:0
-                   range:NSMakeRange(0, guarded.length)
-                   withTemplate:[@"$1" stringByAppendingString:sentinel]];
-    }
-    NSData *gdata = [guarded dataUsingEncoding:NSUTF8StringEncoding];
-    id parsed = [NSJSONSerialization JSONObjectWithData:gdata options:0 error:NULL];
-    return parsed ? OCTRestoreSentinel(parsed, sentinel, bom) : nil;
+    id result = OCTFoundationFromYYJSON(yyjson_doc_get_root(doc));
+    yyjson_doc_free(doc);
+    return result;
 }
 
 @implementation OCTTokenizer {
@@ -159,15 +112,11 @@ static id OCTParseJSONPreservingBOM(NSData *data) {
 }
 
 + (nullable instancetype)tokenizerWithJSONData:(NSData *)data error:(NSError **)error {
-    id obj = OCTParseJSONPreservingBOM(data);
+    NSError *jsonError = nil;
+    id obj = OCTParseJSON(data, &jsonError);
     if (![obj isKindOfClass:[NSDictionary class]]) {
-        if (error) {
-            // Surface NSJSONSerialization's own diagnostic when the bytes are simply not valid JSON.
-            NSError *jsonError = nil;
-            [NSJSONSerialization JSONObjectWithData:data options:0 error:&jsonError];
-            *error = jsonError ?: OCTError(OCTTokenizerErrorInvalidJSON,
-                                           @"tokenizer.json root is not a JSON object");
-        }
+        if (error) *error = jsonError ?: OCTError(OCTTokenizerErrorInvalidJSON,
+                                                   @"tokenizer.json root is not a JSON object");
         return nil;
     }
     return [self tokenizerWithJSONObject:obj error:error];
