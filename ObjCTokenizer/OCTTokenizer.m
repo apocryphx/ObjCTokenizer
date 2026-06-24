@@ -22,22 +22,11 @@ static NSError *OCTError(OCTTokenizerErrorCode code, NSString *message) {
 
 // NSString initWithBytes:length:encoding:NSUTF8StringEncoding strips a leading U+FEFF (EF BB BF)
 // from the byte sequence — treating it as a BOM even when it is part of a JSON string value.
-// Count and strip leading BOMs before calling -initWithBytes, then prepend them after.
+// Prepend a dummy space so the decoder never sees a leading BOM, then drop it after.
 static NSString *OCTStringFromUTF8Bytes(const char *bytes, size_t length) {
-    int bomCount = 0;
-    while (length >= 3 &&
-           (unsigned char)bytes[0] == 0xEF &&
-           (unsigned char)bytes[1] == 0xBB &&
-           (unsigned char)bytes[2] == 0xBF) {
-        bytes += 3; length -= 3; bomCount++;
-    }
-    NSString *s = [[NSString alloc] initWithBytes:bytes length:length encoding:NSUTF8StringEncoding];
-    if (!s) return nil;
-    if (!bomCount) return s;
-    unichar bom = 0xFEFF;
-    NSString *prefix = [NSString stringWithCharacters:&bom length:1];
-    while (--bomCount > 0) prefix = [prefix stringByAppendingString:[NSString stringWithCharacters:&bom length:1]];
-    return [prefix stringByAppendingString:s];
+    NSMutableData *padded = [NSMutableData dataWithBytes:" " length:1];
+    [padded appendBytes:bytes length:length];
+    return [[[NSString alloc] initWithData:padded encoding:NSUTF8StringEncoding] substringFromIndex:1];
 }
 
 static id OCTFoundationFromYYJSON(yyjson_val *val) {
