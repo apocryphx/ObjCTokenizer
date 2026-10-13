@@ -1,5 +1,6 @@
 #import "OCTNormalizer.h"
 #import "OCTStringHelpers.h"
+#import <libkern/OSByteOrder.h>
 #import <unicode/uchar.h>  // ICU u_charType — public in the macOS SDK,
                            // backed by /usr/lib/libicucore.dylib (auto-linked
                            // via libSystem). Used by stripAccents to filter
@@ -285,13 +286,193 @@ typedef NS_ENUM(NSUInteger, OCTReplaceMode) {
 
 #pragma mark - PrecompiledNormalizer
 
-@implementation OCTPrecompiledNormalizer
+// `precompiled_charsmap` layout (spm_precompiled): base64 of
+//   [u32 LE trie size in bytes][trie: u32 LE units][replacement strings]
+// The trie is a Darts double array keyed by UTF-8 bytes; a leaf's value is
+// the byte offset of its NUL-terminated replacement in the string blob.
 
-// TODO: This mirrors the simplified swift-transformers PrecompiledNormalizer.
-// Full SentencePiece precompiled_charsmap requires the base64-encoded map
-// from the tokenizer config — see the upstream TODO in Normalizer.swift.
+static inline BOOL OCTDartsHasLeaf(uint32_t unit) { return (unit >> 8) & 1; }
+static inline uint32_t OCTDartsValue(uint32_t unit) { return unit & ((1u << 31) - 1); }
+static inline uint32_t OCTDartsLabel(uint32_t unit) { return unit & ((1u << 31) | 0xFF); }
+static inline uint32_t OCTDartsOffset(uint32_t unit) { return (unit >> 10) << ((unit & (1u << 9)) >> 6); }
 
+// First (= shortest) result of `common_prefix_search`, or -1. Bounds-checked
+// where Rust would panic on a malformed trie.
+static NSInteger OCTDartsShortestPrefix(const uint32_t *units, NSUInteger count,
+                                        const uint8_t *key, NSUInteger length) {
+    if (count == 0) return -1;
+    NSUInteger pos = OCTDartsOffset(units[0]);
+    for (NSUInteger i = 0; i < length; i++) {
+        uint8_t c = key[i];
+        if (c == 0) break;
+        pos ^= c;
+        if (pos >= count) return -1;
+        uint32_t unit = units[pos];
+        if (OCTDartsLabel(unit) != c) return -1;
+        pos ^= OCTDartsOffset(unit);
+        if (OCTDartsHasLeaf(unit)) return pos < count ? (NSInteger)OCTDartsValue(units[pos]) : -1;
+    }
+    return -1;
+}
+
+// UTF-8 encode `scalar` into `buf` (4 bytes available); returns the length.
+static NSUInteger OCTEncodeUTF8(UTF32Char scalar, uint8_t *buf) {
+    if (scalar < 0x80) { buf[0] = (uint8_t)scalar; return 1; }
+    if (scalar < 0x800) {
+        buf[0] = 0xC0 | (scalar >> 6); buf[1] = 0x80 | (scalar & 0x3F); return 2;
+    }
+    if (scalar < 0x10000) {
+        buf[0] = 0xE0 | (scalar >> 12); buf[1] = 0x80 | ((scalar >> 6) & 0x3F);
+        buf[2] = 0x80 | (scalar & 0x3F); return 3;
+    }
+    buf[0] = 0xF0 | (scalar >> 18); buf[1] = 0x80 | ((scalar >> 12) & 0x3F);
+    buf[2] = 0x80 | ((scalar >> 6) & 0x3F); buf[3] = 0x80 | (scalar & 0x3F); return 4;
+}
+
+// Extended grapheme clusters per UAX #29, as `unicode-segmentation`'s
+// `graphemes(true)` computes them for Rust. NSString's composed-character
+// enumeration is not usable here: for Apple's private-use transcoding hints
+// (U+F860..U+F86F) it reports overlapping ranges, duplicating text.
+// Properties come from ICU's public uchar.h; GB9c needs ICU 76+.
+typedef void (^OCTGraphemeBlock)(NSRange range);
+static void OCTEnumerateGraphemeClusters(NSString *s, NS_NOESCAPE OCTGraphemeBlock block) {
+    NSUInteger len = s.length;
+    if (len == 0) return;
+    unichar *buf = (unichar *)malloc(sizeof(unichar) * len);
+    [s getCharacters:buf range:NSMakeRange(0, len)];
+
+    NSUInteger start = 0, i = 0;
+    int prev = -1;           // GCB of the previous scalar, -1 at the start
+    NSUInteger riRun = 0;    // consecutive Regional_Indicator scalars so far
+    int pictState = 0;       // 1: ExtPict Extend*, 2: ... followed by ZWJ
+    int conjunctState = 0;   // 1: InCB Consonant [Extend Linker]*, 2: with a Linker
+    while (i < len) {
+        UChar32 c = buf[i];
+        NSUInteger width = 1;
+        if (CFStringIsSurrogateHighCharacter(buf[i]) && i + 1 < len && CFStringIsSurrogateLowCharacter(buf[i + 1])) {
+            c = (UChar32)CFStringGetLongCharacterForSurrogatePair(buf[i], buf[i + 1]);
+            width = 2;
+        }
+        int gcb = u_getIntPropertyValue(c, UCHAR_GRAPHEME_CLUSTER_BREAK);
+        int incb = u_getIntPropertyValue(c, UCHAR_INDIC_CONJUNCT_BREAK);
+        BOOL pict = u_hasBinaryProperty(c, UCHAR_EXTENDED_PICTOGRAPHIC);
+
+        BOOL shouldBreak;
+        if (prev < 0)                                                        shouldBreak = NO;   // GB1
+        else if (prev == U_GCB_CR && gcb == U_GCB_LF)                        shouldBreak = NO;   // GB3
+        else if (prev == U_GCB_CONTROL || prev == U_GCB_CR || prev == U_GCB_LF) shouldBreak = YES; // GB4
+        else if (gcb == U_GCB_CONTROL || gcb == U_GCB_CR || gcb == U_GCB_LF) shouldBreak = YES;  // GB5
+        else if (prev == U_GCB_L && (gcb == U_GCB_L || gcb == U_GCB_V || gcb == U_GCB_LV || gcb == U_GCB_LVT))
+                                                                             shouldBreak = NO;   // GB6
+        else if ((prev == U_GCB_LV || prev == U_GCB_V) && (gcb == U_GCB_V || gcb == U_GCB_T))
+                                                                             shouldBreak = NO;   // GB7
+        else if ((prev == U_GCB_LVT || prev == U_GCB_T) && gcb == U_GCB_T)   shouldBreak = NO;   // GB8
+        else if (gcb == U_GCB_EXTEND || gcb == U_GCB_ZWJ)                    shouldBreak = NO;   // GB9
+        else if (gcb == U_GCB_SPACING_MARK)                                  shouldBreak = NO;   // GB9a
+        else if (prev == U_GCB_PREPEND)                                      shouldBreak = NO;   // GB9b
+        else if (incb == U_INCB_CONSONANT && conjunctState == 2)             shouldBreak = NO;   // GB9c
+        else if (prev == U_GCB_ZWJ && pict && pictState == 2)                shouldBreak = NO;   // GB11
+        else if (prev == U_GCB_REGIONAL_INDICATOR && gcb == U_GCB_REGIONAL_INDICATOR && riRun % 2 == 1)
+                                                                             shouldBreak = NO;   // GB12/13
+        else                                                                 shouldBreak = YES;  // GB999
+        if (shouldBreak) {
+            block(NSMakeRange(start, i - start));
+            start = i;
+        }
+
+        riRun = (gcb == U_GCB_REGIONAL_INDICATOR) ? riRun + 1 : 0;
+        if (pict) pictState = 1;
+        else if (pictState == 1 && gcb == U_GCB_EXTEND) pictState = 1;
+        else if (pictState == 1 && gcb == U_GCB_ZWJ) pictState = 2;
+        else pictState = 0;
+        if (incb == U_INCB_CONSONANT) conjunctState = 1;
+        else if (conjunctState && incb == U_INCB_EXTEND) { /* stays */ }
+        else if (conjunctState && incb == U_INCB_LINKER) conjunctState = 2;
+        else conjunctState = 0;
+
+        prev = gcb;
+        i += width;
+    }
+    block(NSMakeRange(start, len - start));
+    free(buf);
+}
+
+@implementation OCTPrecompiledNormalizer {
+    NSData *_trie;         // uint32_t units, host byte order
+    NSData *_replacements; // NUL-terminated UTF-8 replacement strings
+}
+
+- (instancetype)init { return [self initWithConfig:nil]; }
+
+- (instancetype)initWithConfig:(NSDictionary *)config {
+    self = [super init];
+    if (self) {
+        NSString *b64 = OCTConfigString(config, @"precompiledCharsmap", nil);
+        NSData *blob = b64 ? [[NSData alloc] initWithBase64EncodedString:b64 options:0] : nil;
+        const uint8_t *bytes = blob.bytes;
+        if (blob.length >= 4) {
+            NSUInteger unitCount = OSReadLittleInt32(bytes, 0) / 4;
+            NSUInteger blobStart = 4 + unitCount * 4;
+            if (unitCount > 0 && blobStart <= blob.length) {
+                NSMutableData *trie = [NSMutableData dataWithLength:unitCount * sizeof(uint32_t)];
+                uint32_t *units = trie.mutableBytes;
+                for (NSUInteger i = 0; i < unitCount; i++) units[i] = OSReadLittleInt32(bytes, 4 + i * 4);
+                _trie = [trie copy];
+                _replacements = [blob subdataWithRange:NSMakeRange(blobStart, blob.length - blobStart)];
+            }
+        }
+    }
+    return self;
+}
+
+// Port of `Precompiled::transform`: the replacement for the shortest vocab
+// prefix of `key`, or nil.
+- (nullable NSString *)transform:(const uint8_t *)key length:(NSUInteger)length {
+    NSInteger offset = OCTDartsShortestPrefix(_trie.bytes, _trie.length / sizeof(uint32_t), key, length);
+    if (offset < 0 || (NSUInteger)offset > _replacements.length) return nil;
+    const uint8_t *start = (const uint8_t *)_replacements.bytes + offset;
+    const uint8_t *end = memchr(start, 0, _replacements.length - (NSUInteger)offset);
+    NSUInteger len = end ? (NSUInteger)(end - start) : _replacements.length - (NSUInteger)offset;
+    return [[NSString alloc] initWithBytes:start length:len encoding:NSUTF8StringEncoding] ?: @"";
+}
+
+// Port of HF tokenizers' `impl Normalizer for Precompiled`. Per grapheme
+// cluster: if it is shorter than 6 UTF-8 bytes and any *prefix* of it is in
+// the trie, the whole cluster becomes that prefix's replacement — so
+// "▁\u0301" collapses to " ", dropping the mark. Otherwise each code point
+// is transformed on its own. Rust's comment on this: "Yes, this seems
+// broken ... If you question this code, check this normalizer against XNLI".
 - (NSString *)normalize:(NSString *)text {
+    if (!_trie) return [self approximateNormalize:text];
+    NSMutableString *out = [NSMutableString stringWithCapacity:text.length];
+    OCTEnumerateGraphemeClusters(text, ^(NSRange range) {
+        NSString *grapheme = [text substringWithRange:range];
+        // Only clusters under 6 bytes are looked up whole; stop encoding
+        // once that is ruled out.
+        uint8_t buf[8];
+        uint8_t *bufp = buf;
+        __block NSUInteger len = 0;
+        OCTEnumerateUnicodeScalars(grapheme, ^(UTF32Char scalar, BOOL *innerStop) {
+            if (len + 4 > 8) { len = 8; *innerStop = YES; return; }
+            len += OCTEncodeUTF8(scalar, bufp + len);
+        });
+        if (len < 6) {
+            NSString *replacement = [self transform:buf length:len];
+            if (replacement) { [out appendString:replacement]; return; }
+        }
+        OCTEnumerateUnicodeScalars(grapheme, ^(UTF32Char scalar, BOOL *innerStop) {
+            uint8_t one[4];
+            NSString *replacement = [self transform:one length:OCTEncodeUTF8(scalar, one)];
+            if (replacement) [out appendString:replacement];
+            else OCTAppendScalar(out, scalar);
+        });
+    });
+    return [out copy];
+}
+
+// swift-transformers' PrecompiledNormalizer approximation, used when the
+// config carries no charsmap.
+- (NSString *)approximateNormalize:(NSString *)text {
     NSMutableString *out = [NSMutableString stringWithCapacity:text.length];
     __block BOOL hasFullwidthTilde = NO;
     OCTEnumerateUnicodeScalars(text, ^(UTF32Char v, BOOL *stop) {
@@ -392,7 +573,7 @@ typedef NS_ENUM(NSUInteger, OCTReplaceMode) {
     if ([type isEqualToString:@"NFKC"])          return [[OCTNFKCNormalizer alloc] init];
     if ([type isEqualToString:@"Bert"] ||
         [type isEqualToString:@"BertNormalizer"]) return [[OCTBertNormalizer alloc] initWithConfig:config];
-    if ([type isEqualToString:@"Precompiled"])   return [[OCTPrecompiledNormalizer alloc] init];
+    if ([type isEqualToString:@"Precompiled"])   return [[OCTPrecompiledNormalizer alloc] initWithConfig:config];
     if ([type isEqualToString:@"StripAccents"])  return [[OCTStripAccentsNormalizer alloc] init];
     if ([type isEqualToString:@"Strip"])         return [[OCTStripNormalizer alloc] initWithConfig:config];
     return nil;

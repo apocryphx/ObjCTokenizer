@@ -60,7 +60,13 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)init;
 @end
 
+/// SentencePiece `precompiled_charsmap` normalizer (T5, XLM-R, mBART, ...).
+/// Port of HF tokenizers' Precompiled normalizer and the `spm_precompiled`
+/// double-array trie. Without a charsmap in `config` it falls back to the
+/// swift-transformers approximation (drop controls, map separators to a
+/// space, NFKC).
 @interface OCTPrecompiledNormalizer : NSObject <OCTNormalizer>
+- (instancetype)initWithConfig:(nullable NSDictionary *)config NS_DESIGNATED_INITIALIZER;
 @end
 
 @interface OCTStripAccentsNormalizer : NSObject <OCTNormalizer>

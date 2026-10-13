@@ -26,6 +26,7 @@ Usage:
 """
 
 import json
+import unicodedata
 from pathlib import Path
 
 from tokenizers import Tokenizer
@@ -141,6 +142,35 @@ def patched(file, patch):
     return Tokenizer.from_str(json.dumps(raw))
 
 
+def write_precompiled_sweep():
+    """T5's Precompiled normalizer over every code point.
+
+    "range" cases normalize the 256 code points lo..hi-1 (surrogates
+    skipped) concatenated; "expected" is null when the output is unchanged.
+    "cps" cases put `prefix` before each listed code point, to exercise the
+    whole-grapheme rule on base + combining-mark clusters.
+    """
+    norm = load("t5-small.tokenizer.json").normalizer
+    cases = []
+    for lo in range(0, 0x110000, 256):
+        if 0xD800 <= lo < 0xE000:
+            continue
+        text = "".join(chr(c) for c in range(lo, lo + 256))
+        out = norm.normalize_str(text)
+        cases.append({"range": [lo, lo + 256], "expected": None if out == text else out})
+    marks = [c for c in range(0x110000)
+             if not 0xD800 <= c < 0xE000 and unicodedata.category(chr(c)) in ("Mn", "Mc", "Me")]
+    marks += [0x200C, 0x200D, 0xFE0F, 0x20E3, 0x1F3FB]
+    for prefix in ["\u2581", " ", "a", "\u3042", "\r"]:
+        for i in range(0, len(marks), 64):
+            cps = marks[i:i + 64]
+            text = "".join(prefix + chr(c) for c in cps)
+            cases.append({"prefix": prefix, "cps": cps, "expected": norm.normalize_str(text)})
+    path = RESOURCES / "t5_small_precompiled_golden.json"
+    path.write_text(json.dumps(cases, ensure_ascii=False, separators=(",", ":")) + "\n")
+    print(f"{path.name}: {len(cases)} cases")
+
+
 def main():
     for family, file, variants in BYTE_FALLBACK_VARIANTS:
         out = [{"variant": name, "patch": patch,
@@ -161,11 +191,8 @@ def main():
     ]:
         write(family, golden(load(file), COMBINING_MARK_TEXTS))
 
-    # T5's Precompiled charsmap rewrites "▁́" to a single space as
-    # one entry; OCTPrecompiledNormalizer (like swift-transformers) only
-    # approximates the charsmap scalar by scalar. Out of scope for #395.
-    t5_texts = [t for t in COMBINING_MARK_TEXTS if "▁́" not in t]
-    write("t5_small", golden(load("t5-small.tokenizer.json"), t5_texts))
+    write("t5_small", golden(load("t5-small.tokenizer.json"), COMBINING_MARK_TEXTS))
+    write_precompiled_sweep()
 
 
 if __name__ == "__main__":

@@ -1,5 +1,6 @@
 #import <XCTest/XCTest.h>
 #import "OCTTokenizer.h"
+#import "OCTNormalizer.h"
 
 // Byte-identity goldens for swift-transformers fixes ported after tag 1.3.2.
 // Generated from the bundled tokenizer.json files with the Rust `tokenizers`
@@ -18,6 +19,8 @@
 //     (BPE). Each variant patches a bundled tokenizer.json; the patch is
 //     recorded in the golden so both sides build the same tokenizer.
 //   - Invalid regex: huggingface/swift-transformers#407, a load error.
+//   - T5 Precompiled normalizer (not an upstream fix; swift-transformers
+//     still approximates it): every code point, plus base + mark clusters.
 
 @interface OCTUpstreamFixesGoldenTests : XCTestCase
 @end
@@ -170,6 +173,66 @@
                             @"behavior": @"Removed", @"invert": @NO},
     }] error:&err];
     XCTAssertNotNil(tok, @"%@", err);
+}
+
+#pragma mark - Precompiled charsmap
+
+static NSString *OCTStringFromCodePoints(NSArray<NSNumber *> *cps, NSString *prefix) {
+    NSMutableString *s = [NSMutableString string];
+    for (NSNumber *cp in cps) {
+        [s appendString:prefix];
+        UTF32Char c = cp.unsignedIntValue;
+        if (c > 0xFFFF) {
+            unichar pair[2] = {(unichar)(0xD800 + ((c - 0x10000) >> 10)), (unichar)(0xDC00 + ((c - 0x10000) & 0x3FF))};
+            [s appendString:[NSString stringWithCharacters:pair length:2]];
+        } else {
+            unichar u = (unichar)c;
+            [s appendString:[NSString stringWithCharacters:&u length:1]];
+        }
+    }
+    return s;
+}
+
+- (void)testT5PrecompiledSweep {
+    NSBundle *b = [NSBundle bundleForClass:self.class];
+    NSDictionary *t5 = [NSJSONSerialization JSONObjectWithData:
+                        [NSData dataWithContentsOfURL:[b URLForResource:@"t5-small.tokenizer" withExtension:@"json"]]
+                                                       options:0 error:nil];
+    id<OCTNormalizer> norm = [OCTNormalizerFactory normalizerFromConfig:t5[@"normalizer"]];
+    XCTAssertNotNil(norm);
+    NSArray *cases = [NSJSONSerialization JSONObjectWithData:
+                      [NSData dataWithContentsOfURL:[b URLForResource:@"t5_small_precompiled_golden" withExtension:@"json"]]
+                                                     options:0 error:nil];
+    XCTAssertGreaterThan(cases.count, 4000u);
+
+    NSUInteger fail = 0;
+    for (NSDictionary *c in cases) {
+        NSString *text;
+        NSString *label;
+        NSArray<NSNumber *> *range = c[@"range"];
+        if (range) {
+            NSMutableArray<NSNumber *> *cps = [NSMutableArray array];
+            for (uint32_t cp = range[0].unsignedIntValue; cp < range[1].unsignedIntValue; cp++) [cps addObject:@(cp)];
+            text = OCTStringFromCodePoints(cps, @"");
+            label = [NSString stringWithFormat:@"U+%04X..U+%04X", range[0].unsignedIntValue, range[1].unsignedIntValue - 1];
+        } else {
+            text = OCTStringFromCodePoints(c[@"cps"], c[@"prefix"]);
+            label = [NSString stringWithFormat:@"prefix U+%04X + marks from U+%04X", [c[@"prefix"] characterAtIndex:0],
+                     [c[@"cps"][0] unsignedIntValue]];
+        }
+        NSString *expected = [c[@"expected"] isKindOfClass:[NSString class]] ? c[@"expected"] : text;
+        NSString *got = [norm normalize:text];
+        if ([got isEqualToString:expected]) continue;
+        if (fail++ < 5) {
+            NSUInteger i = 0, n = MIN(got.length, expected.length);
+            while (i < n && [got characterAtIndex:i] == [expected characterAtIndex:i]) i++;
+            NSRange window = NSMakeRange(i > 4 ? i - 4 : 0, 12);
+            XCTFail(@"%@: diverges at UTF-16 index %lu; expected \"%@\", got \"%@\"", label, (unsigned long)i,
+                    [expected substringWithRange:NSIntersectionRange(window, NSMakeRange(0, expected.length))],
+                    [got substringWithRange:NSIntersectionRange(window, NSMakeRange(0, got.length))]);
+        }
+    }
+    XCTAssertEqual(fail, 0u, @"%lu/%lu Precompiled cases diverged from HF", (unsigned long)fail, (unsigned long)cases.count);
 }
 
 #pragma mark - Upstream fixes
