@@ -159,8 +159,9 @@ static BOOL OCTHeapPop(OCTBPEHeap *h, OCTBPECand *out) {
 
 #pragma mark - Core BPE
 
-// `bpe(token:)` from BPETokenizer.swift. Applies the merge sequence to a
-// single token and returns the merged pieces as an NSArray.
+// `bpe(token:)` from BPETokenizer.swift. Applies the merge sequence to the
+// initial symbols of one word (see -initialSymbols:) and returns the merged
+// pieces as an NSArray.
 //
 // Two deliberate divergences from swift-transformers, both required
 // for byte-identity with HuggingFace Python on multilingual input:
@@ -193,14 +194,13 @@ static BOOL OCTHeapPop(OCTBPEHeap *h, OCTBPECand *out) {
 // no combining-mark-after-space sequences. Both paths produce
 // byte-identical output across the four byte-level golden corpora
 // (4 × 585 lines).
-- (NSArray<NSString *> *)bpeMergePieces:(NSString *)token {
-    NSArray<NSString *> *graphemes = OCTSplitScalars(token);
-    NSInteger n = (NSInteger)graphemes.count;
-    if (n <= 1) return @[token];
+- (NSArray<NSString *> *)bpeMergePieces:(NSArray<NSString *> *)initialSymbols {
+    NSInteger n = (NSInteger)initialSymbols.count;
+    if (n <= 1) return initialSymbols;
 
     // Doubly linked list embedded in parallel arrays of indices.
     NSMutableArray<NSMutableString *> *symbols = [NSMutableArray arrayWithCapacity:n];
-    for (NSString *g in graphemes) [symbols addObject:[g mutableCopy]];
+    for (NSString *g in initialSymbols) [symbols addObject:[g mutableCopy]];
 
     int *prevIdx = (int *)malloc(sizeof(int) * n);
     int *nextIdx = (int *)malloc(sizeof(int) * n);
@@ -269,42 +269,48 @@ static BOOL OCTHeapPop(OCTBPEHeap *h, OCTBPECand *out) {
 
 #pragma mark - tokenize:
 
+// Port of `merge_word` in HF tokenizers (models/bpe/model.rs): one symbol per
+// Unicode scalar, resolved against the vocab *before* any merge. A scalar
+// missing from the vocab becomes its `<0xHH>` byte pieces (byte_fallback, all
+// of them in vocab), else the unk token (fused with a pending unk when
+// fuse_unk), else it is dropped. Doing this before merging matters: with no
+// unk token, "▁a🦜b" drops 🦜 and then merges "▁a"+"b" into "▁ab".
+//
+// swift-transformers#390 applies the fallback to the pieces *after* merging,
+// which cannot merge across a dropped character. We follow Rust instead,
+// including its quirk that byte-fallback pieces do not flush a pending unk:
+// "🦜ꙮ🦜" with <0xF0> missing yields ꙮ's bytes, then one fused unk.
+- (NSArray<NSString *> *)initialSymbols:(NSString *)word {
+    NSMutableArray<NSString *> *symbols = [NSMutableArray arrayWithCapacity:word.length];
+    NSString *unk = (_unkToken.length && _vocab[_unkToken] != nil) ? _unkToken : nil;
+    __block BOOL pendingUnk = NO;
+    OCTEnumerateUnicodeScalars(word, ^(UTF32Char scalar, BOOL *stop) {
+        NSString *s = OCTStringFromScalar(scalar);
+        if (self->_vocab[s] != nil) {
+            if (pendingUnk) { [symbols addObject:unk]; pendingUnk = NO; }
+            [symbols addObject:s];
+            return;
+        }
+        if (self->_byteFallback) {
+            NSArray<NSString *> *bytes = OCTByteFallbackPieces(s, self->_vocab);
+            if (bytes) { [symbols addObjectsFromArray:bytes]; return; }
+        }
+        if (unk) {
+            if (pendingUnk && !self->_fuseUnk) [symbols addObject:unk];
+            pendingUnk = YES;
+        }
+    });
+    if (pendingUnk) [symbols addObject:unk];
+    return symbols;
+}
+
 - (NSArray<NSString *> *)tokenize:(NSString *)word {
     if (word.length == 0) return @[];
     // swift-transformers#397: as in `tokenizers`, the whole word is looked
     // up before any merge. Llama 3 has 588 vocab entries its merges cannot
     // rebuild (e.g. "Türkiye", " milyon").
     if (_ignoreMerges && _vocab[word] != nil) return @[word];
-    NSArray<NSString *> *pieces = [self bpeMergePieces:word];
-
-    NSMutableArray<NSString *> *out = [NSMutableArray arrayWithCapacity:pieces.count];
-    NSNumber *unkId = _unkToken.length ? _vocab[_unkToken] : nil;
-    for (NSString *p in pieces) {
-        NSNumber *id_ = _vocab[p];
-        if (id_ != nil && (unkId == nil || ![id_ isEqualToNumber:unkId])) {
-            [out addObject:p];
-        } else if (_byteFallback) {
-            // SentencePiece-style byte fallback (Llama 1/2): emit one
-            // `<0xHH>` token per UTF-8 byte of the piece. Every such token is
-            // guaranteed to be in vocab because byte-fallback BPE includes
-            // all 256 byte tokens.
-            NSData *utf8 = [p dataUsingEncoding:NSUTF8StringEncoding];
-            const uint8_t *bytes = utf8.bytes;
-            for (NSUInteger i = 0; i < utf8.length; i++) {
-                [out addObject:[NSString stringWithFormat:@"<0x%02X>", bytes[i]]];
-            }
-        } else if (_unkToken.length) {
-            // Vanilla BPE with an UNK token: emit it directly. (Byte-level
-            // BPE — GPT-2 / RoBERTa — has no unkToken because the byte
-            // alphabet covers everything.)
-            [out addObject:_unkToken];
-        } else {
-            // Last resort: keep the raw piece. With byte-level encoding this
-            // path is never taken because every byte maps to a vocab entry.
-            [out addObject:p];
-        }
-    }
-    return [out copy];
+    return [self bpeMergePieces:[self initialSymbols:word]];
 }
 
 @end

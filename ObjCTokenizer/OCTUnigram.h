@@ -19,6 +19,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign, readonly) NSInteger bosTokenId;
 @property (nonatomic, assign, readonly) NSInteger eosTokenId;
 @property (nonatomic, assign, readonly) BOOL fuseUnknownTokens;
+/// `model.byte_fallback`: a run of unknown characters becomes its `<0xHH>`
+/// byte pieces instead of the unk token, when every byte piece is in vocab.
+@property (nonatomic, assign, readonly) BOOL byteFallback;
 
 /// `vocabPairs`: ordered array of @[token, score] tuples (matches the
 /// tokenizer.json shape — `model.vocab` is an array of arrays, each pair
@@ -26,7 +29,14 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithVocabPairs:(NSArray<NSArray *> *)vocabPairs
                             unkId:(NSInteger)unkId
                        bosTokenId:(NSInteger)bosTokenId
-                       eosTokenId:(NSInteger)eosTokenId NS_DESIGNATED_INITIALIZER;
+                       eosTokenId:(NSInteger)eosTokenId
+                     byteFallback:(BOOL)byteFallback NS_DESIGNATED_INITIALIZER;
+
+/// Same as the designated initializer with `byteFallback:NO`.
+- (instancetype)initWithVocabPairs:(NSArray<NSArray *> *)vocabPairs
+                            unkId:(NSInteger)unkId
+                       bosTokenId:(NSInteger)bosTokenId
+                       eosTokenId:(NSInteger)eosTokenId;
 
 - (instancetype)init NS_UNAVAILABLE;
 

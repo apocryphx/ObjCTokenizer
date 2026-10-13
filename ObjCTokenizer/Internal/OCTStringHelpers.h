@@ -50,6 +50,14 @@ FOUNDATION_EXPORT NSString *OCTStringFromScalar(UTF32Char scalar);
 /// tokenizers match on code points (swift-transformers#395).
 FOUNDATION_EXPORT NSString *OCTReplaceLiteral(NSString *s, NSString *target, NSString *replacement);
 
+/// SentencePiece byte-fallback piece for `byte`: "<0xHH>", uppercase hex.
+/// Backed by a 256-entry table shared by the BPE and Unigram kernels.
+FOUNDATION_EXPORT NSString *OCTByteFallbackPiece(uint8_t byte);
+
+/// The byte-fallback pieces for every UTF-8 byte of `s`, or nil when any of
+/// them is missing from `vocab` (HF tokenizers then falls back to unk).
+FOUNDATION_EXPORT NSArray<NSString *> * _Nullable OCTByteFallbackPieces(NSString *s, NSDictionary<NSString *, NSNumber *> *vocab);
+
 #pragma mark - Config dictionary helpers
 
 /// Read a BOOL from a JSON-shaped NSDictionary, accepting either camelCase

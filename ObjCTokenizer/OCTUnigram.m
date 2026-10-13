@@ -14,7 +14,8 @@
 - (instancetype)initWithVocabPairs:(NSArray<NSArray *> *)vocabPairs
                             unkId:(NSInteger)unkId
                        bosTokenId:(NSInteger)bosTokenId
-                       eosTokenId:(NSInteger)eosTokenId {
+                       eosTokenId:(NSInteger)eosTokenId
+                     byteFallback:(BOOL)byteFallback {
     self = [super init];
     if (self) {
         NSMutableArray<NSString *>  *tokens = [NSMutableArray arrayWithCapacity:vocabPairs.count];
@@ -42,6 +43,7 @@
         _bosTokenId = bosTokenId;
         _eosTokenId = eosTokenId;
         _unkScore = _minScore - 10.0f;
+        _byteFallback = byteFallback;
 
         // Build the trie keyed on Unicode scalars, not grapheme clusters,
         // so single-scalar vocab pieces (e.g. SentencePiece's `▁1`) are
@@ -52,6 +54,23 @@
         for (NSString *tok in tokens) [_trie insertGraphemes:OCTSplitScalars(tok)];
     }
     return self;
+}
+
+- (instancetype)initWithVocabPairs:(NSArray<NSArray *> *)vocabPairs
+                            unkId:(NSInteger)unkId
+                       bosTokenId:(NSInteger)bosTokenId
+                       eosTokenId:(NSInteger)eosTokenId {
+    return [self initWithVocabPairs:vocabPairs
+                              unkId:unkId
+                         bosTokenId:bosTokenId
+                         eosTokenId:eosTokenId
+                       byteFallback:NO];
+}
+
+- (void)appendUnknownRun:(NSString *)run to:(NSMutableArray<NSString *> *)out {
+    NSArray<NSString *> *bytes = OCTByteFallbackPieces(run, _vocab);
+    if (bytes) [out addObjectsFromArray:bytes];
+    else [out addObject:_unkToken];
 }
 
 - (NSArray<NSString *> *)tokenize:(NSString *)word {
@@ -99,19 +118,27 @@
     }
 
     // Emit the unkToken *string* for UNK nodes rather than the original
-    // grapheme — otherwise the orchestration's fuse-consecutive-UNK pass
-    // can't recognize them as adjacent. SentencePiece Unigram's tokenize is
-    // lossy for unknown chars by design (no byte-fallback in the vanilla
-    // Unigram model — that's a separate ByteFallbackDecoder concern).
+    // text — otherwise the orchestration's fuse-consecutive-UNK pass can't
+    // recognize them as adjacent.
+    //
+    // With byte_fallback (swift-transformers#388), port of Unigram::tokenize
+    // in HF tokenizers: a run of consecutive UNK nodes is fused into one
+    // string first, then becomes the byte pieces of that whole string — or
+    // the unk token if any byte piece is missing from the vocab.
     NSArray<OCTTokenLatticeNode *> *path = [lattice viterbi];
     NSMutableArray<NSString *> *out = [NSMutableArray arrayWithCapacity:path.count];
+    NSMutableString *unkRun = nil;
     for (OCTTokenLatticeNode *node in path) {
         if (node.tokenId == _unkTokenId) {
-            [out addObject:_unkToken];
-        } else {
-            [out addObject:[lattice pieceForNode:node]];
+            if (!_byteFallback) { [out addObject:_unkToken]; continue; }
+            if (!unkRun) unkRun = [NSMutableString string];
+            [unkRun appendString:[lattice pieceForNode:node]];
+            continue;
         }
+        if (unkRun) { [self appendUnknownRun:unkRun to:out]; unkRun = nil; }
+        [out addObject:[lattice pieceForNode:node]];
     }
+    if (unkRun) [self appendUnknownRun:unkRun to:out];
     return [out copy];
 }
 

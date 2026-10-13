@@ -1,18 +1,22 @@
 #!/usr/bin/env python3
 """
-Regenerate the goldens that pin two swift-transformers fixes ported after
+Regenerate the goldens that pin swift-transformers fixes ported after
 tag 1.3.2:
 
   - huggingface/swift-transformers#397  Honor `ignore_merges` in BPE
   - huggingface/swift-transformers#395  Match on code points in Replace,
                                          Metaspace (pre-tokenizer + decoder)
+  - huggingface/swift-transformers#388  Unigram honors byte_fallback
+  - huggingface/swift-transformers#390  BPE byte_fallback / unk edge cases
 
 Unlike regenerate_goldens.py this needs no network access and no
 `transformers`: it loads the tokenizer.json files already bundled in
 ObjCTokenizerTests/Resources/ with the Rust `tokenizers` library directly.
 
 Output: ObjCTokenizerTests/Resources/<family>_upstream_fixes_golden.json,
-a JSON list of {"text", "ids", "decoded"} where
+a JSON list of {"text", "ids", "decoded"}, and
+<family>_byte_fallback_golden.json, a list of {"variant", "patch", "cases"}
+with the same case shape (see BYTE_FALLBACK_VARIANTS), where
     ids     = encode(text, add_special_tokens=True).ids
     decoded = decode(ids, skip_special_tokens=True)
 
@@ -97,7 +101,55 @@ def write(name, entries):
     print(f"{path.name}: {len(entries)} records")
 
 
+# Byte-fallback variants (swift-transformers #388, #390). None of the
+# bundled tokenizers exercises these paths as shipped, so each variant
+# patches `model` in a copy of a bundled tokenizer.json. The patch is
+# written into the golden so the Obj-C test applies the same one:
+#   set                 model fields to overwrite
+#   append_byte_pieces  [lo, hi]: append Unigram pieces <0xlo>..<0xhi>, score 0
+#   remove_vocab        BPE vocab keys to delete
+BYTE_FALLBACK_TEXTS = ["hello", "a\U0001F99Cb", "ꙮ x", "\U0001F99C\U0001F600 ꙮꙮ",
+                       "日本語", "x 😀 y", "Привет", "naïve café",
+                       # Rust merge_word does not flush a pending <unk> when a
+                       # later char falls back to bytes: bytes come first.
+                       "\U0001F99C\uA66E\U0001F99Cb", "\U0001F99C\U0001F600\uA66E", "x\U0001F99C\U0001F600"]
+
+BYTE_FALLBACK_VARIANTS = [
+    ("t5_small", "t5-small.tokenizer.json", [
+        ("unigram_all_bytes", {"set": {"byte_fallback": True}, "append_byte_pieces": [0, 255]}),
+        ("unigram_ascii_bytes", {"set": {"byte_fallback": True}, "append_byte_pieces": [0, 127]}),
+        ("unigram_flag_only", {"set": {"byte_fallback": True}}),
+    ]),
+    ("llama_7b", "llama-7b.tokenizer.json", [
+        ("bpe_missing_byte", {"remove_vocab": ["<0xF0>"]}),
+        ("bpe_no_byte_fallback", {"set": {"byte_fallback": False}}),
+        ("bpe_no_unk", {"set": {"byte_fallback": False, "unk_token": None}}),
+        ("bpe_missing_byte_no_fuse", {"set": {"fuse_unk": False}, "remove_vocab": ["<0xF0>"]}),
+    ]),
+]
+
+
+def patched(file, patch):
+    raw = json.loads((RESOURCES / file).read_text())
+    model = raw["model"]
+    model.update(patch.get("set", {}))
+    if "append_byte_pieces" in patch:
+        lo, hi = patch["append_byte_pieces"]
+        model["vocab"] += [[f"<0x{b:02X}>", 0.0] for b in range(lo, hi + 1)]
+    for key in patch.get("remove_vocab", []):
+        del model["vocab"][key]
+    return Tokenizer.from_str(json.dumps(raw))
+
+
 def main():
+    for family, file, variants in BYTE_FALLBACK_VARIANTS:
+        out = [{"variant": name, "patch": patch,
+                "cases": golden(patched(file, patch), BYTE_FALLBACK_TEXTS)}
+               for name, patch in variants]
+        path = RESOURCES / f"{family}_byte_fallback_golden.json"
+        path.write_text(json.dumps(out, ensure_ascii=False, indent=1) + "\n")
+        print(f"{path.name}: {len(out)} variants")
+
     llama3_path = RESOURCES / "llama3.tokenizer.json"
     words = llama3_ignore_merges_texts(llama3_path)
     write("llama3", golden(load(llama3_path.name), LLAMA3_SENTENCES + words))

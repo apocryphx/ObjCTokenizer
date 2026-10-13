@@ -41,6 +41,29 @@ NSString *OCTReplaceLiteral(NSString *s, NSString *target, NSString *replacement
                                              range:NSMakeRange(0, s.length)];
 }
 
+NSString *OCTByteFallbackPiece(uint8_t byte) {
+    static NSArray<NSString *> *table;
+    static dispatch_once_t once;
+    dispatch_once(&once, ^{
+        NSMutableArray<NSString *> *t = [NSMutableArray arrayWithCapacity:256];
+        for (int b = 0; b < 256; b++) [t addObject:[NSString stringWithFormat:@"<0x%02X>", b]];
+        table = [t copy];
+    });
+    return table[byte];
+}
+
+NSArray<NSString *> *OCTByteFallbackPieces(NSString *s, NSDictionary<NSString *, NSNumber *> *vocab) {
+    NSData *utf8 = [s dataUsingEncoding:NSUTF8StringEncoding];
+    const uint8_t *bytes = utf8.bytes;
+    NSMutableArray<NSString *> *pieces = [NSMutableArray arrayWithCapacity:utf8.length];
+    for (NSUInteger i = 0; i < utf8.length; i++) {
+        NSString *piece = OCTByteFallbackPiece(bytes[i]);
+        if (vocab[piece] == nil) return nil;
+        [pieces addObject:piece];
+    }
+    return pieces;
+}
+
 NSString *OCTJoinScalars(NSArray<NSString *> *scalars) {
     return OCTJoinGraphemes(scalars);
 }

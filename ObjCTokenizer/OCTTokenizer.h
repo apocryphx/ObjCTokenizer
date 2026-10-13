@@ -11,6 +11,9 @@ typedef NS_ENUM(NSInteger, OCTTokenizerErrorCode) {
     OCTTokenizerErrorMissingModel       = 101,
     OCTTokenizerErrorMissingVocab       = 102,
     OCTTokenizerErrorUnsupportedModel   = 103,
+    /// A `{"Regex": ...}` pattern in the normalizer, pre-tokenizer, decoder
+    /// or post-processor does not compile with NSRegularExpression.
+    OCTTokenizerErrorInvalidRegex       = 104,
 };
 
 /// Tokenizer.json-driven facade. Loads a HuggingFace `tokenizer.json` and

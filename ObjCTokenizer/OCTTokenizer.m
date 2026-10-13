@@ -81,6 +81,48 @@ static id OCTParseJSON(NSData *data, NSError **outError) {
     return result;
 }
 
+#pragma mark - Config validation
+
+// swift-transformers#407: a regex that does not compile is a load error, not
+// a silent no-op. Components that take a `{"Regex": ...}` pattern (Split,
+// Replace) are built without an error channel and fall back to matching
+// nothing, so check every pattern in the pipeline configs up front.
+static BOOL OCTValidateRegexPatterns(id config, NSString *path, NSError **error) {
+    if ([config isKindOfClass:[NSArray class]]) {
+        NSUInteger i = 0;
+        for (id item in (NSArray *)config) {
+            NSString *itemPath = [NSString stringWithFormat:@"%@[%lu]", path, (unsigned long)i++];
+            if (!OCTValidateRegexPatterns(item, itemPath, error)) return NO;
+        }
+        return YES;
+    }
+    if (![config isKindOfClass:[NSDictionary class]]) return YES;
+    NSDictionary *dict = config;
+    id pattern = dict[@"pattern"];
+    id regex = [pattern isKindOfClass:[NSDictionary class]] ? pattern[@"Regex"] : nil;
+    if ([regex isKindOfClass:[NSString class]]) {
+        NSError *regexError = nil;
+        if (![NSRegularExpression regularExpressionWithPattern:regex options:0 error:&regexError]) {
+            if (error) {
+                NSString *message = [NSString stringWithFormat:@"Unable to compile tokenizer regex %@ at %@: %@",
+                                     regex, path, regexError.localizedDescription];
+                *error = [NSError errorWithDomain:OCTTokenizerErrorDomain
+                                             code:OCTTokenizerErrorInvalidRegex
+                                         userInfo:@{NSLocalizedDescriptionKey: message,
+                                                    NSUnderlyingErrorKey: regexError}];
+            }
+            return NO;
+        }
+    }
+    for (NSString *key in dict) {
+        if ([key isEqualToString:@"pattern"]) continue;
+        id value = dict[key];
+        if (![value isKindOfClass:[NSDictionary class]] && ![value isKindOfClass:[NSArray class]]) continue;
+        if (!OCTValidateRegexPatterns(value, [NSString stringWithFormat:@"%@.%@", path, key], error)) return NO;
+    }
+    return YES;
+}
+
 @implementation OCTTokenizer {
     id<OCTNormalizer>     _normalizer;
     id<OCTPreTokenizer>   _preTokenizer;
@@ -167,7 +209,8 @@ static id OCTParseJSON(NSData *data, NSError **outError) {
             OCTUnigram *uni = [[OCTUnigram alloc] initWithVocabPairs:rawVocab
                                                               unkId:unkId
                                                          bosTokenId:0
-                                                         eosTokenId:0];
+                                                         eosTokenId:0
+                                                       byteFallback:OCTConfigBool(model, @"byteFallback", NO)];
             _kernel = uni;
             unkToken = uni.unkToken;
             vocab = [uni.vocab mutableCopy];
@@ -281,7 +324,11 @@ static id OCTParseJSON(NSData *data, NSError **outError) {
     _sepTokenId  = _sepToken  ? vocab[_sepToken].integerValue  : -1;
     _maskTokenId = _maskToken ? vocab[_maskToken].integerValue : -1;
 
-    // 4. Pipeline pieces. All optional in tokenizer.json — be lenient.
+    // 4. Pipeline pieces. All optional in tokenizer.json — be lenient,
+    // except about regexes that do not compile.
+    for (NSString *key in @[@"normalizer", @"preTokenizer", @"decoder", @"postProcessor"]) {
+        if (!OCTValidateRegexPatterns(OCTConfigDict(json, key), key, error)) return nil;
+    }
     _normalizer    = [OCTNormalizerFactory     normalizerFromConfig:    OCTConfigDict(json, @"normalizer")];
     _preTokenizer  = [OCTPreTokenizerFactory   preTokenizerFromConfig:  OCTConfigDict(json, @"preTokenizer")];
     _postProcessor = [OCTPostProcessorFactory  postProcessorFromConfig: OCTConfigDict(json, @"postProcessor")];

@@ -372,11 +372,12 @@ static NSArray<NSString *> *OCTSplitInterleaveString(NSString *text,
         NSString *regexPattern = patternDict[@"Regex"];
         NSString *stringPattern = patternDict[@"String"];
         if ([regexPattern isKindOfClass:[NSString class]] && regexPattern.length > 0) {
-            NSError *err = nil;
+            // An invalid regex leaves _regex nil: the text passes through
+            // whole. OCTTokenizer rejects such a tokenizer.json at load
+            // (OCTTokenizerErrorInvalidRegex); this only affects direct use.
             _regex = [NSRegularExpression regularExpressionWithPattern:regexPattern
                                                                options:0
-                                                                 error:&err];
-            NSAssert(_regex, @"Split pre-tokenizer: invalid regex %@: %@", regexPattern, err);
+                                                                 error:NULL];
         } else if ([stringPattern isKindOfClass:[NSString class]] && stringPattern.length > 0) {
             _stringPattern = [stringPattern copy];
         }
