@@ -151,6 +151,13 @@ static NSString *OCTRobertaTrimExtraSpaces(NSString *token) {
 - (NSArray<NSString *> *)postProcess:(NSArray<NSString *> *)tokens
                           tokensPair:(nullable NSArray<NSString *> *)tokensPair
                     addSpecialTokens:(BOOL)addSpecialTokens {
+    // swift-transformers#400: without special tokens the input passes
+    // through untouched (concatenated with the pair), with no trimming.
+    if (!addSpecialTokens) {
+        if (!tokensPair.count) return [tokens copy];
+        return [tokens arrayByAddingObjectsFromArray:tokensPair];
+    }
+
     NSArray<NSString *> *outTokens = tokens;
     NSArray<NSString *> *outPair = tokensPair;
 
@@ -170,13 +177,6 @@ static NSString *OCTRobertaTrimExtraSpaces(NSString *token) {
             }
             outPair = p;
         }
-    }
-
-    if (!addSpecialTokens) {
-        if (!outPair.count) return [outTokens copy];
-        NSMutableArray<NSString *> *flat = [outTokens mutableCopy];
-        [flat addObjectsFromArray:outPair];
-        return [flat copy];
     }
 
     NSMutableArray<NSString *> *result = [NSMutableArray arrayWithCapacity:outTokens.count + 5];

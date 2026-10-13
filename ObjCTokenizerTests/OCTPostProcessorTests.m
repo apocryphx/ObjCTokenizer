@@ -150,6 +150,23 @@
                                   @"in", @"the", @"west", @"[SEP]"]));
 }
 
+- (void)testRobertaWithoutSpecialTokensLeavesTokensUntouched {
+    // swift-transformers#400: addSpecialTokens=NO skips the trimming too.
+    NSDictionary *config = @{
+        @"cls": @[@"[CLS]", @0],
+        @"sep": @[@"[SEP]", @0],
+        @"trimOffset": @YES,
+        @"addPrefixSpace": @NO,
+    };
+    OCTRobertaProcessing *p = [[OCTRobertaProcessing alloc] initWithConfig:config];
+
+    NSArray<NSString *> *tokens = @[@" The ", @" sun", @"sets "];
+    NSArray<NSString *> *pair = @[@"  in ", @"  the    ", @"west"];
+    XCTAssertEqualObjects([p postProcess:tokens tokensPair:nil addSpecialTokens:NO], tokens);
+    XCTAssertEqualObjects([p postProcess:tokens tokensPair:pair addSpecialTokens:NO],
+                          [tokens arrayByAddingObjectsFromArray:pair]);
+}
+
 - (void)testRobertaAddsTokensEnglish {
     // Sentence-pair: [CLS] ...tokens [SEP] [SEP] ...pair [SEP].
     // The double [SEP] between segments matches fairseq's hub_interface.py.
