@@ -1,0 +1,152 @@
+[
+ {
+  "variant": "unigram_as_shipped",
+  "patch": {},
+  "cases": [
+   {
+    "text": "🦜😀",
+    "ids": [
+     3,
+     2,
+     1
+    ],
+    "decoded": ""
+   },
+   {
+    "text": "x🦜😀 ꙮ!",
+    "ids": [
+     3,
+     226,
+     2,
+     3,
+     2,
+     55,
+     1
+    ],
+    "decoded": "x !"
+   },
+   {
+    "text": "🦜 😀",
+    "ids": [
+     3,
+     2,
+     3,
+     2,
+     1
+    ],
+    "decoded": " "
+   },
+   {
+    "text": "ꙮꙮ",
+    "ids": [
+     3,
+     2,
+     1
+    ],
+    "decoded": ""
+   },
+   {
+    "text": "a🦜b😀c",
+    "ids": [
+     3,
+     9,
+     2,
+     115,
+     2,
+     75,
+     1
+    ],
+    "decoded": "abc"
+   },
+   {
+    "text": "🦜😀ꙮꙮꙮ",
+    "ids": [
+     3,
+     2,
+     1
+    ],
+    "decoded": ""
+   }
+  ]
+ },
+ {
+  "variant": "unigram_split_each_char",
+  "patch": {
+   "pre_tokenizer": {
+    "type": "Split",
+    "pattern": {
+     "Regex": "."
+    },
+    "behavior": "Isolated",
+    "invert": false
+   }
+  },
+  "cases": [
+   {
+    "text": "🦜😀",
+    "ids": [
+     2,
+     2,
+     1
+    ],
+    "decoded": ""
+   },
+   {
+    "text": "x🦜😀 ꙮ!",
+    "ids": [
+     226,
+     2,
+     2,
+     2,
+     2,
+     55,
+     1
+    ],
+    "decoded": "x!"
+   },
+   {
+    "text": "🦜 😀",
+    "ids": [
+     2,
+     2,
+     2,
+     1
+    ],
+    "decoded": ""
+   },
+   {
+    "text": "ꙮꙮ",
+    "ids": [
+     2,
+     2,
+     1
+    ],
+    "decoded": ""
+   },
+   {
+    "text": "a🦜b😀c",
+    "ids": [
+     9,
+     2,
+     115,
+     2,
+     75,
+     1
+    ],
+    "decoded": "abc"
+   },
+   {
+    "text": "🦜😀ꙮꙮꙮ",
+    "ids": [
+     2,
+     2,
+     2,
+     2,
+     2,
+     1
+    ],
+    "decoded": ""
+   }
+  ]
+ }
+]

@@ -403,21 +403,9 @@ static BOOL OCTValidateRegexPatterns(id config, NSString *path, NSError **error)
         }
     }
 
-    // 3b. Fuse consecutive UNK tokens if the kernel asks for it
-    // (SentencePiece Unigram: T5 / mBART / BGE-M3).
-    BOOL fuseUnk = [_kernel respondsToSelector:@selector(fuseUnknownTokens)] && _kernel.fuseUnknownTokens;
-    if (fuseUnk) {
-        NSString *unk = _kernel.unkToken;
-        NSMutableArray<NSString *> *fused = [NSMutableArray arrayWithCapacity:tokens.count];
-        BOOL prevWasUnk = NO;
-        for (NSString *t in tokens) {
-            BOOL isUnk = [t isEqualToString:unk];
-            if (isUnk && prevWasUnk) continue;
-            [fused addObject:t];
-            prevWasUnk = isUnk;
-        }
-        tokens = fused;
-    }
+    // Consecutive UNK tokens are fused per word inside the kernels (Unigram
+    // always, BPE when fuse_unk), as in HF tokenizers. Unknowns from different
+    // words stay separate, so there is no fusion pass over the whole sequence.
 
     // 4. Post-process (inserts [CLS] / [SEP] when addSpecialTokens=YES).
     if (_postProcessor) {

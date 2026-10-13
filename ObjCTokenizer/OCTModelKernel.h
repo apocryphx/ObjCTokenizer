@@ -20,9 +20,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy, readonly) NSString *unkToken;
 
 @optional
-/// Whether consecutive `unkToken` outputs from `tokenize:` should be fused
-/// into a single unkToken at the orchestration layer. SentencePiece Unigram
-/// (T5 / mBART / BGE-M3) sets this to YES. WordPiece (BERT family) does not.
+/// Whether `tokenize:` fuses consecutive unknown characters of a word into a
+/// single unkToken (HF `fuse_unk`). Informational: the kernel does the
+/// fusing itself, per word. SentencePiece Unigram (T5 / mBART / BGE-M3)
+/// always fuses; BPE follows `fuse_unk`; WordPiece (BERT family) does not.
 @property (nonatomic, assign, readonly) BOOL fuseUnknownTokens;
 
 @end

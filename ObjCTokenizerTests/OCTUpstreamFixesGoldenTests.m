@@ -19,6 +19,7 @@
 //     (BPE). Each variant patches a bundled tokenizer.json; the patch is
 //     recorded in the golden so both sides build the same tokenizer.
 //   - Invalid regex: huggingface/swift-transformers#407, a load error.
+//   - Unknown-token fusion per pre-tokenized word, as in Rust.
 //   - T5 Precompiled normalizer (not an upstream fix; swift-transformers
 //     still approximates it): every code point, plus base + mark clusters.
 
@@ -73,8 +74,9 @@
 
 #pragma mark - Byte fallback (swift-transformers #388, #390)
 
-// Each golden variant carries the `model` patch the generator applied to a
-// copy of the bundled tokenizer.json; apply the same one here.
+// Each golden variant carries the patch (to `model`, or the pre-tokenizer)
+// the generator applied to a copy of the bundled tokenizer.json; apply the
+// same one here.
 - (NSDictionary *)patchedJSON:(NSString *)tokenizerName patch:(NSDictionary *)patch {
     NSURL *url = [[NSBundle bundleForClass:self.class] URLForResource:tokenizerName withExtension:@"json"];
     NSMutableDictionary *json = [NSJSONSerialization JSONObjectWithData:[NSData dataWithContentsOfURL:url]
@@ -89,10 +91,11 @@
         }
     }
     for (NSString *key in patch[@"remove_vocab"]) [model[@"vocab"] removeObjectForKey:key];
+    if (patch[@"pre_tokenizer"]) json[@"pre_tokenizer"] = patch[@"pre_tokenizer"];
     return json;
 }
 
-- (void)runByteFallbackFamily:(NSString *)tokenizerName goldenName:(NSString *)goldenName {
+- (void)runPatchedFamily:(NSString *)tokenizerName goldenName:(NSString *)goldenName {
     NSURL *goldURL = [[NSBundle bundleForClass:self.class] URLForResource:goldenName withExtension:@"json"];
     XCTAssertNotNil(goldURL, @"%@.json missing from test bundle", goldenName);
     NSArray *variants = [NSJSONSerialization JSONObjectWithData:[NSData dataWithContentsOfURL:goldURL]
@@ -114,11 +117,24 @@
 }
 
 - (void)testUnigramByteFallback {
-    [self runByteFallbackFamily:@"t5-small.tokenizer" goldenName:@"t5_small_byte_fallback_golden"];
+    [self runPatchedFamily:@"t5-small.tokenizer" goldenName:@"t5_small_byte_fallback_golden"];
 }
 
 - (void)testBPEByteFallback {
-    [self runByteFallbackFamily:@"llama-7b.tokenizer" goldenName:@"llama_7b_byte_fallback_golden"];
+    [self runPatchedFamily:@"llama-7b.tokenizer" goldenName:@"llama_7b_byte_fallback_golden"];
+}
+
+#pragma mark - Unknown-token fusion
+
+// Rust fuses consecutive unknown tokens per pre-tokenized word, inside the
+// model; adjacent unknowns from different words stay separate.
+
+- (void)testUnigramUnkFusionIsPerWord {
+    [self runPatchedFamily:@"t5-small.tokenizer" goldenName:@"t5_small_unk_fusion_golden"];
+}
+
+- (void)testBPEUnkFusionIsPerWord {
+    [self runPatchedFamily:@"llama-7b.tokenizer" goldenName:@"llama_7b_unk_fusion_golden"];
 }
 
 #pragma mark - Invalid regex (swift-transformers #407)

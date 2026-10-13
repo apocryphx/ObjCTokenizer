@@ -68,7 +68,7 @@
 }
 
 - (void)appendUnknownRun:(NSString *)run to:(NSMutableArray<NSString *> *)out {
-    NSArray<NSString *> *bytes = OCTByteFallbackPieces(run, _vocab);
+    NSArray<NSString *> *bytes = _byteFallback ? OCTByteFallbackPieces(run, _vocab) : nil;
     if (bytes) [out addObjectsFromArray:bytes];
     else [out addObject:_unkToken];
 }
@@ -117,20 +117,16 @@
         beginPos += mblen;
     }
 
-    // Emit the unkToken *string* for UNK nodes rather than the original
-    // text — otherwise the orchestration's fuse-consecutive-UNK pass can't
-    // recognize them as adjacent.
-    //
-    // With byte_fallback (swift-transformers#388), port of Unigram::tokenize
-    // in HF tokenizers: a run of consecutive UNK nodes is fused into one
-    // string first, then becomes the byte pieces of that whole string — or
-    // the unk token if any byte piece is missing from the vocab.
+    // Port of Unigram::encode + tokenize in HF tokenizers: consecutive UNK
+    // nodes are fused into one piece (fuse_unk is always on for Unigram),
+    // per word. With byte_fallback (swift-transformers#388) the fused piece
+    // becomes the byte pieces of its whole text when they are all in vocab;
+    // otherwise, or without byte_fallback, it becomes the unk token.
     NSArray<OCTTokenLatticeNode *> *path = [lattice viterbi];
     NSMutableArray<NSString *> *out = [NSMutableArray arrayWithCapacity:path.count];
     NSMutableString *unkRun = nil;
     for (OCTTokenLatticeNode *node in path) {
         if (node.tokenId == _unkTokenId) {
-            if (!_byteFallback) { [out addObject:_unkToken]; continue; }
             if (!unkRun) unkRun = [NSMutableString string];
             [unkRun appendString:[lattice pieceForNode:node]];
             continue;

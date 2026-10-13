@@ -1,0 +1,243 @@
+[
+ {
+  "variant": "bpe_fuse_unk",
+  "patch": {
+   "set": {
+    "byte_fallback": false
+   }
+  },
+  "cases": [
+   {
+    "text": "🦜😀",
+    "ids": [
+     1,
+     29871,
+     0
+    ],
+    "decoded": ""
+   },
+   {
+    "text": "x🦜😀 ꙮ!",
+    "ids": [
+     1,
+     921,
+     0,
+     29871,
+     0,
+     29991
+    ],
+    "decoded": "x !"
+   },
+   {
+    "text": "🦜 😀",
+    "ids": [
+     1,
+     29871,
+     0,
+     29871,
+     0
+    ],
+    "decoded": " "
+   },
+   {
+    "text": "ꙮꙮ",
+    "ids": [
+     1,
+     29871,
+     0
+    ],
+    "decoded": ""
+   },
+   {
+    "text": "a🦜b😀c",
+    "ids": [
+     1,
+     263,
+     0,
+     29890,
+     0,
+     29883
+    ],
+    "decoded": "abc"
+   },
+   {
+    "text": "🦜😀ꙮꙮꙮ",
+    "ids": [
+     1,
+     29871,
+     0
+    ],
+    "decoded": ""
+   }
+  ]
+ },
+ {
+  "variant": "bpe_fuse_unk_split_each_char",
+  "patch": {
+   "set": {
+    "byte_fallback": false
+   },
+   "pre_tokenizer": {
+    "type": "Split",
+    "pattern": {
+     "Regex": "."
+    },
+    "behavior": "Isolated",
+    "invert": false
+   }
+  },
+  "cases": [
+   {
+    "text": "🦜😀",
+    "ids": [
+     1,
+     29871,
+     0,
+     0
+    ],
+    "decoded": ""
+   },
+   {
+    "text": "x🦜😀 ꙮ!",
+    "ids": [
+     1,
+     29871,
+     29916,
+     0,
+     0,
+     29871,
+     0,
+     29991
+    ],
+    "decoded": "x !"
+   },
+   {
+    "text": "🦜 😀",
+    "ids": [
+     1,
+     29871,
+     0,
+     29871,
+     0
+    ],
+    "decoded": " "
+   },
+   {
+    "text": "ꙮꙮ",
+    "ids": [
+     1,
+     29871,
+     0,
+     0
+    ],
+    "decoded": ""
+   },
+   {
+    "text": "a🦜b😀c",
+    "ids": [
+     1,
+     29871,
+     29874,
+     0,
+     29890,
+     0,
+     29883
+    ],
+    "decoded": "abc"
+   },
+   {
+    "text": "🦜😀ꙮꙮꙮ",
+    "ids": [
+     1,
+     29871,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "decoded": ""
+   }
+  ]
+ },
+ {
+  "variant": "bpe_no_fuse_unk",
+  "patch": {
+   "set": {
+    "byte_fallback": false,
+    "fuse_unk": false
+   }
+  },
+  "cases": [
+   {
+    "text": "🦜😀",
+    "ids": [
+     1,
+     29871,
+     0,
+     0
+    ],
+    "decoded": ""
+   },
+   {
+    "text": "x🦜😀 ꙮ!",
+    "ids": [
+     1,
+     921,
+     0,
+     0,
+     29871,
+     0,
+     29991
+    ],
+    "decoded": "x !"
+   },
+   {
+    "text": "🦜 😀",
+    "ids": [
+     1,
+     29871,
+     0,
+     29871,
+     0
+    ],
+    "decoded": " "
+   },
+   {
+    "text": "ꙮꙮ",
+    "ids": [
+     1,
+     29871,
+     0,
+     0
+    ],
+    "decoded": ""
+   },
+   {
+    "text": "a🦜b😀c",
+    "ids": [
+     1,
+     263,
+     0,
+     29890,
+     0,
+     29883
+    ],
+    "decoded": "abc"
+   },
+   {
+    "text": "🦜😀ꙮꙮꙮ",
+    "ids": [
+     1,
+     29871,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "decoded": ""
+   }
+  ]
+ }
+]
