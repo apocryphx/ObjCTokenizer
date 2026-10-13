@@ -190,11 +190,13 @@ static id OCTParseJSON(NSData *data, NSError **outError) {
             unkToken = modelUnk ?: @"";
             BOOL fuseUnk = OCTConfigBool(model, @"fuseUnk", NO);
             BOOL byteFallback = OCTConfigBool(model, @"byteFallback", NO);
+            BOOL ignoreMerges = OCTConfigBool(model, @"ignoreMerges", NO);
             _kernel = [[OCTBPE alloc] initWithVocab:vocab
                                              merges:merges
                                            unkToken:modelUnk
                                   fuseUnknownTokens:fuseUnk
-                                       byteFallback:byteFallback];
+                                       byteFallback:byteFallback
+                                       ignoreMerges:ignoreMerges];
             break;
         }
         case OCTKernelWordPiece: {

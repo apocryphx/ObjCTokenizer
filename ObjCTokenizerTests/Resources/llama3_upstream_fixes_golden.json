@@ -1,0 +1,4824 @@
+[
+ {
+  "text": "Türkiye'de 85 milyon insan yaşıyor.",
+  "ids": [
+   128000,
+   112353,
+   4265,
+   68,
+   220,
+   5313,
+   107667,
+   62638,
+   13835,
+   78413,
+   48320,
+   13
+  ],
+  "decoded": "Türkiye'de 85 milyon insan yaşıyor."
+ },
+ {
+  "text": "Ayrıca toplumsal bir sorun olarak görülüyor, özellikle gençler arasında.",
+  "ids": [
+   128000,
+   32,
+   11160,
+   3862,
+   936,
+   125143,
+   15606,
+   105997,
+   50994,
+   108290,
+   102980,
+   11,
+   109252,
+   109637,
+   1565,
+   102957,
+   13
+  ],
+  "decoded": "Ayrıca toplumsal bir sorun olarak görülüyor, özellikle gençler arasında."
+ },
+ {
+  "text": "Hà Nội là thủ đô của Việt Nam.",
+  "ids": [
+   128000,
+   39,
+   6496,
+   105006,
+   39015,
+   102711,
+   109701,
+   60835,
+   101798,
+   31074,
+   13
+  ],
+  "decoded": "Hà Nội là thủ đô của Việt Nam."
+ },
+ {
+  "text": "Например, в октябре качество воздуха было хорошим.",
+  "ids": [
+   128000,
+   20807,
+   19619,
+   2233,
+   81448,
+   11,
+   5927,
+   72664,
+   101331,
+   10124,
+   100387,
+   7820,
+   50223,
+   52744,
+   117955,
+   102720,
+   104976,
+   16494,
+   13
+  ],
+  "decoded": "Например, в октябре качество воздуха было хорошим."
+ },
+ {
+  "text": "Smlouva obsahuje důležité informace, obvykle v příloze.",
+  "ids": [
+   128000,
+   50,
+   1029,
+   283,
+   6723,
+   121717,
+   122339,
+   107355,
+   11,
+   122301,
+   348,
+   100578,
+   385,
+   3059,
+   13
+  ],
+  "decoded": "Smlouva obsahuje důležité informace, obvykle v příloze."
+ },
+ {
+  "text": "Hello world, nothing special here.",
+  "ids": [
+   128000,
+   9906,
+   1917,
+   11,
+   4400,
+   3361,
+   1618,
+   13
+  ],
+  "decoded": "Hello world, nothing special here."
+ },
+ {
+  "text": " việc",
+  "ids": [
+   128000,
+   100769
+  ],
+  "decoded": " việc"
+ },
+ {
+  "text": " hợp",
+  "ids": [
+   128000,
+   100827
+  ],
+  "decoded": " hợp"
+ },
+ {
+  "text": " nhiều",
+  "ids": [
+   128000,
+   100937
+  ],
+  "decoded": " nhiều"
+ },
+ {
+  "text": " điều",
+  "ids": [
+   128000,
+   101309
+  ],
+  "decoded": " điều"
+ },
+ {
+  "text": " jeho",
+  "ids": [
+   128000,
+   101503
+  ],
+  "decoded": " jeho"
+ },
+ {
+  "text": "ektedir",
+  "ids": [
+   128000,
+   101673
+  ],
+  "decoded": "ektedir"
+ },
+ {
+  "text": " Việt",
+  "ids": [
+   128000,
+   101798
+  ],
+  "decoded": " Việt"
+ },
+ {
+  "text": " ایران",
+  "ids": [
+   128000,
+   101848
+  ],
+  "decoded": " ایران"
+ },
+ {
+  "text": " ngoài",
+  "ids": [
+   128000,
+   102507
+  ],
+  "decoded": " ngoài"
+ },
+ {
+  "text": " nhiên",
+  "ids": [
+   128000,
+   102536
+  ],
+  "decoded": " nhiên"
+ },
+ {
+  "text": "ıldı",
+  "ids": [
+   128000,
+   102564
+  ],
+  "decoded": "ıldı"
+ },
+ {
+  "text": "mektedir",
+  "ids": [
+   128000,
+   102909
+  ],
+  "decoded": "mektedir"
+ },
+ {
+  "text": "аракт",
+  "ids": [
+   128000,
+   103003
+  ],
+  "decoded": "аракт"
+ },
+ {
+  "text": "lardan",
+  "ids": [
+   128000,
+   103084
+  ],
+  "decoded": "lardan"
+ },
+ {
+  "text": " biệt",
+  "ids": [
+   128000,
+   103147
+  ],
+  "decoded": " biệt"
+ },
+ {
+  "text": " değiş",
+  "ids": [
+   128000,
+   103425
+  ],
+  "decoded": " değiş"
+ },
+ {
+  "text": " характ",
+  "ids": [
+   128000,
+   103434
+  ],
+  "decoded": " характ"
+ },
+ {
+  "text": " nhiệm",
+  "ids": [
+   128000,
+   103562
+  ],
+  "decoded": " nhiệm"
+ },
+ {
+  "text": " використ",
+  "ids": [
+   128000,
+   103754
+  ],
+  "decoded": " використ"
+ },
+ {
+  "text": " každ",
+  "ids": [
+   128000,
+   103870
+  ],
+  "decoded": " každ"
+ },
+ {
+  "text": "iyordu",
+  "ids": [
+   128000,
+   104121
+  ],
+  "decoded": "iyordu"
+ },
+ {
+  "text": " даже",
+  "ids": [
+   128000,
+   104199
+  ],
+  "decoded": " даже"
+ },
+ {
+  "text": " ulaş",
+  "ids": [
+   128000,
+   104267
+  ],
+  "decoded": " ulaş"
+ },
+ {
+  "text": "ılmış",
+  "ids": [
+   128000,
+   104516
+  ],
+  "decoded": "ılmış"
+ },
+ {
+  "text": " oluştur",
+  "ids": [
+   128000,
+   104700
+  ],
+  "decoded": " oluştur"
+ },
+ {
+  "text": " практи",
+  "ids": [
+   128000,
+   104912
+  ],
+  "decoded": " практи"
+ },
+ {
+  "text": " культу",
+  "ids": [
+   128000,
+   104937
+  ],
+  "decoded": " культу"
+ },
+ {
+  "text": "larından",
+  "ids": [
+   128000,
+   105046
+  ],
+  "decoded": "larından"
+ },
+ {
+  "text": " zdrav",
+  "ids": [
+   128000,
+   105299
+  ],
+  "decoded": " zdrav"
+ },
+ {
+  "text": " nhanh",
+  "ids": [
+   128000,
+   105314
+  ],
+  "decoded": " nhanh"
+ },
+ {
+  "text": ".:.:.:.:.:.:.:.:",
+  "ids": [
+   128000,
+   105356
+  ],
+  "decoded": ".:.:.:.:.:.:.:.:"
+ },
+ {
+  "text": " اطلاعات",
+  "ids": [
+   128000,
+   105370
+  ],
+  "decoded": " اطلاعات"
+ },
+ {
+  "text": "алась",
+  "ids": [
+   128000,
+   105435
+  ],
+  "decoded": "алась"
+ },
+ {
+  "text": " характер",
+  "ids": [
+   128000,
+   105670
+  ],
+  "decoded": " характер"
+ },
+ {
+  "text": " розвит",
+  "ids": [
+   128000,
+   105672
+  ],
+  "decoded": " розвит"
+ },
+ {
+  "text": " hiểu",
+  "ids": [
+   128000,
+   105744
+  ],
+  "decoded": " hiểu"
+ },
+ {
+  "text": " geliş",
+  "ids": [
+   128000,
+   105969
+  ],
+  "decoded": " geliş"
+ },
+ {
+  "text": " вироб",
+  "ids": [
+   128000,
+   105983
+  ],
+  "decoded": " вироб"
+ },
+ {
+  "text": "ıntı",
+  "ids": [
+   128000,
+   106216
+  ],
+  "decoded": "ıntı"
+ },
+ {
+  "text": " biểu",
+  "ids": [
+   128000,
+   106329
+  ],
+  "decoded": " biểu"
+ },
+ {
+  "text": " dikkat",
+  "ids": [
+   128000,
+   106350
+  ],
+  "decoded": " dikkat"
+ },
+ {
+  "text": " diễn",
+  "ids": [
+   128000,
+   106371
+  ],
+  "decoded": " diễn"
+ },
+ {
+  "text": " küçük",
+  "ids": [
+   128000,
+   106527
+  ],
+  "decoded": " küçük"
+ },
+ {
+  "text": " uygulam",
+  "ids": [
+   128000,
+   106535
+  ],
+  "decoded": " uygulam"
+ },
+ {
+  "text": "атися",
+  "ids": [
+   128000,
+   106710
+  ],
+  "decoded": "атися"
+ },
+ {
+  "text": " všechny",
+  "ids": [
+   128000,
+   106787
+  ],
+  "decoded": " všechny"
+ },
+ {
+  "text": "rodní",
+  "ids": [
+   128000,
+   106920
+  ],
+  "decoded": "rodní"
+ },
+ {
+  "text": " riêng",
+  "ids": [
+   128000,
+   107000
+  ],
+  "decoded": " riêng"
+ },
+ {
+  "text": "ıyordu",
+  "ids": [
+   128000,
+   107102
+  ],
+  "decoded": "ıyordu"
+ },
+ {
+  "text": " hỏi",
+  "ids": [
+   128000,
+   107193
+  ],
+  "decoded": " hỏi"
+ },
+ {
+  "text": " використов",
+  "ids": [
+   128000,
+   107197
+  ],
+  "decoded": " використов"
+ },
+ {
+  "text": " geliştir",
+  "ids": [
+   128000,
+   107286
+  ],
+  "decoded": " geliştir"
+ },
+ {
+  "text": " otev",
+  "ids": [
+   128000,
+   107395
+  ],
+  "decoded": " otev"
+ },
+ {
+  "text": " nhiệt",
+  "ids": [
+   128000,
+   107421
+  ],
+  "decoded": " nhiệt"
+ },
+ {
+  "text": " merkez",
+  "ids": [
+   128000,
+   107453
+  ],
+  "decoded": " merkez"
+ },
+ {
+  "text": " возду",
+  "ids": [
+   128000,
+   107562
+  ],
+  "decoded": " возду"
+ },
+ {
+  "text": "ecektir",
+  "ids": [
+   128000,
+   107572
+  ],
+  "decoded": "ecektir"
+ },
+ {
+  "text": "итися",
+  "ids": [
+   128000,
+   107658
+  ],
+  "decoded": "итися"
+ },
+ {
+  "text": " milyon",
+  "ids": [
+   128000,
+   107667
+  ],
+  "decoded": " milyon"
+ },
+ {
+  "text": " розвитку",
+  "ids": [
+   128000,
+   107695
+  ],
+  "decoded": " розвитку"
+ },
+ {
+  "text": " Ayrıca",
+  "ids": [
+   128000,
+   107716
+  ],
+  "decoded": " Ayrıca"
+ },
+ {
+  "text": " mümkün",
+  "ids": [
+   128000,
+   107737
+  ],
+  "decoded": " mümkün"
+ },
+ {
+  "text": " Üniversitesi",
+  "ids": [
+   128000,
+   107811
+  ],
+  "decoded": " Üniversitesi"
+ },
+ {
+  "text": "ární",
+  "ids": [
+   128000,
+   107818
+  ],
+  "decoded": "ární"
+ },
+ {
+  "text": " mềm",
+  "ids": [
+   128000,
+   107967
+  ],
+  "decoded": " mềm"
+ },
+ {
+  "text": " визнач",
+  "ids": [
+   128000,
+   107996
+  ],
+  "decoded": " визнач"
+ },
+ {
+  "text": " заяв",
+  "ids": [
+   128000,
+   108123
+  ],
+  "decoded": " заяв"
+ },
+ {
+  "text": " mnoh",
+  "ids": [
+   128000,
+   108294
+  ],
+  "decoded": " mnoh"
+ },
+ {
+  "text": " değiştir",
+  "ids": [
+   128000,
+   108303
+  ],
+  "decoded": " değiştir"
+ },
+ {
+  "text": "lardı",
+  "ids": [
+   128000,
+   108457
+  ],
+  "decoded": "lardı"
+ },
+ {
+  "text": " vardı",
+  "ids": [
+   128000,
+   108497
+  ],
+  "decoded": " vardı"
+ },
+ {
+  "text": " özellik",
+  "ids": [
+   128000,
+   108501
+  ],
+  "decoded": " özellik"
+ },
+ {
+  "text": " uveden",
+  "ids": [
+   128000,
+   108512
+  ],
+  "decoded": " uveden"
+ },
+ {
+  "text": " tekrar",
+  "ids": [
+   128000,
+   108531
+  ],
+  "decoded": " tekrar"
+ },
+ {
+  "text": " değişik",
+  "ids": [
+   128000,
+   108564
+  ],
+  "decoded": " değişik"
+ },
+ {
+  "text": "ilmektedir",
+  "ids": [
+   128000,
+   108577
+  ],
+  "decoded": "ilmektedir"
+ },
+ {
+  "text": " değildir",
+  "ids": [
+   128000,
+   108644
+  ],
+  "decoded": " değildir"
+ },
+ {
+  "text": "átky",
+  "ids": [
+   128000,
+   108653
+  ],
+  "decoded": "átky"
+ },
+ {
+  "text": " yüksel",
+  "ids": [
+   128000,
+   108866
+  ],
+  "decoded": " yüksel"
+ },
+ {
+  "text": "алася",
+  "ids": [
+   128000,
+   108918
+  ],
+  "decoded": "алася"
+ },
+ {
+  "text": " sektör",
+  "ids": [
+   128000,
+   108921
+  ],
+  "decoded": " sektör"
+ },
+ {
+  "text": " smlou",
+  "ids": [
+   128000,
+   108980
+  ],
+  "decoded": " smlou"
+ },
+ {
+  "text": " zákona",
+  "ids": [
+   128000,
+   108998
+  ],
+  "decoded": " zákona"
+ },
+ {
+  "text": " kaldır",
+  "ids": [
+   128000,
+   109009
+  ],
+  "decoded": " kaldır"
+ },
+ {
+  "text": " století",
+  "ids": [
+   128000,
+   109109
+  ],
+  "decoded": " století"
+ },
+ {
+  "text": " tarihi",
+  "ids": [
+   128000,
+   109133
+  ],
+  "decoded": " tarihi"
+ },
+ {
+  "text": " giriş",
+  "ids": [
+   128000,
+   109179
+  ],
+  "decoded": " giriş"
+ },
+ {
+  "text": " özellikle",
+  "ids": [
+   128000,
+   109252
+  ],
+  "decoded": " özellikle"
+ },
+ {
+  "text": " zdravot",
+  "ids": [
+   128000,
+   109414
+  ],
+  "decoded": " zdravot"
+ },
+ {
+  "text": " ngoại",
+  "ids": [
+   128000,
+   109621
+  ],
+  "decoded": " ngoại"
+ },
+ {
+  "text": " позволя",
+  "ids": [
+   128000,
+   109689
+  ],
+  "decoded": " позволя"
+ },
+ {
+  "text": " yöntem",
+  "ids": [
+   128000,
+   109693
+  ],
+  "decoded": " yöntem"
+ },
+ {
+  "text": " chtě",
+  "ids": [
+   128000,
+   109702
+  ],
+  "decoded": " chtě"
+ },
+ {
+  "text": "acaktır",
+  "ids": [
+   128000,
+   109744
+  ],
+  "decoded": "acaktır"
+ },
+ {
+  "text": "еристи",
+  "ids": [
+   128000,
+   110043
+  ],
+  "decoded": "еристи"
+ },
+ {
+  "text": " odbor",
+  "ids": [
+   128000,
+   110107
+  ],
+  "decoded": " odbor"
+ },
+ {
+  "text": " stejně",
+  "ids": [
+   128000,
+   110120
+  ],
+  "decoded": " stejně"
+ },
+ {
+  "text": " söyledi",
+  "ids": [
+   128000,
+   110143
+  ],
+  "decoded": " söyledi"
+ },
+ {
+  "text": "átku",
+  "ids": [
+   128000,
+   110150
+  ],
+  "decoded": "átku"
+ },
+ {
+  "text": " yardımcı",
+  "ids": [
+   128000,
+   110324
+  ],
+  "decoded": " yardımcı"
+ },
+ {
+  "text": " kültür",
+  "ids": [
+   128000,
+   110383
+  ],
+  "decoded": " kültür"
+ },
+ {
+  "text": " mevcut",
+  "ids": [
+   128000,
+   110387
+  ],
+  "decoded": " mevcut"
+ },
+ {
+  "text": " seviy",
+  "ids": [
+   128000,
+   110410
+  ],
+  "decoded": " seviy"
+ },
+ {
+  "text": " yaptığı",
+  "ids": [
+   128000,
+   110486
+  ],
+  "decoded": " yaptığı"
+ },
+ {
+  "text": " vzděl",
+  "ids": [
+   128000,
+   110525
+  ],
+  "decoded": " vzděl"
+ },
+ {
+  "text": " заболевания",
+  "ids": [
+   128000,
+   110563
+  ],
+  "decoded": " заболевания"
+ },
+ {
+  "text": " vztah",
+  "ids": [
+   128000,
+   110600
+  ],
+  "decoded": " vztah"
+ },
+ {
+  "text": " olsun",
+  "ids": [
+   128000,
+   110642
+  ],
+  "decoded": " olsun"
+ },
+ {
+  "text": " zprac",
+  "ids": [
+   128000,
+   110655
+  ],
+  "decoded": " zprac"
+ },
+ {
+  "text": " yönelik",
+  "ids": [
+   128000,
+   110692
+  ],
+  "decoded": " yönelik"
+ },
+ {
+  "text": "üncü",
+  "ids": [
+   128000,
+   110728
+  ],
+  "decoded": "üncü"
+ },
+ {
+  "text": " качестве",
+  "ids": [
+   128000,
+   110734
+  ],
+  "decoded": " качестве"
+ },
+ {
+  "text": " بیرون",
+  "ids": [
+   128000,
+   110785
+  ],
+  "decoded": " بیرون"
+ },
+ {
+  "text": " Dünya",
+  "ids": [
+   128000,
+   110920
+  ],
+  "decoded": " Dünya"
+ },
+ {
+  "text": " tức",
+  "ids": [
+   128000,
+   110939
+  ],
+  "decoded": " tức"
+ },
+ {
+  "text": " ihtiyaç",
+  "ids": [
+   128000,
+   110958
+  ],
+  "decoded": " ihtiyaç"
+ },
+ {
+  "text": " глаза",
+  "ids": [
+   128000,
+   111043
+  ],
+  "decoded": " глаза"
+ },
+ {
+  "text": " údaj",
+  "ids": [
+   128000,
+   111045
+  ],
+  "decoded": " údaj"
+ },
+ {
+  "text": "ıldığı",
+  "ids": [
+   128000,
+   111067
+  ],
+  "decoded": "ıldığı"
+ },
+ {
+  "text": " odkazy",
+  "ids": [
+   128000,
+   111096
+  ],
+  "decoded": " odkazy"
+ },
+ {
+  "text": " Федерации",
+  "ids": [
+   128000,
+   111112
+  ],
+  "decoded": " Федерации"
+ },
+ {
+  "text": " yaptı",
+  "ids": [
+   128000,
+   111223
+  ],
+  "decoded": " yaptı"
+ },
+ {
+  "text": " kuruluş",
+  "ids": [
+   128000,
+   111253
+  ],
+  "decoded": " kuruluş"
+ },
+ {
+  "text": " chiều",
+  "ids": [
+   128000,
+   111317
+  ],
+  "decoded": " chiều"
+ },
+ {
+  "text": " kiếm",
+  "ids": [
+   128000,
+   111365
+  ],
+  "decoded": " kiếm"
+ },
+ {
+  "text": " людини",
+  "ids": [
+   128000,
+   111367
+  ],
+  "decoded": " людини"
+ },
+ {
+  "text": " zejména",
+  "ids": [
+   128000,
+   111493
+  ],
+  "decoded": " zejména"
+ },
+ {
+  "text": " Yönet",
+  "ids": [
+   128000,
+   111568
+  ],
+  "decoded": " Yönet"
+ },
+ {
+  "text": " kvůli",
+  "ids": [
+   128000,
+   111620
+  ],
+  "decoded": " kvůli"
+ },
+ {
+  "text": " развития",
+  "ids": [
+   128000,
+   111643
+  ],
+  "decoded": " развития"
+ },
+ {
+  "text": "abancı",
+  "ids": [
+   128000,
+   111691
+  ],
+  "decoded": "abancı"
+ },
+ {
+  "text": " располож",
+  "ids": [
+   128000,
+   111750
+  ],
+  "decoded": " располож"
+ },
+ {
+  "text": " например",
+  "ids": [
+   128000,
+   111797
+  ],
+  "decoded": " например"
+ },
+ {
+  "text": " dítě",
+  "ids": [
+   128000,
+   111877
+  ],
+  "decoded": " dítě"
+ },
+ {
+  "text": " характеристи",
+  "ids": [
+   128000,
+   111949
+  ],
+  "decoded": " характеристи"
+ },
+ {
+  "text": " založ",
+  "ids": [
+   128000,
+   111962
+  ],
+  "decoded": " založ"
+ },
+ {
+  "text": " zvlá",
+  "ids": [
+   128000,
+   111994
+  ],
+  "decoded": " zvlá"
+ },
+ {
+  "text": "кадем",
+  "ids": [
+   128000,
+   112063
+  ],
+  "decoded": "кадем"
+ },
+ {
+  "text": "уватися",
+  "ids": [
+   128000,
+   112162
+  ],
+  "decoded": "уватися"
+ },
+ {
+  "text": " všechno",
+  "ids": [
+   128000,
+   112196
+  ],
+  "decoded": " všechno"
+ },
+ {
+  "text": " otevř",
+  "ids": [
+   128000,
+   112206
+  ],
+  "decoded": " otevř"
+ },
+ {
+  "text": " الحياة",
+  "ids": [
+   128000,
+   112224
+  ],
+  "decoded": " الحياة"
+ },
+ {
+  "text": " sahibi",
+  "ids": [
+   128000,
+   112304
+  ],
+  "decoded": " sahibi"
+ },
+ {
+  "text": " Arthropoda",
+  "ids": [
+   128000,
+   112328
+  ],
+  "decoded": " Arthropoda"
+ },
+ {
+  "text": "Türkiye",
+  "ids": [
+   128000,
+   112353
+  ],
+  "decoded": "Türkiye"
+ },
+ {
+  "text": " množ",
+  "ids": [
+   128000,
+   112354
+  ],
+  "decoded": " množ"
+ },
+ {
+  "text": " každý",
+  "ids": [
+   128000,
+   112357
+  ],
+  "decoded": " každý"
+ },
+ {
+  "text": " tématu",
+  "ids": [
+   128000,
+   112487
+  ],
+  "decoded": " tématu"
+ },
+ {
+  "text": " اقدام",
+  "ids": [
+   128000,
+   112556
+  ],
+  "decoded": " اقدام"
+ },
+ {
+  "text": " підтрим",
+  "ids": [
+   128000,
+   112620
+  ],
+  "decoded": " підтрим"
+ },
+ {
+  "text": " olacaktır",
+  "ids": [
+   128000,
+   112623
+  ],
+  "decoded": " olacaktır"
+ },
+ {
+  "text": " tüket",
+  "ids": [
+   128000,
+   112668
+  ],
+  "decoded": " tüket"
+ },
+ {
+  "text": "talya",
+  "ids": [
+   128000,
+   112728
+  ],
+  "decoded": "talya"
+ },
+ {
+  "text": " внеш",
+  "ids": [
+   128000,
+   112759
+  ],
+  "decoded": " внеш"
+ },
+ {
+  "text": "üslü",
+  "ids": [
+   128000,
+   112803
+  ],
+  "decoded": "üslü"
+ },
+ {
+  "text": " yoğun",
+  "ids": [
+   128000,
+   112806
+  ],
+  "decoded": " yoğun"
+ },
+ {
+  "text": "uyordu",
+  "ids": [
+   128000,
+   112907
+  ],
+  "decoded": "uyordu"
+ },
+ {
+  "text": " sıcak",
+  "ids": [
+   128000,
+   112915
+  ],
+  "decoded": " sıcak"
+ },
+ {
+  "text": " nhiễ",
+  "ids": [
+   128000,
+   112969
+  ],
+  "decoded": " nhiễ"
+ },
+ {
+  "text": " виріш",
+  "ids": [
+   128000,
+   113004
+  ],
+  "decoded": " виріш"
+ },
+ {
+  "text": " çıktı",
+  "ids": [
+   128000,
+   113044
+  ],
+  "decoded": " çıktı"
+ },
+ {
+  "text": "muştur",
+  "ids": [
+   128000,
+   113050
+  ],
+  "decoded": "muştur"
+ },
+ {
+  "text": " İnsan",
+  "ids": [
+   128000,
+   113056
+  ],
+  "decoded": " İnsan"
+ },
+ {
+  "text": " söylem",
+  "ids": [
+   128000,
+   113065
+  ],
+  "decoded": " söylem"
+ },
+ {
+  "text": " зависим",
+  "ids": [
+   128000,
+   113077
+  ],
+  "decoded": " зависим"
+ },
+ {
+  "text": " hlavní",
+  "ids": [
+   128000,
+   113095
+  ],
+  "decoded": " hlavní"
+ },
+ {
+  "text": " tiểu",
+  "ids": [
+   128000,
+   113134
+  ],
+  "decoded": " tiểu"
+ },
+ {
+  "text": " літерату",
+  "ids": [
+   128000,
+   113190
+  ],
+  "decoded": " літерату"
+ },
+ {
+  "text": " türlü",
+  "ids": [
+   128000,
+   113197
+  ],
+  "decoded": " türlü"
+ },
+ {
+  "text": " yüzyıl",
+  "ids": [
+   128000,
+   113201
+  ],
+  "decoded": " yüzyıl"
+ },
+ {
+  "text": " kiểu",
+  "ids": [
+   128000,
+   113229
+  ],
+  "decoded": " kiểu"
+ },
+ {
+  "text": "uştur",
+  "ids": [
+   128000,
+   113234
+  ],
+  "decoded": "uştur"
+ },
+ {
+  "text": " використання",
+  "ids": [
+   128000,
+   113315
+  ],
+  "decoded": " використання"
+ },
+ {
+  "text": " ایرانی",
+  "ids": [
+   128000,
+   113399
+  ],
+  "decoded": " ایرانی"
+ },
+ {
+  "text": " itibaren",
+  "ids": [
+   128000,
+   113490
+  ],
+  "decoded": " itibaren"
+ },
+ {
+  "text": " niệm",
+  "ids": [
+   128000,
+   113632
+  ],
+  "decoded": " niệm"
+ },
+ {
+  "text": " zákaz",
+  "ids": [
+   128000,
+   113646
+  ],
+  "decoded": " zákaz"
+ },
+ {
+  "text": " miễn",
+  "ids": [
+   128000,
+   113658
+  ],
+  "decoded": " miễn"
+ },
+ {
+  "text": " açıklam",
+  "ids": [
+   128000,
+   113720
+  ],
+  "decoded": " açıklam"
+ },
+ {
+  "text": " považ",
+  "ids": [
+   128000,
+   113774
+  ],
+  "decoded": " považ"
+ },
+ {
+  "text": " nejsou",
+  "ids": [
+   128000,
+   113860
+  ],
+  "decoded": " nejsou"
+ },
+ {
+  "text": "しない",
+  "ids": [
+   128000,
+   113878
+  ],
+  "decoded": "しない"
+ },
+ {
+  "text": "acılık",
+  "ids": [
+   128000,
+   113983
+  ],
+  "decoded": "acılık"
+ },
+ {
+  "text": " předmět",
+  "ids": [
+   128000,
+   113990
+  ],
+  "decoded": " předmět"
+ },
+ {
+  "text": " Ngoài",
+  "ids": [
+   128000,
+   114031
+  ],
+  "decoded": " Ngoài"
+ },
+ {
+  "text": " вияв",
+  "ids": [
+   128000,
+   114040
+  ],
+  "decoded": " вияв"
+ },
+ {
+  "text": "üslüman",
+  "ids": [
+   128000,
+   114091
+  ],
+  "decoded": "üslüman"
+ },
+ {
+  "text": " sürekli",
+  "ids": [
+   128000,
+   114117
+  ],
+  "decoded": " sürekli"
+ },
+ {
+  "text": " tespit",
+  "ids": [
+   128000,
+   114120
+  ],
+  "decoded": " tespit"
+ },
+ {
+  "text": " kiệm",
+  "ids": [
+   128000,
+   114148
+  ],
+  "decoded": " kiệm"
+ },
+ {
+  "text": " jednodu",
+  "ids": [
+   128000,
+   114178
+  ],
+  "decoded": " jednodu"
+ },
+ {
+  "text": "ımsız",
+  "ids": [
+   128000,
+   114185
+  ],
+  "decoded": "ımsız"
+ },
+ {
+  "text": " Việc",
+  "ids": [
+   128000,
+   114195
+  ],
+  "decoded": " Việc"
+ },
+ {
+  "text": ".::.::",
+  "ids": [
+   128000,
+   114282
+  ],
+  "decoded": ".::.::"
+ },
+ {
+  "text": " birey",
+  "ids": [
+   128000,
+   114283
+  ],
+  "decoded": " birey"
+ },
+ {
+  "text": " údaje",
+  "ids": [
+   128000,
+   114324
+  ],
+  "decoded": " údaje"
+ },
+ {
+  "text": " şeklinde",
+  "ids": [
+   128000,
+   114410
+  ],
+  "decoded": " şeklinde"
+ },
+ {
+  "text": " nhiễm",
+  "ids": [
+   128000,
+   114429
+  ],
+  "decoded": " nhiễm"
+ },
+ {
+  "text": " руковод",
+  "ids": [
+   128000,
+   114456
+  ],
+  "decoded": " руковод"
+ },
+ {
+  "text": " meydana",
+  "ids": [
+   128000,
+   114518
+  ],
+  "decoded": " meydana"
+ },
+ {
+  "text": "ーカー",
+  "ids": [
+   128000,
+   114533
+  ],
+  "decoded": "ーカー"
+ },
+ {
+  "text": " воздейств",
+  "ids": [
+   128000,
+   114540
+  ],
+  "decoded": " воздейств"
+ },
+ {
+  "text": "илась",
+  "ids": [
+   128000,
+   114692
+  ],
+  "decoded": "илась"
+ },
+ {
+  "text": " культур",
+  "ids": [
+   128000,
+   114750
+  ],
+  "decoded": " культур"
+ },
+ {
+  "text": "iyesi",
+  "ids": [
+   128000,
+   114767
+  ],
+  "decoded": "iyesi"
+ },
+ {
+  "text": " 스타",
+  "ids": [
+   128000,
+   114833
+  ],
+  "decoded": " 스타"
+ },
+ {
+  "text": "ーション",
+  "ids": [
+   128000,
+   114836
+  ],
+  "decoded": "ーション"
+ },
+ {
+  "text": " Insecta",
+  "ids": [
+   128000,
+   114843
+  ],
+  "decoded": " Insecta"
+ },
+ {
+  "text": " İslam",
+  "ids": [
+   128000,
+   114848
+  ],
+  "decoded": " İslam"
+ },
+ {
+  "text": "ılmıştır",
+  "ids": [
+   128000,
+   114860
+  ],
+  "decoded": "ılmıştır"
+ },
+ {
+  "text": " зависимости",
+  "ids": [
+   128000,
+   114885
+  ],
+  "decoded": " зависимости"
+ },
+ {
+  "text": " bulunduğu",
+  "ids": [
+   128000,
+   114991
+  ],
+  "decoded": " bulunduğu"
+ },
+ {
+  "text": " údajů",
+  "ids": [
+   128000,
+   115002
+  ],
+  "decoded": " údajů"
+ },
+ {
+  "text": " množství",
+  "ids": [
+   128000,
+   115016
+  ],
+  "decoded": " množství"
+ },
+ {
+  "text": " Erdoğan",
+  "ids": [
+   128000,
+   115026
+  ],
+  "decoded": " Erdoğan"
+ },
+ {
+  "text": " olmuştur",
+  "ids": [
+   128000,
+   115040
+  ],
+  "decoded": " olmuştur"
+ },
+ {
+  "text": " kaldı",
+  "ids": [
+   128000,
+   115060
+  ],
+  "decoded": " kaldı"
+ },
+ {
+  "text": " позволяет",
+  "ids": [
+   128000,
+   115091
+  ],
+  "decoded": " позволяет"
+ },
+ {
+  "text": "lıklı",
+  "ids": [
+   128000,
+   115129
+  ],
+  "decoded": "lıklı"
+ },
+ {
+  "text": "ประมาณ",
+  "ids": [
+   128000,
+   115164
+  ],
+  "decoded": "ประมาณ"
+ },
+ {
+  "text": " случаях",
+  "ids": [
+   128000,
+   115183
+  ],
+  "decoded": " случаях"
+ },
+ {
+  "text": "ючись",
+  "ids": [
+   128000,
+   115216
+  ],
+  "decoded": "ючись"
+ },
+ {
+  "text": "méně",
+  "ids": [
+   128000,
+   115269
+  ],
+  "decoded": "méně"
+ },
+ {
+  "text": " zahrani",
+  "ids": [
+   128000,
+   115326
+  ],
+  "decoded": " zahrani"
+ },
+ {
+  "text": " zdroj",
+  "ids": [
+   128000,
+   115378
+  ],
+  "decoded": " zdroj"
+ },
+ {
+  "text": " görüntü",
+  "ids": [
+   128000,
+   115385
+  ],
+  "decoded": " görüntü"
+ },
+ {
+  "text": " gerekiyor",
+  "ids": [
+   128000,
+   115431
+  ],
+  "decoded": " gerekiyor"
+ },
+ {
+  "text": " الدين",
+  "ids": [
+   128000,
+   115451
+  ],
+  "decoded": " الدين"
+ },
+ {
+  "text": " günlük",
+  "ids": [
+   128000,
+   115452
+  ],
+  "decoded": " günlük"
+ },
+ {
+  "text": " наличи",
+  "ids": [
+   128000,
+   115456
+  ],
+  "decoded": " наличи"
+ },
+ {
+  "text": " králov",
+  "ids": [
+   128000,
+   115487
+  ],
+  "decoded": " králov"
+ },
+ {
+  "text": "ujících",
+  "ids": [
+   128000,
+   115614
+  ],
+  "decoded": "ujících"
+ },
+ {
+  "text": " зависит",
+  "ids": [
+   128000,
+   115635
+  ],
+  "decoded": " зависит"
+ },
+ {
+  "text": " genellikle",
+  "ids": [
+   128000,
+   115697
+  ],
+  "decoded": " genellikle"
+ },
+ {
+  "text": " güncel",
+  "ids": [
+   128000,
+   115705
+  ],
+  "decoded": " güncel"
+ },
+ {
+  "text": "átní",
+  "ids": [
+   128000,
+   115721
+  ],
+  "decoded": "átní"
+ },
+ {
+  "text": " yıllık",
+  "ids": [
+   128000,
+   115722
+  ],
+  "decoded": " yıllık"
+ },
+ {
+  "text": " Merkezi",
+  "ids": [
+   128000,
+   115723
+  ],
+  "decoded": " Merkezi"
+ },
+ {
+  "text": " sahiptir",
+  "ids": [
+   128000,
+   115757
+  ],
+  "decoded": " sahiptir"
+ },
+ {
+  "text": " vzdál",
+  "ids": [
+   128000,
+   115944
+  ],
+  "decoded": " vzdál"
+ },
+ {
+  "text": "üyordu",
+  "ids": [
+   128000,
+   115970
+  ],
+  "decoded": "üyordu"
+ },
+ {
+  "text": " değişiklik",
+  "ids": [
+   128000,
+   115976
+  ],
+  "decoded": " değişiklik"
+ },
+ {
+  "text": " огранич",
+  "ids": [
+   128000,
+   115977
+  ],
+  "decoded": " огранич"
+ },
+ {
+  "text": " geliyor",
+  "ids": [
+   128000,
+   115979
+  ],
+  "decoded": " geliyor"
+ },
+ {
+  "text": " toplantı",
+  "ids": [
+   128000,
+   115994
+  ],
+  "decoded": " toplantı"
+ },
+ {
+  "text": " yabancı",
+  "ids": [
+   128000,
+   116014
+  ],
+  "decoded": " yabancı"
+ },
+ {
+  "text": " května",
+  "ids": [
+   128000,
+   116040
+  ],
+  "decoded": " května"
+ },
+ {
+  "text": " умень",
+  "ids": [
+   128000,
+   116055
+  ],
+  "decoded": " умень"
+ },
+ {
+  "text": " اروپ",
+  "ids": [
+   128000,
+   116144
+  ],
+  "decoded": " اروپ"
+ },
+ {
+  "text": "cılık",
+  "ids": [
+   128000,
+   116171
+  ],
+  "decoded": "cılık"
+ },
+ {
+  "text": " smlouvy",
+  "ids": [
+   128000,
+   116182
+  ],
+  "decoded": " smlouvy"
+ },
+ {
+  "text": " žádné",
+  "ids": [
+   128000,
+   116312
+  ],
+  "decoded": " žádné"
+ },
+ {
+  "text": " söyley",
+  "ids": [
+   128000,
+   116452
+  ],
+  "decoded": " söyley"
+ },
+ {
+  "text": " виступ",
+  "ids": [
+   128000,
+   116459
+  ],
+  "decoded": " виступ"
+ },
+ {
+  "text": "데이트",
+  "ids": [
+   128000,
+   116494
+  ],
+  "decoded": "데이트"
+ },
+ {
+  "text": " аналіз",
+  "ids": [
+   128000,
+   116546
+  ],
+  "decoded": " аналіз"
+ },
+ {
+  "text": "ujícím",
+  "ids": [
+   128000,
+   116552
+  ],
+  "decoded": "ujícím"
+ },
+ {
+  "text": " merkezi",
+  "ids": [
+   128000,
+   116627
+  ],
+  "decoded": " merkezi"
+ },
+ {
+  "text": " يناير",
+  "ids": [
+   128000,
+   116676
+  ],
+  "decoded": " يناير"
+ },
+ {
+  "text": " однако",
+  "ids": [
+   128000,
+   116745
+  ],
+  "decoded": " однако"
+ },
+ {
+  "text": " pravidel",
+  "ids": [
+   128000,
+   116940
+  ],
+  "decoded": " pravidel"
+ },
+ {
+  "text": " професси",
+  "ids": [
+   128000,
+   116983
+  ],
+  "decoded": " професси"
+ },
+ {
+  "text": " milyar",
+  "ids": [
+   128000,
+   117001
+  ],
+  "decoded": " milyar"
+ },
+ {
+  "text": "ımda",
+  "ids": [
+   128000,
+   117011
+  ],
+  "decoded": "ımda"
+ },
+ {
+  "text": " fotoğraf",
+  "ids": [
+   128000,
+   117072
+  ],
+  "decoded": " fotoğraf"
+ },
+ {
+  "text": " зазнач",
+  "ids": [
+   128000,
+   117098
+  ],
+  "decoded": " зазнач"
+ },
+ {
+  "text": " مدينة",
+  "ids": [
+   128000,
+   117188
+  ],
+  "decoded": " مدينة"
+ },
+ {
+  "text": " академ",
+  "ids": [
+   128000,
+   117319
+  ],
+  "decoded": " академ"
+ },
+ {
+  "text": " ayrıntı",
+  "ids": [
+   128000,
+   117325
+  ],
+  "decoded": " ayrıntı"
+ },
+ {
+  "text": " činnosti",
+  "ids": [
+   128000,
+   117347
+  ],
+  "decoded": " činnosti"
+ },
+ {
+  "text": " tisíc",
+  "ids": [
+   128000,
+   117352
+  ],
+  "decoded": " tisíc"
+ },
+ {
+  "text": " iletişim",
+  "ids": [
+   128000,
+   117380
+  ],
+  "decoded": " iletişim"
+ },
+ {
+  "text": " olmadığını",
+  "ids": [
+   128000,
+   117426
+  ],
+  "decoded": " olmadığını"
+ },
+ {
+  "text": " bilgisayar",
+  "ids": [
+   128000,
+   117468
+  ],
+  "decoded": " bilgisayar"
+ },
+ {
+  "text": " yaptık",
+  "ids": [
+   128000,
+   117592
+  ],
+  "decoded": " yaptık"
+ },
+ {
+  "text": "lıklar",
+  "ids": [
+   128000,
+   117691
+  ],
+  "decoded": "lıklar"
+ },
+ {
+  "text": " zástup",
+  "ids": [
+   128000,
+   117749
+  ],
+  "decoded": " zástup"
+ },
+ {
+  "text": " практически",
+  "ids": [
+   128000,
+   117794
+  ],
+  "decoded": " практически"
+ },
+ {
+  "text": " siyasi",
+  "ids": [
+   128000,
+   117798
+  ],
+  "decoded": " siyasi"
+ },
+ {
+  "text": "ılmaz",
+  "ids": [
+   128000,
+   117857
+  ],
+  "decoded": "ılmaz"
+ },
+ {
+  "text": " zvlášt",
+  "ids": [
+   128000,
+   117909
+  ],
+  "decoded": " zvlášt"
+ },
+ {
+  "text": " января",
+  "ids": [
+   128000,
+   117922
+  ],
+  "decoded": " января"
+ },
+ {
+  "text": " вихов",
+  "ids": [
+   128000,
+   117929
+  ],
+  "decoded": " вихов"
+ },
+ {
+  "text": " воздуха",
+  "ids": [
+   128000,
+   117955
+  ],
+  "decoded": " воздуха"
+ },
+ {
+  "text": " gerekmektedir",
+  "ids": [
+   128000,
+   118060
+  ],
+  "decoded": " gerekmektedir"
+ },
+ {
+  "text": " تلاش",
+  "ids": [
+   128000,
+   118062
+  ],
+  "decoded": " تلاش"
+ },
+ {
+  "text": " звичай",
+  "ids": [
+   128000,
+   118100
+  ],
+  "decoded": " звичай"
+ },
+ {
+  "text": " předsed",
+  "ids": [
+   128000,
+   118228
+  ],
+  "decoded": " předsed"
+ },
+ {
+  "text": "ávací",
+  "ids": [
+   128000,
+   118260
+  ],
+  "decoded": "ávací"
+ },
+ {
+  "text": " meziná",
+  "ids": [
+   128000,
+   118377
+  ],
+  "decoded": " meziná"
+ },
+ {
+  "text": " เพราะ",
+  "ids": [
+   128000,
+   118425
+  ],
+  "decoded": " เพราะ"
+ },
+ {
+  "text": " sonrasında",
+  "ids": [
+   128000,
+   118452
+  ],
+  "decoded": " sonrasında"
+ },
+ {
+  "text": " méně",
+  "ids": [
+   128000,
+   118476
+  ],
+  "decoded": " méně"
+ },
+ {
+  "text": ":.:.:.:.:",
+  "ids": [
+   128000,
+   118496
+  ],
+  "decoded": ":.:.:.:.:"
+ },
+ {
+  "text": "ávající",
+  "ids": [
+   128000,
+   118508
+  ],
+  "decoded": "ávající"
+ },
+ {
+  "text": " أبريل",
+  "ids": [
+   128000,
+   118513
+  ],
+  "decoded": " أبريل"
+ },
+ {
+  "text": " jehož",
+  "ids": [
+   128000,
+   118602
+  ],
+  "decoded": " jehož"
+ },
+ {
+  "text": " культури",
+  "ids": [
+   128000,
+   118659
+  ],
+  "decoded": " культури"
+ },
+ {
+  "text": " eylem",
+  "ids": [
+   128000,
+   118699
+  ],
+  "decoded": " eylem"
+ },
+ {
+  "text": " дозволя",
+  "ids": [
+   128000,
+   118751
+  ],
+  "decoded": " дозволя"
+ },
+ {
+  "text": " yaptır",
+  "ids": [
+   128000,
+   118761
+  ],
+  "decoded": " yaptır"
+ },
+ {
+  "text": " декабря",
+  "ids": [
+   128000,
+   118793
+  ],
+  "decoded": " декабря"
+ },
+ {
+  "text": "Ngoài",
+  "ids": [
+   128000,
+   118795
+  ],
+  "decoded": "Ngoài"
+ },
+ {
+  "text": "дивиду",
+  "ids": [
+   128000,
+   118805
+  ],
+  "decoded": "дивиду"
+ },
+ {
+  "text": " Cumhuriyet",
+  "ids": [
+   128000,
+   118972
+  ],
+  "decoded": " Cumhuriyet"
+ },
+ {
+  "text": "пеки",
+  "ids": [
+   128000,
+   119000
+  ],
+  "decoded": "пеки"
+ },
+ {
+  "text": " taşıy",
+  "ids": [
+   128000,
+   119003
+  ],
+  "decoded": " taşıy"
+ },
+ {
+  "text": " заяви",
+  "ids": [
+   128000,
+   119054
+  ],
+  "decoded": " заяви"
+ },
+ {
+  "text": " визнача",
+  "ids": [
+   128000,
+   119162
+  ],
+  "decoded": " визнача"
+ },
+ {
+  "text": " электри",
+  "ids": [
+   128000,
+   119201
+  ],
+  "decoded": " электри"
+ },
+ {
+  "text": " peníze",
+  "ids": [
+   128000,
+   119243
+  ],
+  "decoded": " peníze"
+ },
+ {
+  "text": " октября",
+  "ids": [
+   128000,
+   119288
+  ],
+  "decoded": " октября"
+ },
+ {
+  "text": " thiểu",
+  "ids": [
+   128000,
+   119293
+  ],
+  "decoded": " thiểu"
+ },
+ {
+  "text": " dispozici",
+  "ids": [
+   128000,
+   119322
+  ],
+  "decoded": " dispozici"
+ },
+ {
+  "text": " bağımsız",
+  "ids": [
+   128000,
+   119333
+  ],
+  "decoded": " bağımsız"
+ },
+ {
+  "text": " Yönetim",
+  "ids": [
+   128000,
+   119362
+  ],
+  "decoded": " Yönetim"
+ },
+ {
+  "text": " vítěz",
+  "ids": [
+   128000,
+   119403
+  ],
+  "decoded": " vítěz"
+ },
+ {
+  "text": " döneminde",
+  "ids": [
+   128000,
+   119419
+  ],
+  "decoded": " döneminde"
+ },
+ {
+  "text": " hukuk",
+  "ids": [
+   128000,
+   119422
+  ],
+  "decoded": " hukuk"
+ },
+ {
+  "text": " присутств",
+  "ids": [
+   128000,
+   119465
+  ],
+  "decoded": " присутств"
+ },
+ {
+  "text": " аналог",
+  "ids": [
+   128000,
+   119477
+  ],
+  "decoded": " аналог"
+ },
+ {
+  "text": " назва",
+  "ids": [
+   128000,
+   119618
+  ],
+  "decoded": " назва"
+ },
+ {
+  "text": " Odkazy",
+  "ids": [
+   128000,
+   119655
+  ],
+  "decoded": " Odkazy"
+ },
+ {
+  "text": "kyně",
+  "ids": [
+   128000,
+   119709
+  ],
+  "decoded": "kyně"
+ },
+ {
+  "text": " воздух",
+  "ids": [
+   128000,
+   119725
+  ],
+  "decoded": " воздух"
+ },
+ {
+  "text": " oyuncu",
+  "ids": [
+   128000,
+   119750
+  ],
+  "decoded": " oyuncu"
+ },
+ {
+  "text": " yaptığ",
+  "ids": [
+   128000,
+   119776
+  ],
+  "decoded": " yaptığ"
+ },
+ {
+  "text": " zdraví",
+  "ids": [
+   128000,
+   119785
+  ],
+  "decoded": " zdraví"
+ },
+ {
+  "text": " duyệt",
+  "ids": [
+   128000,
+   119799
+  ],
+  "decoded": " duyệt"
+ },
+ {
+  "text": " olursa",
+  "ids": [
+   128000,
+   119830
+  ],
+  "decoded": " olursa"
+ },
+ {
+  "text": " جديدة",
+  "ids": [
+   128000,
+   119846
+  ],
+  "decoded": " جديدة"
+ },
+ {
+  "text": " gerektiğini",
+  "ids": [
+   128000,
+   119850
+  ],
+  "decoded": " gerektiğini"
+ },
+ {
+  "text": " ткани",
+  "ids": [
+   128000,
+   119917
+  ],
+  "decoded": " ткани"
+ },
+ {
+  "text": "토토",
+  "ids": [
+   128000,
+   119927
+  ],
+  "decoded": "토토"
+ },
+ {
+  "text": " güneş",
+  "ids": [
+   128000,
+   119931
+  ],
+  "decoded": " güneş"
+ },
+ {
+  "text": " státní",
+  "ids": [
+   128000,
+   119946
+  ],
+  "decoded": " státní"
+ },
+ {
+  "text": " Müslüman",
+  "ids": [
+   128000,
+   119959
+  ],
+  "decoded": " Müslüman"
+ },
+ {
+  "text": " hlavně",
+  "ids": [
+   128000,
+   119973
+  ],
+  "decoded": " hlavně"
+ },
+ {
+  "text": " краще",
+  "ids": [
+   128000,
+   120005
+  ],
+  "decoded": " краще"
+ },
+ {
+  "text": " uygulama",
+  "ids": [
+   128000,
+   120009
+  ],
+  "decoded": " uygulama"
+ },
+ {
+  "text": " липня",
+  "ids": [
+   128000,
+   120015
+  ],
+  "decoded": " липня"
+ },
+ {
+  "text": " канди",
+  "ids": [
+   128000,
+   120100
+  ],
+  "decoded": " канди"
+ },
+ {
+  "text": " Merkez",
+  "ids": [
+   128000,
+   120102
+  ],
+  "decoded": " Merkez"
+ },
+ {
+  "text": " sıkıntı",
+  "ids": [
+   128000,
+   120121
+  ],
+  "decoded": " sıkıntı"
+ },
+ {
+  "text": " граду",
+  "ids": [
+   128000,
+   120196
+  ],
+  "decoded": " граду"
+ },
+ {
+  "text": " ovliv",
+  "ids": [
+   128000,
+   120232
+  ],
+  "decoded": " ovliv"
+ },
+ {
+  "text": " rovněž",
+  "ids": [
+   128000,
+   120242
+  ],
+  "decoded": " rovněž"
+ },
+ {
+  "text": " gerektir",
+  "ids": [
+   128000,
+   120260
+  ],
+  "decoded": " gerektir"
+ },
+ {
+  "text": " etmektedir",
+  "ids": [
+   128000,
+   120269
+  ],
+  "decoded": " etmektedir"
+ },
+ {
+  "text": " üçüncü",
+  "ids": [
+   128000,
+   120316
+  ],
+  "decoded": " üçüncü"
+ },
+ {
+  "text": " дозвол",
+  "ids": [
+   128000,
+   120325
+  ],
+  "decoded": " дозвол"
+ },
+ {
+  "text": " mücadele",
+  "ids": [
+   128000,
+   120338
+  ],
+  "decoded": " mücadele"
+ },
+ {
+  "text": " индивиду",
+  "ids": [
+   128000,
+   120375
+  ],
+  "decoded": " индивиду"
+ },
+ {
+  "text": " виробництва",
+  "ids": [
+   128000,
+   120393
+  ],
+  "decoded": " виробництва"
+ },
+ {
+  "text": " Fransız",
+  "ids": [
+   128000,
+   120405
+  ],
+  "decoded": " Fransız"
+ },
+ {
+  "text": " 업데이트",
+  "ids": [
+   128000,
+   120423
+  ],
+  "decoded": " 업데이트"
+ },
+ {
+  "text": "lıkları",
+  "ids": [
+   128000,
+   120454
+  ],
+  "decoded": "lıkları"
+ },
+ {
+  "text": " Fakültesi",
+  "ids": [
+   128000,
+   120458
+  ],
+  "decoded": " Fakültesi"
+ },
+ {
+  "text": " doğrudan",
+  "ids": [
+   128000,
+   120525
+  ],
+  "decoded": " doğrudan"
+ },
+ {
+  "text": " ustanovení",
+  "ids": [
+   128000,
+   120536
+  ],
+  "decoded": " ustanovení"
+ },
+ {
+  "text": " fırsat",
+  "ids": [
+   128000,
+   120538
+  ],
+  "decoded": " fırsat"
+ },
+ {
+  "text": " الکترون",
+  "ids": [
+   128000,
+   120542
+  ],
+  "decoded": " الکترون"
+ },
+ {
+  "text": " girdi",
+  "ids": [
+   128000,
+   120546
+  ],
+  "decoded": " girdi"
+ },
+ {
+  "text": " диза",
+  "ids": [
+   128000,
+   120581
+  ],
+  "decoded": " диза"
+ },
+ {
+  "text": " электр",
+  "ids": [
+   128000,
+   120584
+  ],
+  "decoded": " электр"
+ },
+ {
+  "text": "тися",
+  "ids": [
+   128000,
+   120592
+  ],
+  "decoded": "тися"
+ },
+ {
+  "text": " ředitel",
+  "ids": [
+   128000,
+   120621
+  ],
+  "decoded": " ředitel"
+ },
+ {
+  "text": " girişim",
+  "ids": [
+   128000,
+   120663
+  ],
+  "decoded": " girişim"
+ },
+ {
+  "text": " mnohem",
+  "ids": [
+   128000,
+   120695
+  ],
+  "decoded": " mnohem"
+ },
+ {
+  "text": " характериз",
+  "ids": [
+   128000,
+   120702
+  ],
+  "decoded": " характериз"
+ },
+ {
+  "text": " přítom",
+  "ids": [
+   128000,
+   120894
+  ],
+  "decoded": " přítom"
+ },
+ {
+  "text": " belirtilen",
+  "ids": [
+   128000,
+   120909
+  ],
+  "decoded": " belirtilen"
+ },
+ {
+  "text": " teklif",
+  "ids": [
+   128000,
+   120911
+  ],
+  "decoded": " teklif"
+ },
+ {
+  "text": " трохи",
+  "ids": [
+   128000,
+   120928
+  ],
+  "decoded": " трохи"
+ },
+ {
+  "text": " Özellikle",
+  "ids": [
+   128000,
+   120946
+  ],
+  "decoded": " Özellikle"
+ },
+ {
+  "text": "jících",
+  "ids": [
+   128000,
+   120959
+  ],
+  "decoded": "jících"
+ },
+ {
+  "text": " приступ",
+  "ids": [
+   128000,
+   120978
+  ],
+  "decoded": " приступ"
+ },
+ {
+  "text": " jednoduch",
+  "ids": [
+   128000,
+   121004
+  ],
+  "decoded": " jednoduch"
+ },
+ {
+  "text": " rahatsız",
+  "ids": [
+   128000,
+   121035
+  ],
+  "decoded": " rahatsız"
+ },
+ {
+  "text": " наличии",
+  "ids": [
+   128000,
+   121080
+  ],
+  "decoded": " наличии"
+ },
+ {
+  "text": " mnoha",
+  "ids": [
+   128000,
+   121091
+  ],
+  "decoded": " mnoha"
+ },
+ {
+  "text": " nhiêu",
+  "ids": [
+   128000,
+   121135
+  ],
+  "decoded": " nhiêu"
+ },
+ {
+  "text": " thỏa",
+  "ids": [
+   128000,
+   121167
+  ],
+  "decoded": " thỏa"
+ },
+ {
+  "text": " профессиональ",
+  "ids": [
+   128000,
+   121209
+  ],
+  "decoded": " профессиональ"
+ },
+ {
+  "text": " Cumhuriyeti",
+  "ids": [
+   128000,
+   121215
+  ],
+  "decoded": " Cumhuriyeti"
+ },
+ {
+  "text": " уменьш",
+  "ids": [
+   128000,
+   121235
+  ],
+  "decoded": " уменьш"
+ },
+ {
+  "text": " позвол",
+  "ids": [
+   128000,
+   121267
+  ],
+  "decoded": " позвол"
+ },
+ {
+  "text": " používá",
+  "ids": [
+   128000,
+   121356
+  ],
+  "decoded": " používá"
+ },
+ {
+  "text": " kurtar",
+  "ids": [
+   128000,
+   121357
+  ],
+  "decoded": " kurtar"
+ },
+ {
+  "text": " staveb",
+  "ids": [
+   128000,
+   121563
+  ],
+  "decoded": " staveb"
+ },
+ {
+  "text": " vzdělávání",
+  "ids": [
+   128000,
+   121662
+  ],
+  "decoded": " vzdělávání"
+ },
+ {
+  "text": " düşünc",
+  "ids": [
+   128000,
+   121671
+  ],
+  "decoded": " düşünc"
+ },
+ {
+  "text": " alespoň",
+  "ids": [
+   128000,
+   121678
+  ],
+  "decoded": " alespoň"
+ },
+ {
+  "text": " علاوه",
+  "ids": [
+   128000,
+   121680
+  ],
+  "decoded": " علاوه"
+ },
+ {
+  "text": " obsahuje",
+  "ids": [
+   128000,
+   121717
+  ],
+  "decoded": " obsahuje"
+ },
+ {
+  "text": " Örneğin",
+  "ids": [
+   128000,
+   121744
+  ],
+  "decoded": " Örneğin"
+ },
+ {
+  "text": " dolaş",
+  "ids": [
+   128000,
+   121764
+  ],
+  "decoded": " dolaş"
+ },
+ {
+  "text": " hudeb",
+  "ids": [
+   128000,
+   121818
+  ],
+  "decoded": " hudeb"
+ },
+ {
+  "text": " Olomou",
+  "ids": [
+   128000,
+   121828
+  ],
+  "decoded": " Olomou"
+ },
+ {
+  "text": " Savaşı",
+  "ids": [
+   128000,
+   121878
+  ],
+  "decoded": " Savaşı"
+ },
+ {
+  "text": " المدينة",
+  "ids": [
+   128000,
+   121936
+  ],
+  "decoded": " المدينة"
+ },
+ {
+  "text": " mutlaka",
+  "ids": [
+   128000,
+   121973
+  ],
+  "decoded": " mutlaka"
+ },
+ {
+  "text": " sağlıklı",
+  "ids": [
+   128000,
+   122012
+  ],
+  "decoded": " sağlıklı"
+ },
+ {
+  "text": "áhnout",
+  "ids": [
+   128000,
+   122032
+  ],
+  "decoded": "áhnout"
+ },
+ {
+  "text": " зустрі",
+  "ids": [
+   128000,
+   122047
+  ],
+  "decoded": " зустрі"
+ },
+ {
+  "text": " کلاس",
+  "ids": [
+   128000,
+   122059
+  ],
+  "decoded": " کلاس"
+ },
+ {
+  "text": " Tarihi",
+  "ids": [
+   128000,
+   122188
+  ],
+  "decoded": " Tarihi"
+ },
+ {
+  "text": " فناوری",
+  "ids": [
+   128000,
+   122228
+  ],
+  "decoded": " فناوری"
+ },
+ {
+  "text": " prvním",
+  "ids": [
+   128000,
+   122268
+  ],
+  "decoded": " prvním"
+ },
+ {
+  "text": " obvykle",
+  "ids": [
+   128000,
+   122301
+  ],
+  "decoded": " obvykle"
+ },
+ {
+  "text": "müştür",
+  "ids": [
+   128000,
+   122315
+  ],
+  "decoded": "müştür"
+ },
+ {
+  "text": " almaktadır",
+  "ids": [
+   128000,
+   122318
+  ],
+  "decoded": " almaktadır"
+ },
+ {
+  "text": " důležité",
+  "ids": [
+   128000,
+   122339
+  ],
+  "decoded": " důležité"
+ },
+ {
+  "text": " yıllarda",
+  "ids": [
+   128000,
+   122359
+  ],
+  "decoded": " yıllarda"
+ },
+ {
+  "text": " анализ",
+  "ids": [
+   128000,
+   122409
+  ],
+  "decoded": " анализ"
+ },
+ {
+  "text": " problémy",
+  "ids": [
+   128000,
+   122410
+  ],
+  "decoded": " problémy"
+ },
+ {
+  "text": " chtěl",
+  "ids": [
+   128000,
+   122428
+  ],
+  "decoded": " chtěl"
+ },
+ {
+  "text": "İTESİ",
+  "ids": [
+   128000,
+   122549
+  ],
+  "decoded": "İTESİ"
+ },
+ {
+  "text": " neredeyse",
+  "ids": [
+   128000,
+   122551
+  ],
+  "decoded": " neredeyse"
+ },
+ {
+  "text": " parçası",
+  "ids": [
+   128000,
+   122601
+  ],
+  "decoded": " parçası"
+ },
+ {
+  "text": " miệng",
+  "ids": [
+   128000,
+   122631
+  ],
+  "decoded": " miệng"
+ },
+ {
+  "text": " zpracování",
+  "ids": [
+   128000,
+   122639
+  ],
+  "decoded": " zpracování"
+ },
+ {
+  "text": " качества",
+  "ids": [
+   128000,
+   122689
+  ],
+  "decoded": " качества"
+ },
+ {
+  "text": " kurtul",
+  "ids": [
+   128000,
+   122690
+  ],
+  "decoded": " kurtul"
+ },
+ {
+  "text": " Например",
+  "ids": [
+   128000,
+   122711
+  ],
+  "decoded": " Например"
+ },
+ {
+  "text": "илакти",
+  "ids": [
+   128000,
+   122746
+  ],
+  "decoded": "илакти"
+ },
+ {
+  "text": " увагу",
+  "ids": [
+   128000,
+   122771
+  ],
+  "decoded": " увагу"
+ },
+ {
+  "text": " вполне",
+  "ids": [
+   128000,
+   122812
+  ],
+  "decoded": " вполне"
+ },
+ {
+  "text": " název",
+  "ids": [
+   128000,
+   122846
+  ],
+  "decoded": " název"
+ },
+ {
+  "text": " ремонт",
+  "ids": [
+   128000,
+   122847
+  ],
+  "decoded": " ремонт"
+ },
+ {
+  "text": " раніше",
+  "ids": [
+   128000,
+   122853
+  ],
+  "decoded": " раніше"
+ },
+ {
+  "text": " ücretsiz",
+  "ids": [
+   128000,
+   122883
+  ],
+  "decoded": " ücretsiz"
+ },
+ {
+  "text": " безпеки",
+  "ids": [
+   128000,
+   122889
+  ],
+  "decoded": " безпеки"
+ },
+ {
+  "text": " yapıldı",
+  "ids": [
+   128000,
+   122941
+  ],
+  "decoded": " yapıldı"
+ },
+ {
+  "text": " електрон",
+  "ids": [
+   128000,
+   122951
+  ],
+  "decoded": " електрон"
+ },
+ {
+  "text": " yıllar",
+  "ids": [
+   128000,
+   122956
+  ],
+  "decoded": " yıllar"
+ },
+ {
+  "text": " činnost",
+  "ids": [
+   128000,
+   122958
+  ],
+  "decoded": " činnost"
+ },
+ {
+  "text": " .**************\n",
+  "ids": [
+   128000,
+   123046
+  ],
+  "decoded": " .**************\n"
+ },
+ {
+  "text": "maması",
+  "ids": [
+   128000,
+   123107
+  ],
+  "decoded": "maması"
+ },
+ {
+  "text": " žádný",
+  "ids": [
+   128000,
+   123178
+  ],
+  "decoded": " žádný"
+ },
+ {
+  "text": " знаком",
+  "ids": [
+   128000,
+   123279
+  ],
+  "decoded": " знаком"
+ },
+ {
+  "text": " федераль",
+  "ids": [
+   128000,
+   123368
+  ],
+  "decoded": " федераль"
+ },
+ {
+  "text": " развитие",
+  "ids": [
+   128000,
+   123398
+  ],
+  "decoded": " развитие"
+ },
+ {
+  "text": " bulundu",
+  "ids": [
+   128000,
+   123416
+  ],
+  "decoded": " bulundu"
+ },
+ {
+  "text": " розвиток",
+  "ids": [
+   128000,
+   123422
+  ],
+  "decoded": " розвиток"
+ },
+ {
+  "text": " İtalya",
+  "ids": [
+   128000,
+   123468
+  ],
+  "decoded": " İtalya"
+ },
+ {
+  "text": " Kültür",
+  "ids": [
+   128000,
+   123508
+  ],
+  "decoded": " Kültür"
+ },
+ {
+  "text": " kuchy",
+  "ids": [
+   128000,
+   123510
+  ],
+  "decoded": " kuchy"
+ },
+ {
+  "text": " zvyš",
+  "ids": [
+   128000,
+   123563
+  ],
+  "decoded": " zvyš"
+ },
+ {
+  "text": " Každ",
+  "ids": [
+   128000,
+   123584
+  ],
+  "decoded": " Každ"
+ },
+ {
+  "text": " Českosloven",
+  "ids": [
+   128000,
+   123611
+  ],
+  "decoded": " Českosloven"
+ },
+ {
+  "text": " aylık",
+  "ids": [
+   128000,
+   123634
+  ],
+  "decoded": " aylık"
+ },
+ {
+  "text": " önemlidir",
+  "ids": [
+   128000,
+   123636
+  ],
+  "decoded": " önemlidir"
+ },
+ {
+  "text": " nákup",
+  "ids": [
+   128000,
+   123639
+  ],
+  "decoded": " nákup"
+ },
+ {
+  "text": " Václav",
+  "ids": [
+   128000,
+   123677
+  ],
+  "decoded": " Václav"
+ },
+ {
+  "text": " zásad",
+  "ids": [
+   128000,
+   123705
+  ],
+  "decoded": " zásad"
+ },
+ {
+  "text": " zahrn",
+  "ids": [
+   128000,
+   123745
+  ],
+  "decoded": " zahrn"
+ },
+ {
+  "text": " آینده",
+  "ids": [
+   128000,
+   123831
+  ],
+  "decoded": " آینده"
+ },
+ {
+  "text": " baktı",
+  "ids": [
+   128000,
+   123844
+  ],
+  "decoded": " baktı"
+ },
+ {
+  "text": " заболеваний",
+  "ids": [
+   128000,
+   123846
+  ],
+  "decoded": " заболеваний"
+ },
+ {
+  "text": " مدير",
+  "ids": [
+   128000,
+   123913
+  ],
+  "decoded": " مدير"
+ },
+ {
+  "text": " vurgu",
+  "ids": [
+   128000,
+   123954
+  ],
+  "decoded": " vurgu"
+ },
+ {
+  "text": " yapılmış",
+  "ids": [
+   128000,
+   123965
+  ],
+  "decoded": " yapılmış"
+ },
+ {
+  "text": " měsíců",
+  "ids": [
+   128000,
+   123971
+  ],
+  "decoded": " měsíců"
+ },
+ {
+  "text": " ÜNİVERSİTESİ",
+  "ids": [
+   128000,
+   123981
+  ],
+  "decoded": " ÜNİVERSİTESİ"
+ },
+ {
+  "text": "alardan",
+  "ids": [
+   128000,
+   123997
+  ],
+  "decoded": "alardan"
+ },
+ {
+  "text": " Suriye",
+  "ids": [
+   128000,
+   124016
+  ],
+  "decoded": " Suriye"
+ },
+ {
+  "text": " přibliž",
+  "ids": [
+   128000,
+   124069
+  ],
+  "decoded": " přibliž"
+ },
+ {
+  "text": " İslâm",
+  "ids": [
+   128000,
+   124078
+  ],
+  "decoded": " İslâm"
+ },
+ {
+  "text": " заним",
+  "ids": [
+   128000,
+   124114
+  ],
+  "decoded": " заним"
+ },
+ {
+  "text": " sordu",
+  "ids": [
+   128000,
+   124151
+  ],
+  "decoded": " sordu"
+ },
+ {
+  "text": " baskı",
+  "ids": [
+   128000,
+   124205
+  ],
+  "decoded": " baskı"
+ },
+ {
+  "text": " Hiệp",
+  "ids": [
+   128000,
+   124254
+  ],
+  "decoded": " Hiệp"
+ },
+ {
+  "text": "илася",
+  "ids": [
+   128000,
+   124292
+  ],
+  "decoded": "илася"
+ },
+ {
+  "text": " використовувати",
+  "ids": [
+   128000,
+   124336
+  ],
+  "decoded": " використовувати"
+ },
+ {
+  "text": " začátku",
+  "ids": [
+   128000,
+   124352
+  ],
+  "decoded": " začátku"
+ },
+ {
+  "text": "sahuje",
+  "ids": [
+   128000,
+   124393
+  ],
+  "decoded": "sahuje"
+ },
+ {
+  "text": " siyaset",
+  "ids": [
+   128000,
+   124419
+  ],
+  "decoded": " siyaset"
+ },
+ {
+  "text": " kaynağı",
+  "ids": [
+   128000,
+   124457
+  ],
+  "decoded": " kaynağı"
+ },
+ {
+  "text": " görmek",
+  "ids": [
+   128000,
+   124459
+  ],
+  "decoded": " görmek"
+ },
+ {
+  "text": " zprávy",
+  "ids": [
+   128000,
+   124465
+  ],
+  "decoded": " zprávy"
+ },
+ {
+  "text": " 오후",
+  "ids": [
+   128000,
+   124467
+  ],
+  "decoded": " 오후"
+ },
+ {
+  "text": " ünlü",
+  "ids": [
+   128000,
+   124509
+  ],
+  "decoded": " ünlü"
+ },
+ {
+  "text": "назнач",
+  "ids": [
+   128000,
+   124593
+  ],
+  "decoded": "назнач"
+ },
+ {
+  "text": " udělat",
+  "ids": [
+   128000,
+   124595
+  ],
+  "decoded": " udělat"
+ },
+ {
+  "text": " Александр",
+  "ids": [
+   128000,
+   124610
+  ],
+  "decoded": " Александр"
+ },
+ {
+  "text": " karşılık",
+  "ids": [
+   128000,
+   124621
+  ],
+  "decoded": " karşılık"
+ },
+ {
+  "text": "itelné",
+  "ids": [
+   128000,
+   124647
+  ],
+  "decoded": "itelné"
+ },
+ {
+  "text": " republika",
+  "ids": [
+   128000,
+   124691
+  ],
+  "decoded": " republika"
+ },
+ {
+  "text": "ırlar",
+  "ids": [
+   128000,
+   124703
+  ],
+  "decoded": "ırlar"
+ },
+ {
+  "text": " diệt",
+  "ids": [
+   128000,
+   124723
+  ],
+  "decoded": " diệt"
+ },
+ {
+  "text": "되었습니다",
+  "ids": [
+   128000,
+   124771
+  ],
+  "decoded": "되었습니다"
+ },
+ {
+  "text": " благодаря",
+  "ids": [
+   128000,
+   124779
+  ],
+  "decoded": " благодаря"
+ },
+ {
+  "text": " Belediyesi",
+  "ids": [
+   128000,
+   124814
+  ],
+  "decoded": " Belediyesi"
+ },
+ {
+  "text": " اطلاع",
+  "ids": [
+   128000,
+   124833
+  ],
+  "decoded": " اطلاع"
+ },
+ {
+  "text": " vzdálen",
+  "ids": [
+   128000,
+   124843
+  ],
+  "decoded": " vzdálen"
+ },
+ {
+  "text": " اروپا",
+  "ids": [
+   128000,
+   124891
+  ],
+  "decoded": " اروپا"
+ },
+ {
+  "text": " ortalama",
+  "ids": [
+   128000,
+   124917
+  ],
+  "decoded": " ortalama"
+ },
+ {
+  "text": " Tiếng",
+  "ids": [
+   128000,
+   124942
+  ],
+  "decoded": " Tiếng"
+ },
+ {
+  "text": " Mühendis",
+  "ids": [
+   128000,
+   124961
+  ],
+  "decoded": " Mühendis"
+ },
+ {
+  "text": " ابراه",
+  "ids": [
+   128000,
+   124971
+  ],
+  "decoded": " ابراه"
+ },
+ {
+  "text": " odstran",
+  "ids": [
+   128000,
+   125015
+  ],
+  "decoded": " odstran"
+ },
+ {
+  "text": " zpráva",
+  "ids": [
+   128000,
+   125058
+  ],
+  "decoded": " zpráva"
+ },
+ {
+  "text": "Việc",
+  "ids": [
+   128000,
+   125059
+  ],
+  "decoded": "Việc"
+ },
+ {
+  "text": " toplumsal",
+  "ids": [
+   128000,
+   125143
+  ],
+  "decoded": " toplumsal"
+ },
+ {
+  "text": " kırmızı",
+  "ids": [
+   128000,
+   125171
+  ],
+  "decoded": " kırmızı"
+ },
+ {
+  "text": "україн",
+  "ids": [
+   128000,
+   125265
+  ],
+  "decoded": "україн"
+ },
+ {
+  "text": " Müdürlüğü",
+  "ids": [
+   128000,
+   125302
+  ],
+  "decoded": " Müdürlüğü"
+ },
+ {
+  "text": " характеристики",
+  "ids": [
+   128000,
+   125355
+  ],
+  "decoded": " характеристики"
+ },
+ {
+  "text": " визначення",
+  "ids": [
+   128000,
+   125410
+  ],
+  "decoded": " визначення"
+ },
+ {
+  "text": ".:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:",
+  "ids": [
+   128000,
+   125437
+  ],
+  "decoded": ".:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:"
+ },
+ {
+  "text": " každé",
+  "ids": [
+   128000,
+   125465
+  ],
+  "decoded": " každé"
+ },
+ {
+  "text": " připoj",
+  "ids": [
+   128000,
+   125491
+  ],
+  "decoded": " připoj"
+ },
+ {
+  "text": " případech",
+  "ids": [
+   128000,
+   125637
+  ],
+  "decoded": " případech"
+ },
+ {
+  "text": " uvědom",
+  "ids": [
+   128000,
+   125654
+  ],
+  "decoded": " uvědom"
+ },
+ {
+  "text": " dikkate",
+  "ids": [
+   128000,
+   125697
+  ],
+  "decoded": " dikkate"
+ },
+ {
+  "text": "rální",
+  "ids": [
+   128000,
+   125700
+  ],
+  "decoded": "rální"
+ },
+ {
+  "text": " podmínek",
+  "ids": [
+   128000,
+   125711
+  ],
+  "decoded": " podmínek"
+ },
+ {
+  "text": " özellikleri",
+  "ids": [
+   128000,
+   125748
+  ],
+  "decoded": " özellikleri"
+ },
+ {
+  "text": " відріз",
+  "ids": [
+   128000,
+   125759
+  ],
+  "decoded": " відріз"
+ },
+ {
+  "text": " nebezpeč",
+  "ids": [
+   128000,
+   125786
+  ],
+  "decoded": " nebezpeč"
+ },
+ {
+  "text": " наличие",
+  "ids": [
+   128000,
+   125791
+  ],
+  "decoded": " наличие"
+ },
+ {
+  "text": "larındaki",
+  "ids": [
+   128000,
+   125808
+  ],
+  "decoded": "larındaki"
+ },
+ {
+  "text": " препараты",
+  "ids": [
+   128000,
+   125873
+  ],
+  "decoded": " препараты"
+ },
+ {
+  "text": " ситуации",
+  "ids": [
+   128000,
+   125925
+  ],
+  "decoded": " ситуации"
+ },
+ {
+  "text": " liệt",
+  "ids": [
+   128000,
+   125958
+  ],
+  "decoded": " liệt"
+ },
+ {
+  "text": " ayrıntılı",
+  "ids": [
+   128000,
+   125971
+  ],
+  "decoded": " ayrıntılı"
+ },
+ {
+  "text": " структур",
+  "ids": [
+   128000,
+   126152
+  ],
+  "decoded": " структур"
+ },
+ {
+  "text": "vající",
+  "ids": [
+   128000,
+   126173
+  ],
+  "decoded": "vající"
+ },
+ {
+  "text": " натураль",
+  "ids": [
+   128000,
+   126285
+  ],
+  "decoded": " натураль"
+ },
+ {
+  "text": " klíč",
+  "ids": [
+   128000,
+   126295
+  ],
+  "decoded": " klíč"
+ },
+ {
+  "text": " architekt",
+  "ids": [
+   128000,
+   126316
+  ],
+  "decoded": " architekt"
+ },
+ {
+  "text": " культуры",
+  "ids": [
+   128000,
+   126332
+  ],
+  "decoded": " культуры"
+ },
+ {
+  "text": "中文字幕",
+  "ids": [
+   128000,
+   126348
+  ],
+  "decoded": "中文字幕"
+ },
+ {
+  "text": " предназнач",
+  "ids": [
+   128000,
+   126357
+  ],
+  "decoded": " предназнач"
+ },
+ {
+  "text": " belirlen",
+  "ids": [
+   128000,
+   126445
+  ],
+  "decoded": " belirlen"
+ },
+ {
+  "text": " нанес",
+  "ids": [
+   128000,
+   126457
+  ],
+  "decoded": " нанес"
+ },
+ {
+  "text": " článek",
+  "ids": [
+   128000,
+   126539
+  ],
+  "decoded": " článek"
+ },
+ {
+  "text": "ılmaktadır",
+  "ids": [
+   128000,
+   126545
+  ],
+  "decoded": "ılmaktadır"
+ },
+ {
+  "text": " yıldız",
+  "ids": [
+   128000,
+   126575
+  ],
+  "decoded": " yıldız"
+ },
+ {
+  "text": " адміністратив",
+  "ids": [
+   128000,
+   126626
+  ],
+  "decoded": " адміністратив"
+ },
+ {
+  "text": " přiroz",
+  "ids": [
+   128000,
+   126634
+  ],
+  "decoded": " přiroz"
+ },
+ {
+  "text": "lásil",
+  "ids": [
+   128000,
+   126647
+  ],
+  "decoded": "lásil"
+ },
+ {
+  "text": " 스포츠",
+  "ids": [
+   128000,
+   126673
+  ],
+  "decoded": " 스포츠"
+ },
+ {
+  "text": "anglicky",
+  "ids": [
+   128000,
+   126715
+  ],
+  "decoded": "anglicky"
+ },
+ {
+  "text": " tavsiye",
+  "ids": [
+   128000,
+   126740
+  ],
+  "decoded": " tavsiye"
+ },
+ {
+  "text": "dıkları",
+  "ids": [
+   128000,
+   126754
+  ],
+  "decoded": "dıkları"
+ },
+ {
+  "text": " yeşil",
+  "ids": [
+   128000,
+   126773
+  ],
+  "decoded": " yeşil"
+ },
+ {
+  "text": " принадлеж",
+  "ids": [
+   128000,
+   126778
+  ],
+  "decoded": " принадлеж"
+ },
+ {
+  "text": " poměrně",
+  "ids": [
+   128000,
+   126829
+  ],
+  "decoded": " poměrně"
+ },
+ {
+  "text": " суще",
+  "ids": [
+   128000,
+   126984
+  ],
+  "decoded": " суще"
+ },
+ {
+  "text": " лаборатор",
+  "ids": [
+   128000,
+   127014
+  ],
+  "decoded": " лаборатор"
+ },
+ {
+  "text": " Evropské",
+  "ids": [
+   128000,
+   127018
+  ],
+  "decoded": " Evropské"
+ },
+ {
+  "text": " профилакти",
+  "ids": [
+   128000,
+   127024
+  ],
+  "decoded": " профилакти"
+ },
+ {
+  "text": " Králové",
+  "ids": [
+   128000,
+   127034
+  ],
+  "decoded": " Králové"
+ },
+ {
+  "text": " اکتبر",
+  "ids": [
+   128000,
+   127043
+  ],
+  "decoded": " اکتبر"
+ },
+ {
+  "text": " میدان",
+  "ids": [
+   128000,
+   127100
+  ],
+  "decoded": " میدان"
+ },
+ {
+  "text": " našeho",
+  "ids": [
+   128000,
+   127101
+  ],
+  "decoded": " našeho"
+ },
+ {
+  "text": " özelliği",
+  "ids": [
+   128000,
+   127172
+  ],
+  "decoded": " özelliği"
+ },
+ {
+  "text": " durumlarda",
+  "ids": [
+   128000,
+   127202
+  ],
+  "decoded": " durumlarda"
+ },
+ {
+  "text": " písem",
+  "ids": [
+   128000,
+   127213
+  ],
+  "decoded": " písem"
+ },
+ {
+  "text": " daleko",
+  "ids": [
+   128000,
+   127232
+  ],
+  "decoded": " daleko"
+ },
+ {
+  "text": " принимать",
+  "ids": [
+   128000,
+   127246
+  ],
+  "decoded": " принимать"
+ },
+ {
+  "text": " döndü",
+  "ids": [
+   128000,
+   127347
+  ],
+  "decoded": " döndü"
+ },
+ {
+  "text": " Tiểu",
+  "ids": [
+   128000,
+   127349
+  ],
+  "decoded": " Tiểu"
+ },
+ {
+  "text": "ımlı",
+  "ids": [
+   128000,
+   127367
+  ],
+  "decoded": "ımlı"
+ },
+ {
+  "text": " přičemž",
+  "ids": [
+   128000,
+   127371
+  ],
+  "decoded": " přičemž"
+ },
+ {
+  "text": " фундамент",
+  "ids": [
+   128000,
+   127417
+  ],
+  "decoded": " фундамент"
+ },
+ {
+  "text": " olmaktadır",
+  "ids": [
+   128000,
+   127453
+  ],
+  "decoded": " olmaktadır"
+ },
+ {
+  "text": " электрон",
+  "ids": [
+   128000,
+   127472
+  ],
+  "decoded": " электрон"
+ },
+ {
+  "text": " zásob",
+  "ids": [
+   128000,
+   127493
+  ],
+  "decoded": " zásob"
+ },
+ {
+  "text": " gelişim",
+  "ids": [
+   128000,
+   127504
+  ],
+  "decoded": " gelişim"
+ },
+ {
+  "text": " vyrá",
+  "ids": [
+   128000,
+   127531
+  ],
+  "decoded": " vyrá"
+ },
+ {
+  "text": " soubor",
+  "ids": [
+   128000,
+   127539
+  ],
+  "decoded": " soubor"
+ },
+ {
+  "text": "lamaktadır",
+  "ids": [
+   128000,
+   127577
+  ],
+  "decoded": "lamaktadır"
+ },
+ {
+  "text": " вияви",
+  "ids": [
+   128000,
+   127660
+  ],
+  "decoded": " вияви"
+ },
+ {
+  "text": " располаг",
+  "ids": [
+   128000,
+   127667
+  ],
+  "decoded": " располаг"
+ },
+ {
+  "text": " vystav",
+  "ids": [
+   128000,
+   127671
+  ],
+  "decoded": " vystav"
+ },
+ {
+  "text": "dıktan",
+  "ids": [
+   128000,
+   127711
+  ],
+  "decoded": "dıktan"
+ },
+ {
+  "text": " розви",
+  "ids": [
+   128000,
+   127719
+  ],
+  "decoded": " розви"
+ },
+ {
+  "text": "ımlar",
+  "ids": [
+   128000,
+   127748
+  ],
+  "decoded": "ımlar"
+ },
+ {
+  "text": " yıldır",
+  "ids": [
+   128000,
+   127765
+  ],
+  "decoded": " yıldır"
+ },
+ {
+  "text": " ослож",
+  "ids": [
+   128000,
+   127865
+  ],
+  "decoded": " ослож"
+ },
+ {
+  "text": " Coğraf",
+  "ids": [
+   128000,
+   127877
+  ],
+  "decoded": " Coğraf"
+ },
+ {
+  "text": "ıldığında",
+  "ids": [
+   128000,
+   127896
+  ],
+  "decoded": "ıldığında"
+ },
+ {
+  "text": "jícím",
+  "ids": [
+   128000,
+   127954
+  ],
+  "decoded": "jícím"
+ },
+ {
+  "text": " látky",
+  "ids": [
+   128000,
+   127968
+  ],
+  "decoded": " látky"
+ },
+ {
+  "text": "ватися",
+  "ids": [
+   128000,
+   127994
+  ],
+  "decoded": "ватися"
+ }
+]

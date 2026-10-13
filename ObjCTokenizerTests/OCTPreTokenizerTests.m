@@ -266,8 +266,10 @@
         @"replacement": @"▁",
         @"prepend_scheme": @"always",
     }];
+    // Rust `tokenizers` returns no pieces for empty input under every
+    // prepend scheme (swift-transformers#395), not a lone prefix ▁.
     XCTAssertEqualObjects([always preTokenize:@"" options:OCTPreTokenizerOptionFirstSection],
-                          (@[@"▁"]));
+                          (@[]));
 
     OCTMetaspacePreTokenizer *never = [[OCTMetaspacePreTokenizer alloc] initWithConfig:@{
         @"replacement": @"▁",

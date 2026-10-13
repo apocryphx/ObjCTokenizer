@@ -216,7 +216,9 @@ static NSArray<NSString *> *OCTSplitMergedWithNext(NSString *text, NSString *del
 }
 
 - (NSArray<NSString *> *)preTokenize:(NSString *)text options:(OCTPreTokenizerOptions)options {
-    NSString *normalized = [text stringByReplacingOccurrencesOfString:@" " withString:_stringReplacement];
+    // Rust returns no pieces for empty input (not a lone prefix ▁).
+    if (text.length == 0) return @[];
+    NSString *normalized = OCTReplaceLiteral(text, @" ", _stringReplacement);
     NSString *prepend = @"";
     if (![normalized hasPrefix:_replacement]) {
         switch (_prependScheme) {

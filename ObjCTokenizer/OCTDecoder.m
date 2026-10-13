@@ -138,7 +138,7 @@ typedef NS_ENUM(NSUInteger, OCTReplaceDecoderMode) {
         switch (_mode) {
             case OCTReplaceDecoderModeNone: [out addObject:t]; break;
             case OCTReplaceDecoderModeString:
-                [out addObject:[t stringByReplacingOccurrencesOfString:_pattern withString:_replacement]];
+                [out addObject:OCTReplaceLiteral(t, _pattern, _replacement)];
                 break;
             case OCTReplaceDecoderModeRegex: {
                 NSRange r = NSMakeRange(0, t.length);
@@ -225,14 +225,16 @@ typedef NS_ENUM(NSUInteger, OCTReplaceDecoderMode) {
 }
 
 - (NSArray<NSString *> *)decode:(NSArray<NSString *> *)tokens {
+    // Port of Rust metaspace.rs `decode_chain`: every replacement becomes a
+    // space, except in the first token when a prefix was prepended, where
+    // every replacement is dropped (not only a leading one).
+    // https://github.com/huggingface/tokenizers/blob/accd0650b802f2180df40ef1def3bce32156688e/tokenizers/src/pre_tokenizers/metaspace.rs#L132
     if (tokens.count == 0) return @[];
     NSMutableArray<NSString *> *replaced = [NSMutableArray arrayWithCapacity:tokens.count];
-    for (NSString *t in tokens) {
-        [replaced addObject:[t stringByReplacingOccurrencesOfString:_replacement withString:@" "]];
-    }
-    if (_addPrefixSpace && replaced.count > 0 && [replaced[0] hasPrefix:@" "]) {
-        replaced[0] = [replaced[0] substringFromIndex:1];
-    }
+    [tokens enumerateObjectsUsingBlock:^(NSString *t, NSUInteger i, BOOL *stop) {
+        NSString *substitute = (i == 0 && self->_addPrefixSpace) ? @"" : @" ";
+        [replaced addObject:OCTReplaceLiteral(t, self->_replacement, substitute)];
+    }];
     return [replaced copy];
 }
 

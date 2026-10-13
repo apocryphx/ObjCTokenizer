@@ -145,7 +145,7 @@ typedef NS_ENUM(NSUInteger, OCTReplaceMode) {
         case OCTReplaceModeNone:
             return text;
         case OCTReplaceModeString:
-            return [text stringByReplacingOccurrencesOfString:_pattern withString:_replacement];
+            return OCTReplaceLiteral(text, _pattern, _replacement);
         case OCTReplaceModeRegex: {
             NSRange r = NSMakeRange(0, text.length);
             return [_regex stringByReplacingMatchesInString:text options:0 range:r withTemplate:_replacement];

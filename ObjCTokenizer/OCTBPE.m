@@ -100,13 +100,15 @@ static BOOL OCTHeapPop(OCTBPEHeap *h, OCTBPECand *out) {
                        merges:(NSArray<NSArray<NSString *> *> *)merges
                      unkToken:(NSString *)unkToken
             fuseUnknownTokens:(BOOL)fuseUnknownTokens
-                 byteFallback:(BOOL)byteFallback {
+                 byteFallback:(BOOL)byteFallback
+                 ignoreMerges:(BOOL)ignoreMerges {
     self = [super init];
     if (self) {
         _vocab = [vocab copy];
         _unkToken = [unkToken copy] ?: @"";
         _fuseUnk = fuseUnknownTokens;
         _byteFallback = byteFallback;
+        _ignoreMerges = ignoreMerges;
         NSMutableDictionary<NSString *, NSNumber *> *ranks = [NSMutableDictionary dictionaryWithCapacity:merges.count];
         for (NSUInteger i = 0; i < merges.count; i++) {
             NSArray<NSString *> *pair = merges[i];
@@ -116,6 +118,19 @@ static BOOL OCTHeapPop(OCTBPEHeap *h, OCTBPECand *out) {
         _bpeRanks = [ranks copy];
     }
     return self;
+}
+
+- (instancetype)initWithVocab:(NSDictionary<NSString *, NSNumber *> *)vocab
+                       merges:(NSArray<NSArray<NSString *> *> *)merges
+                     unkToken:(NSString *)unkToken
+            fuseUnknownTokens:(BOOL)fuseUnknownTokens
+                 byteFallback:(BOOL)byteFallback {
+    return [self initWithVocab:vocab
+                        merges:merges
+                      unkToken:unkToken
+             fuseUnknownTokens:fuseUnknownTokens
+                  byteFallback:byteFallback
+                  ignoreMerges:NO];
 }
 
 + (NSArray<NSArray<NSString *> *> *)mergesFromConfig:(nullable id)raw {
@@ -256,6 +271,10 @@ static BOOL OCTHeapPop(OCTBPEHeap *h, OCTBPECand *out) {
 
 - (NSArray<NSString *> *)tokenize:(NSString *)word {
     if (word.length == 0) return @[];
+    // swift-transformers#397: as in `tokenizers`, the whole word is looked
+    // up before any merge. Llama 3 has 588 vocab entries its merges cannot
+    // rebuild (e.g. "Türkiye", " milyon").
+    if (_ignoreMerges && _vocab[word] != nil) return @[word];
     NSArray<NSString *> *pieces = [self bpeMergePieces:word];
 
     NSMutableArray<NSString *> *out = [NSMutableArray arrayWithCapacity:pieces.count];

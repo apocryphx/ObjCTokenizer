@@ -18,6 +18,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy, readonly) NSString *unkToken;
 @property (nonatomic, assign, readonly) BOOL fuseUnknownTokens;
 @property (nonatomic, assign, readonly) BOOL byteFallback;
+/// `model.ignore_merges`: a word found whole in the vocab is returned as-is,
+/// before any merge (tiktoken-converted vocabularies such as Llama 3).
+@property (nonatomic, assign, readonly) BOOL ignoreMerges;
 
 /// `merges` is an array of two-element arrays: each pair is the result of
 /// splitting a "X Y" merge entry on whitespace. tokenizer.json files
@@ -27,7 +30,15 @@ NS_ASSUME_NONNULL_BEGIN
                        merges:(NSArray<NSArray<NSString *> *> *)merges
                      unkToken:(nullable NSString *)unkToken
             fuseUnknownTokens:(BOOL)fuseUnknownTokens
-                 byteFallback:(BOOL)byteFallback NS_DESIGNATED_INITIALIZER;
+                 byteFallback:(BOOL)byteFallback
+                 ignoreMerges:(BOOL)ignoreMerges NS_DESIGNATED_INITIALIZER;
+
+/// Same as the designated initializer with `ignoreMerges:NO`.
+- (instancetype)initWithVocab:(NSDictionary<NSString *, NSNumber *> *)vocab
+                       merges:(NSArray<NSArray<NSString *> *> *)merges
+                     unkToken:(nullable NSString *)unkToken
+            fuseUnknownTokens:(BOOL)fuseUnknownTokens
+                 byteFallback:(BOOL)byteFallback;
 
 - (instancetype)init NS_UNAVAILABLE;
 

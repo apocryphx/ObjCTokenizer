@@ -33,6 +33,14 @@ NSArray<NSString *> *OCTSplitScalars(NSString *s) {
     return [out copy];
 }
 
+NSString *OCTReplaceLiteral(NSString *s, NSString *target, NSString *replacement) {
+    if (target.length == 0 || s.length == 0) return s;
+    return [s stringByReplacingOccurrencesOfString:target
+                                        withString:replacement
+                                           options:NSLiteralSearch
+                                             range:NSMakeRange(0, s.length)];
+}
+
 NSString *OCTJoinScalars(NSArray<NSString *> *scalars) {
     return OCTJoinGraphemes(scalars);
 }

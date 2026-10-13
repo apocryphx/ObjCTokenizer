@@ -43,6 +43,13 @@ FOUNDATION_EXPORT void OCTAppendScalar(NSMutableString *out, UTF32Char scalar);
 /// Build an NSString from a single UTF-32 scalar.
 FOUNDATION_EXPORT NSString *OCTStringFromScalar(UTF32Char scalar);
 
+/// Replace every occurrence of `target` code-unit for code-unit
+/// (NSLiteralSearch). The plain `stringByReplacingOccurrencesOfString:` is
+/// non-literal: it only matches on composed-character boundaries, so it
+/// misses the space in " \u0301" (space + combining acute). HF's Rust
+/// tokenizers match on code points (swift-transformers#395).
+FOUNDATION_EXPORT NSString *OCTReplaceLiteral(NSString *s, NSString *target, NSString *replacement);
+
 #pragma mark - Config dictionary helpers
 
 /// Read a BOOL from a JSON-shaped NSDictionary, accepting either camelCase
