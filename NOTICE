@@ -15,6 +15,29 @@ Per Apache 2.0 §4(b), modifications were made: the Swift sources were
 translated to Objective-C using only Foundation primitives. The Hub,
 Generation, and Models modules from swift-transformers were not ported.
 
+The port also incorporates the following Tokenizers fixes made upstream
+after tag 1.3.2, up to swift-transformers commit 2590d23 (October 13, 2026):
+
+  #388  Unigram: honor byte_fallback on encode
+  #389  Reuse byte fallback table in BPE and Unigram
+  #390  Honor byte_fallback configuration value in BPE
+  #395  Match Rust tokenizers on code points in Replace, Metaspace and
+        BPE merges
+  #397  Honor ignore_merges in BPE
+  #400  Respect addSpecialTokens in RobertaProcessing
+  #407  Throw on invalid regex rather than silently ignoring
+
+Where a fix still differed from the Rust reference, the Rust code was ported
+instead (BPE byte fallback and unknown-token handling follow `merge_word`).
+
+Parts of ObjCTokenizer are ports to Objective-C of HuggingFace's Rust
+`tokenizers` library (https://github.com/huggingface/tokenizers) and of the
+`spm_precompiled` crate (https://github.com/huggingface/spm_precompiled),
+both © HuggingFace, Inc. and licensed under the Apache License, Version 2.0:
+the BPE `merge_word` symbol setup (OCTBPE.m), Unigram byte fallback
+(OCTUnigram.m), the Metaspace decoder (OCTDecoder.m), and the Precompiled
+normalizer with its double-array trie (OCTNormalizer.m).
+
 ----------------------------------------------------------------------
 
 ObjCTokenizer vendors yyjson 0.12.0 (https://github.com/ibireme/yyjson),
