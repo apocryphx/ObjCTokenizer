@@ -35,12 +35,10 @@
     // grapheme cluster silently misses them and falls through to UNK.
     // For ASCII this is a no-op (1 byte = 1 scalar = 1 grapheme).
     //
-    // This is the deliberate divergence from swift-transformers
-    // documented in the README: their port iterates by grapheme cluster
-    // (mirroring Swift's String.count) and inherits the multilingual
-    // bug. We diverge here to match HuggingFace Python's per-codepoint
-    // matching, byte-identical even on Korean / Japanese /
-    // Devanagari / Thai input.
+    // swift-transformers iterated by grapheme cluster until #353
+    // (reported as #352, bug 1); it now iterates by scalar too. Matches
+    // HuggingFace Python's per-codepoint matching, byte-identical even on
+    // Korean / Japanese / Devanagari / Thai input.
     NSArray<NSString *> *scalars = OCTSplitScalars(word);
     NSUInteger n = scalars.count;
 

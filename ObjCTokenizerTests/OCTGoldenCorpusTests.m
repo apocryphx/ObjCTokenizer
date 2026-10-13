@@ -17,9 +17,10 @@
 // Same byte-identity discipline as OCTMultilingualGoldenTests and
 // OCTLineEndingGoldenTests — load the *_golden.json file, run the local
 // tokenizer's encode against each text, dump a divergence window if any
-// record diverges, fail loudly. The golden files are produced by HF
-// Python (`transformers.AutoTokenizer.from_pretrained(...)`) via the
-// open-source `make golden` pipeline shipped in the sibling source repo.
+// record diverges, fail loudly. The golden files were first produced by HF
+// Python (`transformers.AutoTokenizer.from_pretrained(...)`);
+// Conformance/regenerate_bundled_goldens.py reproduces them byte for byte
+// with the Rust `tokenizers` library.
 
 @interface OCTGoldenCorpusTests : XCTestCase
 @end
@@ -35,7 +36,7 @@
     XCTAssertNotNil(tokURL, @"%@.json missing from test bundle", tokenizerName);
 
     NSURL *goldURL = [b URLForResource:goldenName withExtension:@"json"];
-    XCTAssertNotNil(goldURL, @"%@.json missing — run `make golden`", goldenName);
+    XCTAssertNotNil(goldURL, @"%@.json missing — run Conformance/regenerate_bundled_goldens.py", goldenName);
 
     NSError *err = nil;
     OCTTokenizer *tok = [OCTTokenizer tokenizerWithJSONFileURL:tokURL error:&err];

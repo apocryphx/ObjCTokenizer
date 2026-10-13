@@ -1,0 +1,20 @@
+[
+ "a\nb",
+ "a\r\nb",
+ "a\rb",
+ "line1\nline2\nline3",
+ "line1\r\nline2\r\nline3",
+ "paragraph one.\n\nparagraph two.",
+ "\nleading newline",
+ "trailing newline\n",
+ "def fibonacci(n):\n    if n < 2:\n        return n\n    return fibonacci(n - 1) + fibonacci(n - 2)",
+ "안녕\n你好\n👋",
+ "नमस्ते\r\n안녕하세요\r\n🚀",
+ "Hey 트ークナイザー\nनमस्ते दुनिया\r\nสวัสดีชาวโลก",
+ "code = \"안녕\"\n# 你好 — comment\n/* नमस्ते */\nprintf(\"🌍\\n\");",
+ "1️⃣\n2️⃣\n3️⃣",
+ "👨‍👩‍👧‍👦\r\n🏳️‍🌈\r\n👍🏽",
+ "ザ\nダ\nバ\nガ",
+ "स्त\nक्ष\nज्ञ\nत्र",
+ "tabs\tand\tspaces\nand\nnewlines  end."
+]

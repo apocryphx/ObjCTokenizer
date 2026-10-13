@@ -10,8 +10,7 @@ tag 1.3.2:
   - huggingface/swift-transformers#390  BPE byte_fallback / unk edge cases
 
 plus unknown-token fusion per word and T5's Precompiled normalizer, where
-swift-transformers itself still differs from the Rust reference, and the
-Llama 3 multilingual golden (the model is gated on the Hub).
+swift-transformers itself still differs from the Rust reference.
 
 Unlike regenerate_goldens.py this needs no network access and no
 `transformers`: it loads the tokenizer.json files already bundled in
@@ -206,24 +205,6 @@ def write_variants(suffix, families, texts):
         print(f"{path.name}: {len(out)} variants")
 
 
-def write_llama3_multilingual():
-    """llama3_multilingual_golden.json for OCTMultilingualGoldenTests.
-
-    Same {text, ids} shape as the other *_multilingual_golden.json files,
-    over Conformance/corpus_multilingual.jsonl. Meta-Llama-3 is gated on the
-    Hub, so this uses the bundled tokenizer.json; Rust `tokenizers`
-    reproduces the existing transformers-generated goldens for the other
-    families exactly.
-    """
-    tok = load("llama3.tokenizer.json")
-    texts = [json.loads(line)["text"]
-             for line in (ROOT / "Conformance" / "corpus_multilingual.jsonl").read_text().splitlines() if line]
-    out = [{"text": t, "ids": tok.encode(t, add_special_tokens=True).ids} for t in texts]
-    path = RESOURCES / "llama3_multilingual_golden.json"
-    path.write_text(json.dumps(out, ensure_ascii=False))
-    print(f"{path.name}: {len(out)} records")
-
-
 def main():
     write_variants("byte_fallback", BYTE_FALLBACK_VARIANTS, BYTE_FALLBACK_TEXTS)
     write_variants("unk_fusion", UNK_FUSION_VARIANTS, UNK_FUSION_TEXTS)
@@ -241,7 +222,6 @@ def main():
 
     write("t5_small", golden(load("t5-small.tokenizer.json"), COMBINING_MARK_TEXTS))
     write_precompiled_sweep()
-    write_llama3_multilingual()
 
 
 if __name__ == "__main__":

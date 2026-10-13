@@ -14,12 +14,10 @@
 // single line tells you which axis broke. The first failures dump a
 // window around the divergence point so the cause is visible.
 //
-// Until `make golden` is run with the extended generator over in
-// /Users/apocryphx/Documents/GitHub/ObjCTokenizers/, the
-// *_multilingual_golden.json files will be missing from the test bundle
-// and these tests will report "not yet generated" via XCTSkip rather
-// than fail. This keeps the suite green for normal CI runs while
-// surfacing the missing fixtures clearly when someone goes to look.
+// The *_multilingual_golden.json files come from
+// Conformance/regenerate_bundled_goldens.py. A family whose tokenizer or
+// golden is missing from the bundle is reported via XCTSkip rather than
+// failing, so the gap stays visible without breaking the suite.
 
 @interface OCTMultilingualGoldenTests : XCTestCase
 @end
@@ -39,8 +37,7 @@
 
     NSURL *goldURL = [b URLForResource:goldenName withExtension:@"json"];
     if (!goldURL) {
-        XCTSkip(@"%@.json not yet generated — run `make golden` in ../ObjCTokenizers "
-                @"with the extended scripts/generate_golden.py and copy the result here",
+        XCTSkip(@"%@.json not yet generated — run Conformance/regenerate_bundled_goldens.py",
                 goldenName);
         return;
     }

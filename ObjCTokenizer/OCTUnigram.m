@@ -83,9 +83,7 @@
     // `▁1 <unk>`. The trie is also built from scalars (see init above)
     // so insertion and lookup units agree.
     //
-    // Deliberate divergence from swift-transformers, which iterates
-    // by grapheme cluster (mirroring Swift's `String.count`) and
-    // inherits the bug.
+    // swift-transformers made the same switch in #356 (#352, bug 3).
     NSArray<NSString *> *graphemes = OCTSplitScalars(word);
     NSInteger n = (NSInteger)graphemes.count;
     if (n == 0) return @[];

@@ -48,6 +48,14 @@ and the swift-transformers
 - `regenerate_goldens.py` — regenerate the per-kernel baselines from
   `inputs.json` against the pinned `transformers` version. See the
   docstring for usage.
+- `regenerate_bundled_goldens.py` — regenerate the `{text, ids}` goldens
+  in `ObjCTokenizerTests/Resources/` (`*_golden`, `*_lineending_golden`,
+  `*_multilingual_golden`) offline from the bundled `tokenizer.json` files
+  with Rust `tokenizers`. `corpus_lineending.json` holds its line-ending
+  inputs.
+- `generate_upstream_fix_goldens.py` — offline goldens for the fixes ported
+  from swift-transformers after 1.3.2, plus byte-fallback, unknown-token
+  fusion and Precompiled-normalizer coverage.
 
 ## Families covered
 

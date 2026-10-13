@@ -163,8 +163,9 @@ static BOOL OCTHeapPop(OCTBPEHeap *h, OCTBPECand *out) {
 // initial symbols of one word (see -initialSymbols:) and returns the merged
 // pieces as an NSArray.
 //
-// Two deliberate divergences from swift-transformers, both required
-// for byte-identity with HuggingFace Python on multilingual input:
+// Two changes from the swift-transformers 1.3.2 original, both required
+// for byte-identity with HuggingFace Python on multilingual input, and both
+// since made upstream too in #355 (#352, bug 4):
 //
 // (1) Iterate by Unicode scalar, not grapheme cluster. For Llama 1/2-
 // style BPE-with-byte-fallback, the merges file is keyed at the

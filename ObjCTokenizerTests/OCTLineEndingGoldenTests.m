@@ -46,8 +46,7 @@
 
     NSURL *goldURL = [b URLForResource:goldenName withExtension:@"json"];
     if (!goldURL) {
-        XCTSkip(@"%@.json not yet generated — run `make golden` in ../ObjCTransformers "
-                @"with the extended scripts/generate_golden.py and copy the result here",
+        XCTSkip(@"%@.json not yet generated — run Conformance/regenerate_bundled_goldens.py",
                 goldenName);
         return;
     }
