@@ -12,7 +12,8 @@ backed by the Rust `tokenizers` library).
 
 **Dependencies:** Foundation, plus the system `libicucore` for Unicode
 character properties, and a vendored copy of
-[yyjson](https://github.com/ibireme/yyjson) 0.12.0 (MIT) for JSON parsing.
+[yyjson](https://github.com/ibireme/yyjson) 0.12.0 (MIT) for JSON parsing
+([why not `NSJSONSerialization`](#foundation-pitfalls)).
 No `Hub` (downloading is out of scope — ship `tokenizer.json` as a bundle
 resource alongside your app).
 
@@ -198,3 +199,23 @@ gate every build.
   `enumerateSubstringsInRange:options:NSStringEnumerationByLines` instead
   of `componentsSeparatedByString:@"\n"`; prefer `NSData` byte iteration
   to building intermediate `NSString`s when the algorithm is byte-level.
+
+## Foundation pitfalls
+
+Foundation conveniences that are right for text people read can be wrong for
+text that has to match byte for byte. These bit this project and the tokenizers before it:
+
+- **`NSJSONSerialization` deletes U+FEFF** (BOM / zero-width no-break space)
+  from *inside* JSON strings, raw or `\uFEFF`-escaped, not just a leading
+  document BOM. Gemma 4's vocabulary has 8 keys containing it; they collapsed
+  onto their twins and overwrote real token IDs (`"#"` returned 208867
+  instead of 236865). Hence yyjson. Still present on macOS 27.3; reported as
+  FB23271905. Swift's `JSONDecoder` is not affected. Repro, scope and three
+  workarounds: [NSJSONSerialization silently deletes U+FEFF from JSON
+  strings](https://fossilcoder.com/posts/nsjsonserialization-drops-u-feff/).
+  Regression tests: [`OCTBOMPreservationTests.m`](ObjCTokenizerTests/OCTBOMPreservationTests.m).
+- **`componentsSeparatedByString:@"\n"`** misses CRLF, U+0085, U+2028 and
+  U+2029, which dropped lines from a `vocab.txt` and shifted every later ID.
+- **Non-literal search and grapheme enumeration** treat a space plus a
+  combining mark, or a keycap sequence, as one unit; see
+  [Discipline](#discipline).
